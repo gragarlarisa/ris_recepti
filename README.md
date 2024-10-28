@@ -56,3 +56,4 @@
 ### Avtorji
 - Larisa Gragar
 - Maida Ćivić
+- Jurij Dumić
