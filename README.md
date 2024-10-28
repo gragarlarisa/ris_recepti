@@ -54,23 +54,26 @@
   3. Po opravljenem delu pošljite pull request.
 
 ### Vizija 
+- Projekt "Z mešalcem do uspeha" je spletna aplikacija, ki uporabnikom omogoča hitro in enostavno iskanje, pregledovanje ter deljenje preverjenih receptov za raznovrstne jedi.
 - Naš cilj  je pomagati uporabnikom, da dobijo navdih in dostopajo do kakovostnih receptov, ki so enostavni za pripravo ali prilagojeni različnim prehranskim potrebam.
 - Platforma omogoča iskanje receptov po sestavinah, kar uporabnikom pomaga bolje izkoristiti obstoječe zaloge in zmanjša prehranski odpadek.
+- Recepti.si je namenjen tako ljubiteljskim kuharjem kot tudi začetnikom, ki iščejo navodila po korakih za okusne jedi.
 
 ### Besednjak
 **Recept:** Podrobno navodilo za pripravo določene jedi, ki vsebuje seznam sestavin, količine in korake za pripravo jedi.
-**Sestavina:** Posamezni živilski izdelek ali predmet, ki je potreben za pripravo recepta (npr. moka, sladkor, jajca).
-**Vrsta jedi:** Kategorija, pod katero spada recept (npr. predjed, glavna jed, sladica, prigrizek).
-**Uporabnik:** Posameznik, ki uporablja aplikacijo za iskanje, pregledovanje ali objavo receptov; lahko je registriran ali neregistriran.
-**Filter:** Funkcija, ki omogoča uporabnikom, da omejijo prikaz receptov na podlagi določenih kriterijev (npr. vrsta jedi, čas priprave, sestavine).
-**Iskalna vrstica:** Polje na vrhu strani, kjer lahko uporabniki vnesejo besede za iskanje specifičnih receptov ali sestavin.
-**Avtor recepta:** Uporabnik, ki je ustvaril in objavil recept na platformi.
-**Priprava recepta:** Koraki oziroma postopki, ki opisujejo, kako pripraviti določeno jed.
-**Čas priprave:** Približen čas, potreben za pripravo jedi, vključno s pripravljalnimi in kuhalnimi koraki.
-**Prijava:** Postopek, s katerim registrirani uporabniki dostopajo do svojega računa in dodatnih funkcionalnosti platforme.
-**Registracija:** Postopek, s katerim novi uporabniki ustvarijo račun, kar jim omogoča objavo receptov.
-**Seznam sestavin:** Prikaz vseh sestavin, potrebnih za določen recept, z natančnimi količinami in enotami.
-**Postopek priprave:** Sistematičen prikaz posameznih korakov, ki uporabnikom pomaga slediti navodilom za pripravo jedi.
+
+**Sestavina:** Posamezni živilski izdelek ali predmet, ki je potreben za pripravo recepta (npr. moka, sladkor, jajca).  
+**Vrsta jedi:** Kategorija, pod katero spada recept (npr. predjed, glavna jed, sladica, prigrizek).  
+**Uporabnik:** Posameznik, ki uporablja aplikacijo za iskanje, pregledovanje ali objavo receptov; lahko je registriran ali neregistriran.  
+**Filter:** Funkcija, ki omogoča uporabnikom, da omejijo prikaz receptov na podlagi določenih kriterijev (npr. vrsta jedi, čas priprave, sestavine).  
+**Iskalna vrstica:** Polje na vrhu strani, kjer lahko uporabniki vnesejo besede za iskanje specifičnih receptov ali sestavin.  
+**Avtor recepta:** Uporabnik, ki je ustvaril in objavil recept na platformi.  
+**Priprava recepta:** Koraki oziroma postopki, ki opisujejo, kako pripraviti določeno jed.  
+**Čas priprave:** Približen čas, potreben za pripravo jedi, vključno s pripravljalnimi in kuhalnimi koraki.  
+**Prijava:** Postopek, s katerim registrirani uporabniki dostopajo do svojega računa in dodatnih funkcionalnosti platforme.  
+**Registracija:** Postopek, s katerim novi uporabniki ustvarijo račun, kar jim omogoča objavo receptov.  
+**Seznam sestavin:** Prikaz vseh sestavin, potrebnih za določen recept, z natančnimi količinami in enotami.  
+**Postopek priprave:** Sistematičen prikaz posameznih korakov, ki uporabnikom pomaga slediti navodilom za pripravo jedi.  
 
 ### Avtorji
 - Larisa Gragar
