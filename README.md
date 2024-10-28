@@ -60,8 +60,7 @@
 - Recepti.si je namenjen tako ljubiteljskim kuharjem kot tudi začetnikom, ki iščejo navodila po korakih za okusne jedi.
 
 ### Besednjak
-**Recept:** Podrobno navodilo za pripravo določene jedi, ki vsebuje seznam sestavin, količine in korake za pripravo jedi.
-
+**Recept:** Podrobno navodilo za pripravo določene jedi, ki vsebuje seznam sestavin, količine in korake za pripravo jedi.  
 **Sestavina:** Posamezni živilski izdelek ali predmet, ki je potreben za pripravo recepta (npr. moka, sladkor, jajca).  
 **Vrsta jedi:** Kategorija, pod katero spada recept (npr. predjed, glavna jed, sladica, prigrizek).  
 **Uporabnik:** Posameznik, ki uporablja aplikacijo za iskanje, pregledovanje ali objavo receptov; lahko je registriran ali neregistriran.  
