@@ -72,10 +72,10 @@
 **Prijava:** Postopek, s katerim registrirani uporabniki dostopajo do svojega računa in dodatnih funkcionalnosti platforme.  
 **Registracija:** Postopek, s katerim novi uporabniki ustvarijo račun, kar jim omogoča objavo receptov.  
 **Seznam sestavin:** Prikaz vseh sestavin, potrebnih za določen recept, z natančnimi količinami in enotami.  
-**Postopek priprave:** Sistematičen prikaz posameznih korakov, ki uporabnikom pomaga slediti navodilom za pripravo jedi.
-**Marinada:** Mešanica tekočine, začimb in zelišč, v kateri pustimo sestavine (največkrat meso) pred kuhanjem, da absorbirajo okuse.
-**Porcija:** Količina jedi, ki je namenjena eni osebi; pogosto navedena v receptih, da uporabniki vedo, za koliko ljudi je recept.
-**Stopnja težavnosti:** Oznaka, ki nakazuje, kako zahtevna je priprava recepta (npr. začetni, srednje zahteven, napreden).
+**Postopek priprave:** Sistematičen prikaz posameznih korakov, ki uporabnikom pomaga slediti navodilom za pripravo jedi.  
+**Marinada:** Mešanica tekočine, začimb in zelišč, v kateri pustimo sestavine (največkrat meso) pred kuhanjem, da absorbirajo okuse.  
+**Porcija:** Količina jedi, ki je namenjena eni osebi; pogosto navedena v receptih, da uporabniki vedo, za koliko ljudi je recept.  
+**Stopnja težavnosti:** Oznaka, ki nakazuje, kako zahtevna je priprava recepta (npr. začetni, srednje zahteven, napreden).  
 
 ### Avtorji
 - Larisa Gragar
