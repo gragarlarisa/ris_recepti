@@ -53,6 +53,7 @@
   2. Ustvarite novo vejo za vašo funkcionalnost (`git checkout -b nova-funkcionalnost`).
   3. Po opravljenem delu pošljite pull request.
 
+
 ### Avtorji
 - Larisa Gragar
 - Maida Ćivić
