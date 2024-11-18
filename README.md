@@ -62,7 +62,6 @@
   2. Ustvarite novo vejo za vašo funkcionalnost (`git checkout -b nova-funkcionalnost`).
   3. Po opravljenem delu pošljite pull request.
 
-<<<<<<< HEAD
 =======
 ### Vizija
 
@@ -176,7 +175,6 @@ Diagram prikazuje razrede in njihove povezave v aplikaciji za upravljanje recept
 
 
 ### Avtorji
-
 - Larisa Gragar
 - Maida Ćivić
 - Jurij Dumić
