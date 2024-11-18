@@ -89,7 +89,91 @@
 **Marinada:** Mešanica tekočine, začimb in zelišč, v kateri pustimo sestavine (največkrat meso) pred kuhanjem, da absorbirajo okuse.  
 **Porcija:** Količina jedi, ki je namenjena eni osebi; pogosto navedena v receptih, da uporabniki vedo, za koliko ljudi je recept.  
 **Stopnja težavnosti:** Oznaka, ki nakazuje, kako zahtevna je priprava recepta (npr. začetni, srednje zahteven, napreden).
->>>>>>> 7bc74bc96970149b92341edee8e6fa52198fcdd0
+
+
+# Opis razrednega diagrama
+
+Diagram prikazuje razrede in njihove povezave v aplikaciji za upravljanje receptov.
+
+## Razredi in njihove vloge
+
+### Recept
+- **Vloga:** Osrednji razred, ki predstavlja recept v aplikaciji.
+- **Atributi:**
+  - `ime`: Ime recepta.
+  - `sestavine`: Seznam sestavin, ki so uporabljene v receptu.
+  - `navodila`: Seznam korakov (navodil) za pripravo recepta.
+  - `časPriprave`: Čas, potreben za pripravo.
+  - `težavnost`: Nivo težavnosti recepta (povezan z razredom Težavnost).
+  - `ocena`: Povprečna ocena recepta.
+  - `komentarji`: Seznam komentarjev uporabnikov.
+- **Ključne metode:**
+  - `pridobiPodrobnosti()`: Vrne podrobnosti o receptu.
+  - `dodajKomentar(komentar: Komentar)`: Omogoča dodajanje komentarja receptu.
+  - `oceniRecept(ocena: Double)`: Omogoča ocenjevanje recepta.
+
+### Sestavina
+- **Vloga:** Predstavlja posamezno sestavino, ki je potrebna za recept.
+- **Atributi:**
+  - `ime`: Ime sestavine.
+  - `količina`: Količina sestavine.
+- **Ključne metode:**
+  - `pridobiIme()`: Vrne ime sestavine.
+  - `pridobiKoličino()`: Vrne količino sestavine.
+
+### Težavnost
+- **Vloga:** Predstavlja stopnjo težavnosti recepta.
+- **Atributi:**
+  - `stopnja`: Besedni opis težavnosti (npr. lahko, srednje, težko).
+- **Ključne metode:**
+  - `pridobiStopnjo()`: Vrne stopnjo težavnosti.
+
+### Kategorija (enumeracija)
+- **Vloga:** Določa različne kategorije receptov (zajtrk, malica, kosilo, večerja).
+- **Povezava:** Povezana je z razredom `Recept`.
+
+### Navodilo
+- **Vloga:** Predstavlja posamezni korak priprave recepta.
+- **Atributi:**
+  - `korak`: Številka koraka.
+  - `opis`: Besedni opis koraka.
+- **Ključne metode:**
+  - `prikažiKorak(trenutniKorak: int)`: Vrne vsebino trenutnega koraka.
+
+### Komentar
+- **Vloga:** Predstavlja komentar uporabnika za določen recept.
+- **Atributi:**
+  - `uporabnik`: Uporabnik, ki je dodal komentar.
+  - `vsebina`: Besedilo komentarja.
+  - `datum`: Datum dodajanja komentarja.
+- **Ključne metode:**
+  - `pridobiVsebino()`: Vrne vsebino komentarja.
+
+### Uporabnik
+- **Vloga:** Predstavlja registriranega uporabnika aplikacije.
+- **Atributi:**
+  - `uporabniškoIme`, `email`, `geslo`, `profilnaSlika`: Podatki o uporabniku.
+  - `shranjeniRecepti`: Seznam receptov, ki jih je uporabnik shranil.
+- **Ključne metode:**
+  - `spremeniGeslo(novoGeslo: String)`: Omogoča spremembo gesla.
+  - `spremeniEmail(novEmail: String)`: Omogoča spremembo e-poštnega naslova.
+  - `shraniRecept(recept: Recept)`, `odstraniRecept(recept: Recept)`, `urediRecept(recept: Recept)`: Operacije nad recepti uporabnika.
+
+### Administrator
+- **Vloga:** Predstavlja skrbnika aplikacije z dodatnimi pravicami za upravljanje receptov in sestavin.
+- **Atributi:**
+  - `adminPravice`: Označuje, ali je uporabnik administrator.
+- **Ključne metode:**
+  - `potrdiRecept(recept: Recept)`: Potrditev recepta.
+  - `odstraniRecept(recept: Recept)`: Odstranitev recepta.
+  - `posodobiSestavine(sestavina: Sestavina)`: Posodabljanje sestavin.
+  - `posodobiTežavnost(težavnost: Težavnost)`: Posodabljanje težavnosti recepta.
+
+## Povezave med razredi
+- `Recept` je povezan z razredi `Sestavina`, `Navodilo`, in `Komentar` (agregacija), kar pomeni, da vsak recept vsebuje več teh entitet.
+- `Težavnost` in `Kategorija` sta razreda, ki določata dodatne informacije o receptih.
+- `Uporabnik` in `Administrator` omogočata upravljanje aplikacije in vsebine.
+
 
 ### Avtorji
 
