@@ -263,3 +263,60 @@ Alternativni tokovi:
 
 Izjeme:
 Napaka pri shranjevanju sprememb (npr. zaradi težav z bazo podatkov); sistem prikaže obvestilo o napaki in predlaga ponovno poskus. Administrator ima možnost ponoviti dejanje ali zapreti stran.
+
+KOMPLEKSNEJŠA FUNKCIONALNOST
+
+Dodajanje recepta
+Cilj:
+Registrirani uporabnik želi ustvariti in dodati nov recept, ki vsebuje podrobne informacije, vključno z imenom recepta, seznamom sestavin, opisom priprave, fotografijo jedi, zahtevnostjo priprave ter časom priprave. Cilj je, da uporabnik lahko deli svoje recepte z drugimi uporabniki platforme. Po oddaji recepta sistem samodejno preveri, ali so bili vsi zahtevani podatki pravilno vneseni. Če je preverjanje uspešno, se recept shrani v zbirko receptov in postane viden vsem uporabnikom. Če preverjanje ni uspešno, sistem zavrne recept in prikaže obvestilo o napakah.
+
+Akterji:
+
+Registrirani uporabnik: Uporabnik, ki je prijavljen v sistem in želi dodati nov recept.
+Samodejni sistem: Sistem, ki avtomatizirano preverja vsebino oddanega recepta in odloča o tem, ali bo recept sprejet ali zavrnjen na podlagi vnaprej določenih pravil.
+Predpogoji:
+
+Uporabnik mora biti registriran in prijavljen v sistem.
+Sistem mora imeti omogočeno funkcionalnost za dodajanje novih receptov.
+Sistem mora imeti pravila in kriterije, ki določajo obvezne podatke za validacijo recepta (ime, sestavine, opis, fotografija, zahtevnost, čas priprave).
+Stanje sistema po PU:
+
+Če sistem uspešno potrdi recept, so vsi podatki shranjeni v podatkovni bazi, recept pa je dodan v seznam javno dostopnih receptov, kjer ga lahko iščejo in pregledujejo vsi uporabniki platforme.
+Če sistem zavrne recept, se podatki ne shranijo, uporabnik pa prejme povratno informacijo o razlogu zavrnitve in navodila, kako popraviti napake.
+Scenarij (Glavni tok):
+
+Uporabnik se prijavi v sistem in dostopa do strani "Dodaj recept."
+Sistem prikaže obrazec, kjer lahko uporabnik vnese podrobnosti o receptu:
+Ime recepta
+Nivo zahtevnosti priprave (nizka, srednja, visoka)
+Seznam sestavin
+Opis postopka priprave
+Čas priprave (v minutah)
+Fotografijo jedi
+Uporabnik vnese vse zahtevane informacije in naloži fotografijo recepta v podprtih formatih (JPG, PNG).
+Uporabnik klikne gumb "Dodaj recept."
+Samodejni sistem začne preverjanje vnosa:
+Preveri, ali je ime recepta vpisano.
+Preveri, ali je vnesen vsaj en zapis sestavin.
+Preveri, ali je opisan celoten postopek priprave.
+Preveri, ali je naložena fotografija in ali je v ustreznem formatu (JPG ali PNG).
+Preveri, ali je izbran nivo zahtevnosti priprave.
+Če so vsi podatki ustrezno vneseni, samodejni sistem odobri recept in ga shrani v bazo podatkov.
+Sistem prikaže uporabniku sporočilo: "Recept je uspešno dodan. Vaš recept je zdaj viden v zbirki receptov."
+Uporabnik lahko nadaljuje z brskanjem po aplikaciji ali pregleda svoj dodan recept.
+Alternativni tokovi:
+
+Neuspešna validacija podatkov:
+Če manjkajo obvezni podatki (npr. fotografija ni naložena), samodejni sistem zavrne recept in prikaže sporočilo: "Naložite fotografijo recepta, da dokončate dodajanje."
+Če je nivo zahtevnosti priprave puscen prazen, samodejni sistem zavrne recept in prikaže sporočilo: "Prosimo, izberite zahtevnost priprave."
+Če uporabnik klikne gumb "Prekliči" pred oddajo recepta, sistem zavrne dodajanje, ne shrani podatkov in uporabnika vrne na prejšnjo stran brez sprememb.
+Izjeme:
+
+Napaka pri nalaganju fotografije:
+Če uporabnik poskuša naložiti fotografijo v neustreznem formatu (npr. GIF), sistem zavrne nalaganje in prikaže sporočilo: "Fotografija mora biti v formatu JPG ali PNG. Poskusite znova z ustrezno datoteko."
+Napaka pri shranjevanju podatkov v bazo:
+Če pride do težave pri shranjevanju recepta v podatkovno bazo (npr. zaradi povezave s podatkovno bazo), sistem prikaže obvestilo o napaki: "Prišlo je do napake pri shranjevanju recepta. Prosimo, poskusite znova kasneje."
+Uporabnik ima možnost osvežiti stran ali kontaktirati podporo, če se težava ponavlja. Sistem beleži napake, da jih lahko kasneje preveri tehnična podpora.
+Povzetek:
+Dodajanje recepta je ključna funkcionalnost, ki omogoča uporabnikom, da prispevajo k zbirki receptov in delijo svoje kulinarične ideje z drugimi. Samodejni sistem pomaga ohraniti kakovost vnosa s preverjanjem vseh zahtevanih podatkov, kar zagotavlja konsistentnost in popolnost podatkov.
+
