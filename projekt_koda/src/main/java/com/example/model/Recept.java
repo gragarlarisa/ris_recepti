@@ -39,14 +39,13 @@ public class Recept {
     private List<KorakPostopka> koraki;
 
     @OneToMany(mappedBy = "recept", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ReceptSestavine> sestavine;
-
-    @OneToMany(mappedBy = "recept", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<KategorijaSkupno> prehranskeOmejitve;
 
     public Integer getIdRecept() {
         return idRecept;
     }
+
+
 
     public void setIdRecept(Integer idRecept) {
         this.idRecept = idRecept;
@@ -148,6 +147,9 @@ public class Recept {
         this.obrok = obrok;
     }
 
+
+
+    // Getter and Setter
     public List<KorakPostopka> getKoraki() {
         return koraki;
     }
@@ -156,6 +158,11 @@ public class Recept {
         this.koraki = koraki;
     }
 
+
+
+    @OneToMany(mappedBy = "recept", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReceptSestavine> sestavine;
+
     public List<ReceptSestavine> getSestavine() {
         return sestavine;
     }
@@ -163,6 +170,7 @@ public class Recept {
     public void setSestavine(List<ReceptSestavine> sestavine) {
         this.sestavine = sestavine;
     }
+
 
     public List<KategorijaSkupno> getPrehranskeOmejitve() {
         return prehranskeOmejitve;

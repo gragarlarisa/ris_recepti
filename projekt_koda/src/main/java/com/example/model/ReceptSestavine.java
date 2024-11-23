@@ -19,7 +19,6 @@ public class ReceptSestavine {
     @JoinColumn(name = "TK_Sestavine", nullable = false)
     private Sestavine sestavine;
 
-    // Getterji in setterji
     public Long getId() {
         return id;
     }
@@ -42,5 +41,17 @@ public class ReceptSestavine {
 
     public void setSestavine(Sestavine sestavine) {
         this.sestavine = sestavine;
+    }
+
+    public String getNaziv() {
+        return sestavine != null ? sestavine.getNaziv() : null;
+    }
+
+    public Integer getKolicina() {
+        return sestavine != null ? sestavine.getKolicina() : null;
+    }
+
+    public String getEnota() {
+        return sestavine != null ? sestavine.getEnota() : null;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.model;
 
+import com.example.model.Recept;
 import jakarta.persistence.*;
 
 @Entity
@@ -21,6 +22,7 @@ public class KorakPostopka {
     @JoinColumn(name = "TK_Recept", nullable = false)
     private Recept recept;
 
+    // Getterji in setterji
     public Long getId() {
         return id;
     }

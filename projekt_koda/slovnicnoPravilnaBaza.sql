@@ -27,10 +27,6 @@ DROP TABLE IF EXISTS Korak_Postopka;
 DROP TABLE IF EXISTS Komentarji;
 DROP TABLE IF EXISTS Sestavine;
 DROP TABLE IF EXISTS Recept_Sestavine;
-DROP TABLE IF EXISTS Mapa;
-DROP TABLE IF EXISTS Mapa_Recept;
-
-
 
 
 CREATE TABLE Vpisan_Uporabnik (
@@ -124,26 +120,6 @@ CREATE TABLE Recept_Sestavine (
     FOREIGN KEY (TK_Sestavine) REFERENCES Sestavine(ID_Sestavine)
 ON DELETE RESTRICT ON UPDATE CASCADE
 );
-CREATE TABLE Mapa (
-    ID_Mapa INT PRIMARY KEY AUTO_INCREMENT,
-    Naziv VARCHAR(255) NOT NULL,
-    Opis TEXT NULL,
-    Slika TEXT NULL,
-    TK_Vpisan_Uporabnik INT NOT NULL,
-    FOREIGN KEY (TK_Vpisan_Uporabnik) REFERENCES Vpisan_Uporabnik(ID_Vpisan_Uporabnik)
-);
-
-CREATE TABLE Mapa_Recept (
-    ID_Mapa_Recept INT PRIMARY KEY AUTO_INCREMENT,
-    TK_Mapa INT NOT NULL,
-    TK_Recept INT NOT NULL,
-    FOREIGN KEY (TK_Mapa) REFERENCES Mapa(ID_Mapa)
-        ON DELETE RESTRICT
-        ON UPDATE CASCADE,
-    FOREIGN KEY (TK_Recept) REFERENCES Recept(ID_Recept)
-        ON DELETE RESTRICT
-        ON UPDATE CASCADE
-);
 
 ALTER TABLE Korak_Postopka
 DROP FOREIGN KEY korak_postopka_ibfk_1;
@@ -176,15 +152,6 @@ ALTER TABLE Recept_Sestavine
 ADD CONSTRAINT Recept_Sestavine_ibfk_1
 FOREIGN KEY (TK_Recept) REFERENCES Recept(ID_Recept)
 ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE Mapa_Recept
-DROP FOREIGN KEY Mapa_Recept_ibfk_2;
-
-ALTER TABLE Mapa_Recept
-ADD CONSTRAINT Mapa_Recept_ibfk_2
-FOREIGN KEY (TK_Recept) REFERENCES Recept(ID_Recept)
-ON DELETE CASCADE ON UPDATE CASCADE;
-
 
 INSERT INTO Vpisan_Uporabnik (Ime, Priimek, Elektronski_Naslov, Geslo, Administrator) VALUES
 ('Maja', 'Kovacic', 'maja.kovacic@example.com', 'geslo123', 0),
@@ -3267,5 +3234,4 @@ INSERT INTO Recept_Sestavine (TK_Recept, TK_Sestavine) VALUES
 (82, 746),
 (82, 747),
 (82, 748);
-
 

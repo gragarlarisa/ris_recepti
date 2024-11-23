@@ -7,31 +7,173 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
+
+        /* Global styles */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(to bottom, #ffecd2, #fcb69f);
+            margin: 0;
+            padding: 0;
+            color: #333;
         }
-        .message-container {
-            display: none;
-            margin-top: 20px;
-            color: red;
+
+        .container {
+            margin: 20px auto;
+            max-width: 1200px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 2.5rem;
             font-weight: bold;
+            color: #ff6f61;
+            text-align: center;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #ff6f61;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        h5 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #fff;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .card img {
+            border-bottom: 3px solid #ff6f61;
+            height: 300px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .card-body {
+            padding: 20px;
             text-align: center;
         }
-        .card {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: 0.3s;
+
+        .card-title {
+            font-size: 1.5rem;
+            color: #ff6f61;
+            margin-bottom: 10px;
         }
-        .card:hover {
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+
+        .card-text {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 10px;
         }
-        .card img {
-            height: 400px;
-            width: 100%;
-            object-fit: cover;
+
+        .btn-primary {
+            background-color: #ff6f61;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
+
+        .btn-primary:hover {
+            background-color: #e65950;
+            transform: translateY(-2px);
+        }
+
         .filter-section {
             margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
+        .filter-section label {
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .filter-section select {
+            font-size: 1rem;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            transition: border-color 0.3s ease;
+        }
+
+        .filter-section select:focus {
+            border-color: #ff6f61;
+            outline: none;
+        }
+
+        .message-container {
+            font-size: 1.2rem;
+            color: #e74c3c;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+            background-color: #ffe6e6;
+            border: 2px solid #e74c3c;
+            border-radius: 10px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .card img {
+                height: 200px;
+            }
+
+            .card-title {
+                font-size: 1.25rem;
+            }
+
+            .card-text {
+                font-size: 0.9rem;
+            }
+
+            .filter-section {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn-primary {
+                font-size: 0.9rem;
+                padding: 8px 15px;
+            }
+        }
+
+
     </style>
 </head>
 <body>
