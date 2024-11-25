@@ -5,7 +5,10 @@ import com.example.service.VpisanUporabnikService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/uporabniki")
@@ -38,5 +41,27 @@ public class VpisanUporabnikController {
     public ResponseEntity<Void> deleteUporabnik(@PathVariable Long id) {
         vpisanUporabnikService.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // New endpoint for login
+    @PostMapping("/login")
+    public ResponseEntity<Map<String, String>> login(@RequestBody Map<String, String> loginData) {
+        String email = loginData.get("email");
+        String password = loginData.get("password");
+
+        Optional<VpisanUporabnik> user = vpisanUporabnikService.validateUser(email, password);
+
+        if (user.isPresent()) {
+            VpisanUporabnik loggedInUser = user.get();
+            Map<String, String> response = new HashMap<>();
+            if (loggedInUser.getAdministrator()) {
+                response.put("redirect", "admin.html");
+            } else {
+                response.put("redirect", "index.html");
+            }
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(401).body(Map.of("error", "Invalid email or password"));
+        }
     }
 }
