@@ -1,4 +1,3 @@
-com\example\recepti\config\WebConfig.class
 com\example\controller\SestavineController.class
 com\example\model\RegionalnaKuhinja.class
 com\example\model\ReceptSestavine.class

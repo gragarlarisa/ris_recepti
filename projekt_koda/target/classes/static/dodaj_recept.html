@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dodaj Recept</title>
+    <link rel="stylesheet" href="../../../../frontend/css/style.css">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form label {
+    display: block;
+    margin-top: 10px;
+}
+
+form input, form textarea, form button {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #218838;
+}
+
+#addSestavina {
+    margin: 10px 0;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#addSestavina:hover {
+    background-color: #0056b3;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dodaj Recept</h1>
+        <form id="receptForm">
+            <label for="naziv">Naziv:</label>
+            <input type="text" id="naziv" name="naziv" required>
+
+            <label for="opis">Opis:</label>
+            <textarea id="opis" name="opis" required></textarea>
+
+            <label for="slika">Slika (URL):</label>
+            <input type="url" id="slika" name="slika" required>
+
+            <label for="pripravaMinute">Čas Priprave (minute):</label>
+            <input type="number" id="pripravaMinute" name="pripravaMinute" required>
+
+            <label for="steviloOseb">Število Oseb:</label>
+            <input type="number" id="steviloOseb" name="steviloOseb" required>
+
+            <label for="tezavnost">Težavnost (1-5):</label>
+            <input type="number" id="tezavnost" name="tezavnost" min="1" max="5" required>
+
+            <label for="javen">Javen:</label>
+            <input type="checkbox" id="javen" name="javen">
+
+            <h3>Sestavine</h3>
+            <div id="sestavine">
+                <div class="sestavina">
+                    <input type="text" name="nazivSestavine[]" placeholder="Naziv Sestavine" required>
+                    <input type="number" name="kolicinaSestavine[]" placeholder="Količina">
+                    <input type="text" name="enotaSestavine[]" placeholder="Enota">
+                </div>
+            </div>
+            <button type="button" id="addSestavina">Dodaj Sestavino</button>
+
+            <button type="submit">Shrani Recept</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("receptForm");
+    const sestavineDiv = document.getElementById("sestavine");
+    const addSestavinaBtn = document.getElementById("addSestavina");
+
+    // Dodaj novo polje za sestavino
+    addSestavinaBtn.addEventListener("click", () => {
+        const novaSestavina = document.createElement("div");
+        novaSestavina.classList.add("sestavina");
+
+        novaSestavina.innerHTML = `
+            <input type="text" name="nazivSestavine[]" placeholder="Naziv Sestavine" required>
+            <input type="number" name="kolicinaSestavine[]" placeholder="Količina">
+            <input type="text" name="enotaSestavine[]" placeholder="Enota">
+        `;
+        sestavineDiv.appendChild(novaSestavina);
+    });
+
+    // Pošlji podatke na backend
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        // Priprava podatkov
+        const formData = new FormData(form);
+        const sestavine = [];
+        const stevilkaSestavin = formData.getAll("nazivSestavine[]").length;
+
+        for (let i = 0; i < stevilkaSestavin; i++) {
+            sestavine.push({
+                naziv: formData.getAll("nazivSestavine[]")[i],
+                kolicina: formData.getAll("kolicinaSestavine[]")[i],
+                enota: formData.getAll("enotaSestavine[]")[i],
+            });
+        }
+
+        const recept = {
+            naziv: formData.get("naziv"),
+            opis: formData.get("opis"),
+            slika: formData.get("slika"),
+            pripravaMinute: parseInt(formData.get("pripravaMinute")),
+            steviloOseb: parseInt(formData.get("steviloOseb")),
+            tezavnost: parseInt(formData.get("tezavnost")),
+            javen: formData.get("javen") === "on",
+            sestavine: sestavine,
+        };
+
+        // Pošlji na backend
+        try {
+            const response = await fetch("http://localhost:8080/api/recepti/dodaj", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(recept),
+            });
+
+            if (response.ok) {
+                alert("Recept uspešno dodan!");
+                form.reset();
+            } else {
+                alert("Napaka pri dodajanju recepta.");
+            }
+        } catch (error) {
+            console.error(error);
+            alert("Prišlo je do napake.");
+        }
+    });
+});
+
+    </script>
+</body>
+</html>
