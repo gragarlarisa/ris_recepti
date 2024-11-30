@@ -26,6 +26,7 @@
     - **Opis:** Test preverja, kako metoda `findById()` obravnava situacijo, ko je podan neveljaven ID recepta.
     - **Pomembnost:** Preveri odpornost aplikacije na napake in zagotavlja, da so nepravilne zahteve ustrezno obravnavane.
 
+* Anotacije: @Test, @DisplayName, @BeforeEach
 ---
 
 ### Testi za funkcionalnost:
@@ -49,7 +50,8 @@
 
     - **Opis:**
     - **Pomembnost:**
-
+    - 
+* Anotacije:
 ---
 
 ### Testi za funkcionalnost:
@@ -74,6 +76,7 @@
     - **Opis:**
     - **Pomembnost:**
 
+* Anotacije:
 ---
 
 ## Imena članov skupine in odgovornosti
