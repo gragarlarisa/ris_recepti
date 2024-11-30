@@ -31,4 +31,12 @@ public class VpisanUporabnikService {
     public void deleteById(Long id) {
         vpisanUporabnikRepository.deleteById(id);
     }
+
+    // Validate user by email and password
+    public Optional<VpisanUporabnik> validateUser(String email, String password) {
+        return vpisanUporabnikRepository.findAll()
+                .stream()
+                .filter(user -> user.getElektronskiNaslov().equals(email) && user.getGeslo().equals(password))
+                .findFirst();
+    }
 }

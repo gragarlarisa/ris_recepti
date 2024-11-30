@@ -1,0 +1,316 @@
+2. Ogled podrobnosti recepta
+Cilj:
+Uporabnik želi pridobiti natančne informacije o določenem receptu, vključno s sestavinami, koraki priprave, oceno, komentarji uporabnikov in predlogi za alternativne sestavine.
+
+Akterji:
+
+Gostujoči uporabnik
+Registrirani uporabnik
+Predpogoji:
+
+Recept mora biti na voljo in viden v sistemu.
+Stanje sistema po PU:
+Sistem ostane enak, saj uporabnik le pregleduje podatke.
+
+Scenarij:
+
+Uporabnik na strani z recepti klikne na določen recept.
+Sistem prikaže stran s podrobnostmi recepta, vključno z:
+Seznamom sestavin in količinami
+Navodili za pripravo
+Težavnostjo in časom priprave
+Povprečno oceno recepta in številom glasov
+Komentarji drugih uporabnikov in predlogi za spremembe
+Uporabnik lahko preklaplja med zavihki, npr. "Sestavine", "Navodila", "Komentarji".
+Uporabnik lahko prebere komentarje drugih uporabnikov za nasvete in predloge ali doda svoj komentar (če je prijavljen).
+Alternativni tokovi:
+
+Če recept nima komentarjev, sistem prikaže obvestilo "Še ni komentarjev".
+Če je recept v čakalni vrsti za potrditev ali je bil odstranjen, sistem prikaže obvestilo, da recept trenutno ni na voljo za ogled.
+Izjeme:
+
+Če pride do napake pri nalaganju podrobnosti recepta, sistem prikaže sporočilo o napaki. Uporabnik ima možnost osvežiti stran ali se vrniti na prejšnjo stran.
+
+
+	2.1 Ogled recepta brez komentarjev
+
+Cilj: Prikaz obvestila, če recept nima komentarjev.
+Scenarij:
+Uporabnik klikne na recept.
+Sistem preveri, ali recept vsebuje komentarje.
+Če ni komentarjev, sistem prikaže obvestilo: "Še ni komentarjev."
+
+	2.2 Obvestilo o nedostopnem receptu
+
+Cilj: Obveščanje uporabnika, če recept ni na voljo za ogled.
+Scenarij:
+Uporabnik poskuša odpreti recept.
+Sistem preveri status recepta.
+Če je recept v čakalni vrsti za potrditev ali odstranjen, sistem prikaže obvestilo:
+"Recept trenutno ni na voljo za ogled."
+////////////////////////////////////////////////////////////////////////////////////
+3. Shranjevanje receptov
+Cilj:
+Registrirani uporabnik želi shraniti določen recept za kasnejši enostaven dostop.
+
+Akterji:
+
+Registrirani uporabnik
+Predpogoji:
+Uporabnik mora biti prijavljen in recept mora biti viden v sistemu.
+
+Stanje sistema po PU:
+Sistem shrani recept v uporabnikov profil, ki postane dostopen med shranjenimi recepti.
+
+Scenarij:
+
+Uporabnik odpre podrobnosti recepta in klikne na gumb "Shrani recept".
+Sistem preveri, ali je recept že shranjen med uporabnikovimi recepti.
+Če recept še ni shranjen, ga sistem doda v uporabnikov profil pod "Moji recepti".
+Sistem prikaže obvestilo "Recept uspešno shranjen".
+Alternativni tokovi:
+
+Če je recept že shranjen, sistem prikaže obvestilo "Recept je že med vašimi shranjenimi recepti".
+Če uporabnik želi odstraniti recept iz shranjenih, lahko to stori na strani "Moji recepti".
+Izjeme:
+Napaka pri shranjevanju recepta (npr. težava z bazo podatkov); sistem prikaže obvestilo o napaki in predlaga ponovno poskus. Uporabnik ima možnost ponovno poskusiti ali poskusiti kasneje.
+
+	3.1 Obvestilo za že shranjen recept
+
+Cilj: Preprečiti, da bi uporabnik ponovno shranil že shranjen recept.
+Scenarij:
+Uporabnik klikne na gumb "Shrani recept".
+Sistem preveri, ali je recept že shranjen.
+Če je recept že shranjen, sistem prikaže obvestilo:
+"Recept je že med vašimi shranjenimi recepti."
+
+	3.2 Odstranitev shranjenega recepta
+
+Cilj: Uporabniku omogočiti odstranitev recepta iz shranjenih.
+Scenarij:
+Uporabnik obišče stran "Moji recepti".
+Uporabnik izbere recept, ki ga želi odstraniti, in klikne na možnost "Odstrani".
+Sistem odstrani recept iz uporabnikovega profila in prikaže obvestilo:
+"Recept je bil uspešno odstranjen iz vaših shranjenih receptov."
+///////////////////////////////////////////////////////////////////////////////////////////////
+4. Upravljanje profila
+Cilj:
+Registrirani uporabnik želi posodobiti svoj profil (npr. spremeniti geslo, posodobiti e-poštni naslov, dodati sliko profila).
+
+Akterji:
+
+Registrirani uporabnik
+Predpogoji:
+Uporabnik mora biti prijavljen in imeti dostop do svojih profilnih nastavitev.
+
+Stanje sistema po PU:
+Sistem posodobi podatke uporabnikovega profila.
+
+Scenarij:
+
+Uporabnik izbere možnost "Moj profil" in odpre stran s svojimi nastavitvami.
+Uporabnik lahko spremeni podatke, kot so:
+Uporabniško ime
+E-poštni naslov
+Geslo
+Slika
+Uporabnik shrani spremembe, sistem preveri vnesene podatke (npr. veljavnost e-poštnega naslova).
+Sistem posodobi podatke v zbirki podatkov in prikaže obvestilo o uspešni posodobitvi.
+Alternativni tokovi:
+
+Če uporabnik vnese neveljavne podatke (npr. geslo ne ustreza pravilom), sistem prikaže obvestilo in ponudi smernice za popravke.
+Izjeme:
+Napaka pri posodabljanju profila; sistem prikaže obvestilo o napaki in predlaga ponovno poskus.
+
+	4.1 Vnos neveljavnih podatkov pri posodabljanju profila
+
+Cilj: Obvestiti uporabnika in omogočiti popravek pri vnosu neveljavnih podatkov.
+Scenarij:
+Uporabnik vnese podatke v obrazec za posodobitev profila.
+Sistem preveri vnesene podatke.
+Če so podatki neveljavni (npr. geslo je prekratko ali e-poštni naslov ni pravilen), sistem prikaže obvestilo:
+"Vneseni podatki niso veljavni. Prosimo, preverite in poskusite znova."
+Uporabnik popravi vnos in ponovno shrani podatke.
+//////////////////////////////////////////////////////////////////////////////////////////
+5. Vnos recepta
+Cilj:
+Registrirani uporabnik želi vnesti svoj recept in ga deliti z drugimi uporabniki.
+
+Akterji:
+
+Registrirani uporabnik
+Predpogoji:
+Uporabnik mora biti prijavljen v sistem.
+
+Stanje sistema po PU:
+Sistem shrani recept in ga doda v zbirko receptov.
+
+Scenarij:
+
+Uporabnik klikne na gumb "Dodaj recept".
+Uporabnik izpolni obrazec z naslednjimi podatki:
+Naslov recepta
+Sestavine
+Navodila
+Čas priprave
+Fotografija recepta (neobvezno)
+Uporabnik potrdi vnos recepta.
+Sistem preveri, ali so vneseni podatki popolni in veljavni.
+Sistem shrani recept v zbirko in prikaže obvestilo "Recept uspešno dodan".
+Alternativni tokovi:
+
+Če uporabnik pusti obvezna polja prazna, sistem prikaže obvestilo in označi manjkajoča polja.
+Izjeme:
+Napaka pri shranjevanju recepta (npr. težava s strežnikom); sistem prikaže obvestilo o napaki in predlaga ponovno poskus.
+
+	5.1 Obvestilo o manjkajočih podatkih
+
+Cilj: Preprečiti vnos nepopolnih receptov in obvestiti uporabnika o potrebnih popravkih.
+Scenarij:
+Uporabnik klikne "Potrdi" brez izpolnitve vseh obveznih polj.
+Sistem preveri obrazec in odkrije manjkajoče podatke.
+Sistem prikaže obvestilo:
+"Manjkajo podatki v obveznih poljih: [seznam manjkajočih polj]. Prosimo, izpolnite jih."
+
+	5.2 Napaka pri shranjevanju recepta
+
+Cilj: Obvestiti uporabnika o težavah pri shranjevanju in omogočiti ponovni poskus.
+Scenarij:
+Po potrditvi recepta sistem poskuša shraniti recept v zbirko.
+Zaradi tehnične napake shranjevanje ni uspešno.
+Sistem prikaže obvestilo:
+"Napaka pri shranjevanju recepta. Poskusite znova."
+Uporabnik ima možnost ponovno potrditi recept.
+////////////////////////////////////////////////////////////////////////////////////////////////
+6. Prijava neprimernega recepta
+Cilj:
+Uporabnik želi prijaviti recept, ki vsebuje neprimerne vsebine ali krši pravila platforme.
+
+Akterji:
+
+Registrirani ali neregistrirani uporabnik
+Predpogoji:
+Recept mora biti javno dostopen na platformi.
+
+Stanje sistema po PU:
+Sistem evidentira prijavo in obvesti administratorja o neprimerni vsebini.
+
+Scenarij:
+
+Uporabnik klikne na gumb "Prijavi recept".
+Sistem prikaže obrazec za prijavo, kjer uporabnik izbere razlog prijave (npr. neprimerna vsebina, kršitev avtorskih pravic).
+Uporabnik pošlje prijavo.
+Sistem evidentira prijavo in obvesti administratorja.
+Administrator pregleda prijavo in sprejme ustrezne ukrepe.
+Alternativni tokovi:
+
+Če uporabnik ne izpolni obrazca pravilno, sistem prikaže obvestilo o napaki.
+Izjeme:
+Tehnične težave pri pošiljanju prijave; sistem prikaže obvestilo in predlaga ponovno poskus.
+
+	6.1 Obvestilo o nepopolni prijavi
+
+Cilj: Uporabniku omogočiti pravilno izpolnitev obrazca za prijavo.
+Scenarij:
+Uporabnik pošlje prijavo brez izbire razloga ali opisa.
+Sistem preveri obrazec in odkrije manjkajoče podatke.
+Sistem prikaže obvestilo:
+"Prosimo, izberite razlog in dodajte opis prijave."
+
+	6.2 Težave pri pošiljanju prijave
+
+Cilj: Obvestiti uporabnika o morebitnih tehničnih težavah in omogočiti ponovni poskus.
+Scenarij:
+Po oddaji prijave pride do tehnične napake v sistemu.
+Sistem prikaže obvestilo:
+"Prišlo je do napake pri pošiljanju prijave. Poskusite znova kasneje."
+Uporabnik ima možnost kasnejše prijave.
+/////////////////////////////////////////////////////////////////////////
+7. Odstranjevanje receptov
+Cilj:
+Administrator želi odstraniti recept, ki ni primeren za objavo, je zastarel, nepopoln ali vsebuje neprimerne vsebine.
+
+Akterji:
+Administrator
+
+Predpogoji:
+Administrator mora biti prijavljen in imeti dovoljenje za odstranjevanje receptov.
+
+Stanje sistema po PU:
+Sistem trajno odstrani recept iz zbirke podatkov, tako da ta ni več dostopen uporabnikom.
+
+Scenarij:
+
+Administrator odpre nadzorno ploščo in izbere možnost "Upravljanje receptov".
+Sistem prikaže seznam vseh receptov, ki jih lahko administrator pregleda.
+Administrator poišče recept, ki ga želi odstraniti, in izbere možnost "Odstrani".
+Sistem administratorja pozove k potrditvi odstranitve z opozorilom, da je dejanje nepreklicno.
+Administrator potrdi odstranitev recepta.
+Sistem trajno odstrani recept iz zbirke podatkov in prikaže obvestilo o uspešni odstranitvi.
+Alternativni tokovi:
+
+Če administrator slučajno izbriše napačen recept, lahko sistem ponudi možnost za shranjevanje varnostne kopije recepta pred odstranitvijo.
+Če je recept že bil odstranjen (npr. drugi administrator je že izvedel to dejanje), sistem prikaže obvestilo, da recept ni več dostopen.
+Izjeme:
+Napaka pri odstranjevanju recepta (npr. zaradi težav z bazo podatkov); sistem prikaže obvestilo o napaki in predlaga ponovno poskus. Administrator ima možnost osvežiti seznam ali se vrniti na prejšnjo stran.
+
+	7.1 Shranjevanje varnostne kopije pred odstranitvijo
+
+Cilj: Preprečiti trajno izgubo podatkov, če administrator pomotoma izbriše napačen recept.
+Scenarij:
+Administrator izbere možnost "Odstrani" za recept.
+Sistem vpraša, ali želi administrator shraniti varnostno kopijo recepta pred odstranitvijo.
+Če administrator potrdi, sistem shrani kopijo recepta in nato nadaljuje z odstranitvijo.
+
+	7.2 Obvestilo o že odstranjenem receptu
+
+Cilj: Preprečiti ponovitev odstranjevanja recepta, ki ni več dostopen.
+Scenarij:
+Administrator izbere možnost "Odstrani" za recept, ki ga je že odstranil drugi administrator.
+Sistem prikaže obvestilo:
+"Recept je že bil odstranjen in ni več dostopen."
+
+8. Dodajanje sestavin in stopenj težavnosti
+Cilj:
+Administrator želi posodobiti seznam sestavin in stopenj težavnosti, ki jih uporabniki lahko izberejo pri dodajanju novih receptov, da se zagotovi konsistentnost in natančnost podatkov.
+
+Akterji:
+Administrator
+
+Predpogoji:
+Administrator mora biti prijavljen in imeti dovoljenje za urejanje sestavin in težavnostnih stopenj.
+
+Stanje sistema po PU:
+Sistem posodobi seznam sestavin ali težavnostnih stopenj, ki so na voljo pri vnosu receptov.
+
+Scenarij:
+
+Administrator izbere možnost "Upravljanje sestavin in težavnosti" v nadzorni plošči.
+Sistem prikaže trenutni seznam sestavin in težavnostnih stopenj, ki so na voljo.
+Administrator doda novo sestavino ali novo stopnjo težavnosti, ureja obstoječe vnose ali odstrani nepotrebne vnose.
+Administrator potrdi spremembe, sistem preveri, ali ni podvajanja ali drugih neveljavnih podatkov.
+Sistem posodobi seznam in prikaže obvestilo o uspešnem shranjevanju.
+Alternativni tokovi:
+
+Če administrator poskusi dodati podvojeno sestavino ali težavnost, sistem prikaže obvestilo o podvojenem vnosu in predlaga popravke.
+Administrator lahko prekliče spremembe in se vrne na začetni seznam, ne da bi sistem shranil spremembe.
+Izjeme:
+Napaka pri shranjevanju sprememb (npr. zaradi težav z bazo podatkov); sistem prikaže obvestilo o napaki in predlaga ponovno poskus. Administrator ima možnost ponoviti dejanje ali zapreti stran.
+
+	8.1 Preverjanje podvojenih vnosov
+
+Cilj: Zagotoviti, da ni podvajanj sestavin ali težavnostnih stopenj.
+Scenarij:
+Administrator poskuša dodati sestavino ali težavnost, ki že obstaja v seznamu.
+Sistem preveri, ali obstaja podvojen vnos.
+Če obstaja, sistem prikaže obvestilo:
+"Vnos že obstaja. Prosimo, preverite seznam in poskusite znova."
+
+	8.2 Preklic sprememb brez shranjevanja
+
+Cilj: Administratorju omogočiti vrnitev na začetni seznam brez shranjevanja sprememb.
+Scenarij:
+Administrator naredi spremembe v seznamu, nato pa izbere možnost "Prekliči".
+Sistem prikaže opozorilo:
+"Spremembe ne bodo shranjene. Želite nadaljevati?"
+Če administrator potrdi, se sistem vrne na začetni seznam brez shranjevanja sprememb.

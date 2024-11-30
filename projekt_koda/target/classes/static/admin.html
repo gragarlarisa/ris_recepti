@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        /* Same styles from the original index.html */
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(to bottom, #ffecd2, #fcb69f);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            margin: 20px auto;
+            max-width: 1200px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ff6f61;
+            text-align: center;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+        .card {
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #fff;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        }
+        .btn-danger {
+            background-color: #e74c3c;
+            border: none;
+            margin-top: 10px;
+        }
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+        .user-management {
+            margin-top: 40px;
+        }
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .user-table th, .user-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .user-table th {
+            background-color: #ff6f61;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Admin Panel</h1>
+
+    <div id="recepti-container" class="row"></div>
+
+    <div class="user-management">
+        <h2 class="text-center">User Management</h2>
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Admin</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="user-table-body"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fetchRecipes();
+        fetchUsers();
+    });
+
+    function fetchRecipes() {
+        fetch('http://localhost:8081/recepti')
+            .then(response => response.json())
+            .then(data => {
+                const receptiContainer = document.getElementById('recepti-container');
+                receptiContainer.innerHTML = '';
+
+                data.forEach(recept => {
+                    const cardContainer = document.createElement('div');
+                    cardContainer.classList.add('col-md-4', 'mb-4');
+
+                    cardContainer.innerHTML = `
+                    <div class="card h-100">
+                        <img src="${recept.slika}" class="card-img-top" alt="${recept.naziv}">
+                        <div class="card-body">
+                            <h5 class="card-title">${recept.naziv}</h5>
+                            <p class="card-text"><strong>Čas priprave:</strong> ${recept.pripravaMinute} minut</p>
+                            <p class="card-text"><strong>Težavnost:</strong> ${recept.tezavnost}</p>
+                            <button class="btn btn-danger" onclick="deleteRecipe(${recept.idRecept})">Delete Recipe</button>
+                        </div>
+                    </div>`;
+                    receptiContainer.appendChild(cardContainer);
+                });
+            })
+            .catch(error => console.error('Error fetching recipes:', error));
+    }
+
+    function fetchUsers() {
+        fetch('http://localhost:8081/uporabniki')
+            .then(response => response.json())
+            .then(data => {
+                const userTableBody = document.getElementById('user-table-body');
+                userTableBody.innerHTML = '';
+
+                data.forEach(user => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${user.id}</td>
+                        <td>${user.email}</td>
+                        <td>${user.administrator ? 'Yes' : 'No'}</td>
+                        <td><button class="btn btn-danger btn-sm" onclick="deleteUser(${user.id})">Delete User</button></td>
+                    `;
+                    userTableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching users:', error));
+    }
+
+    function deleteRecipe(id) {
+        if (confirm('Are you sure you want to delete this recipe?')) {
+            fetch(`http://localhost:8081/recepti/${id}`, { method: 'DELETE' })
+                .then(() => fetchRecipes())
+                .catch(error => console.error('Error deleting recipe:', error));
+        }
+    }
+
+    function deleteUser(id) {
+        if (confirm('Are you sure you want to delete this user?')) {
+            fetch(`http://localhost:8081/uporabniki/${id}`, { method: 'DELETE' })
+                .then(() => fetchUsers())
+                .catch(error => console.error('Error deleting user:', error));
+        }
+    }
+</script>
+</body>
+</html>
