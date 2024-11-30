@@ -1,4 +1,3 @@
-com\example\recepti\config\WebConfig.class
 com\example\controller\SestavineController.class
 com\example\model\RegionalnaKuhinja.class
 com\example\model\ReceptSestavine.class
@@ -27,5 +26,6 @@ com\example\service\RegionalnaKuhinjaService.class
 com\example\model\Komentarji.class
 com\example\repository\KategorijaSkupnoRepository.class
 com\example\controller\VpisanUporabnikController.class
+com\example\config\WebConfig.class
 com\example\service\SestavineService.class
 com\example\model\Recept.class
