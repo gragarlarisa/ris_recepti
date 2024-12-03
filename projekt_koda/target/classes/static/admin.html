@@ -7,7 +7,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-        /* Same styles from the original index.html */
         body {
             font-family: 'Roboto', Arial, sans-serif;
             background: linear-gradient(to bottom, #ffecd2, #fcb69f);
@@ -108,11 +107,11 @@
 
                     cardContainer.innerHTML = `
                     <div class="card h-100">
-                        <img src="${recept.slika}" class="card-img-top" alt="${recept.naziv}">
+                        <img src="${recept.slika || 'default-image.jpg'}" class="card-img-top" alt="${recept.naziv || 'Recipe Image'}">
                         <div class="card-body">
-                            <h5 class="card-title">${recept.naziv}</h5>
-                            <p class="card-text"><strong>Čas priprave:</strong> ${recept.pripravaMinute} minut</p>
-                            <p class="card-text"><strong>Težavnost:</strong> ${recept.tezavnost}</p>
+                            <h5 class="card-title">${recept.naziv || 'Unknown Recipe'}</h5>
+                            <p class="card-text"><strong>Čas priprave:</strong> ${recept.pripravaMinute || 'N/A'} minut</p>
+                            <p class="card-text"><strong>Težavnost:</strong> ${recept.tezavnost || 'N/A'}</p>
                             <button class="btn btn-danger" onclick="deleteRecipe(${recept.idRecept})">Delete Recipe</button>
                         </div>
                     </div>`;
@@ -128,37 +127,18 @@
             .then(data => {
                 const userTableBody = document.getElementById('user-table-body');
                 userTableBody.innerHTML = '';
-                fetch('http://localhost:8081/uporabniki')
-                    .then(response => response.json())
-                    .then(data => {
-                        const userTableBody = document.getElementById('user-table-body');
-                        userTableBody.innerHTML = '';
-                        data.forEach(user => {
-                            const row = document.createElement('tr');
-                            row.innerHTML = `
+                data.forEach(user => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
                     <td>${user.id}</td>
-                    <td>${user.elektronskiNaslov}</td> <!-- Updated field name -->
+                    <td>${user.elektronskiNaslov}</td>
                     <td>${user.administrator ? 'Yes' : 'No'}</td>
                     <td><button class="btn btn-danger btn-sm" onclick="deleteUser(${user.id})">Delete User</button></td>
                 `;
-                            userTableBody.appendChild(row);
-                        });
-                    })
-                    .catch(error => console.error('Error fetching users:', error));
-            }
-
-        data.forEach(user => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                        <td>${user.id}</td>
-                        <td>${user.email}</td>
-                        <td>${user.administrator ? 'Yes' : 'No'}</td>
-                        <td><button class="btn btn-danger btn-sm" onclick="deleteUser(${user.id})">Delete User</button></td>
-                    `;
-            userTableBody.appendChild(row);
-        });
-    })
-    .catch(error => console.error('Error fetching users:', error));
+                    userTableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching users:', error));
     }
 
     function deleteRecipe(id) {
@@ -178,5 +158,4 @@
     }
 </script>
 </body>
-</html>
 </html>

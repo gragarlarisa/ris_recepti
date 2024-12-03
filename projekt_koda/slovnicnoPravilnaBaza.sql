@@ -269,6 +269,7 @@ INSERT INTO Vpisan_Uporabnik (Ime, Priimek, Elektronski_Naslov, Geslo, Administr
 ('Darja', 'Zupan', 'darja.zupan@example.com', 'darjaZupan', 0),
 ('Spela', 'Kos', 'spela.kos@example.com', 'spelaKos', 0),
 ('Katja', 'Krajnc', 'katja.krajnc@example.com', 'katjaKrajnc', 0),
+('Admin', 'User', 'admin@admin.com', 'admin', 1),
 ('Admin', 'User', 'admin@example.com', '$2b$10vpisan_uporabnik$wvI9JfNMBy8sFrk1CnSA/eQMyyS8vPq0JH6o9DMmdtjceL4hcZoKC', 1),
 ('Admin', 'User', 'admin@example.com', '$2b$10vpisan_uporabnik$wvI9JfNMBy8sFrk1CnSA/eQMyyS8vPq0JH6o9DMmdtjceL4hcZoKC', 1);
 
