@@ -39,4 +39,15 @@ public class VpisanUporabnikService {
                 .filter(user -> user.getElektronskiNaslov().equals(email) && user.getGeslo().equals(password))
                 .findFirst();
     }
+
+    // Validate admin user by email and password
+    public Optional<VpisanUporabnik> validateAdmin(String email, String password) {
+        return vpisanUporabnikRepository.findAll()
+                .stream()
+                .filter(user -> user.getElektronskiNaslov().equals(email)
+                        && user.getGeslo().equals(password)
+                        && user.getAdministrator() != null
+                        && user.getAdministrator()) // Checks if the user is an administrator
+                .findFirst();
+    }
 }

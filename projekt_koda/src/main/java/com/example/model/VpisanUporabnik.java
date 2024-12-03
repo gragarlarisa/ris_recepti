@@ -1,7 +1,6 @@
 package com.example.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -33,12 +32,14 @@ public class VpisanUporabnik {
     private String avatar;
 
     @OneToMany(mappedBy = "uporabnik")
-    @JsonIgnore
+    @JsonIgnore // Prevents serialization of the 'recepti' field in the response
     private List<Recept> recepti;
 
     @OneToMany(mappedBy = "uporabnik", cascade = CascadeType.ALL)
+    @JsonIgnore // Prevents serialization of 'komentarji' to avoid recursion
     private List<Komentarji> komentarji;
 
+    // Getters and setters
 
     public Long getId() {
         return id;

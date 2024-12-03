@@ -123,25 +123,26 @@
     }
 
     function fetchUsers() {
-        fetch('http://localhost:8081/uporabniki')
-            .then(response => response.json())
-            .then(data => {
-                const userTableBody = document.getElementById('user-table-body');
-                userTableBody.innerHTML = '';
+    fetch('http://localhost:8081/uporabniki')
+        .then(response => response.json())
+        .then(data => {
+            const userTableBody = document.getElementById('user-table-body');
+            userTableBody.innerHTML = '';
 
-                data.forEach(user => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${user.id}</td>
-                        <td>${user.email}</td>
-                        <td>${user.administrator ? 'Yes' : 'No'}</td>
-                        <td><button class="btn btn-danger btn-sm" onclick="deleteUser(${user.id})">Delete User</button></td>
-                    `;
-                    userTableBody.appendChild(row);
-                });
-            })
-            .catch(error => console.error('Error fetching users:', error));
-    }
+            data.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.id}</td>
+                    <td>${user.elektronskiNaslov}</td> <!-- Updated field name -->
+                    <td>${user.administrator ? 'Yes' : 'No'}</td>
+                    <td><button class="btn btn-danger btn-sm" onclick="deleteUser(${user.id})">Delete User</button></td>
+                `;
+                userTableBody.appendChild(row);
+            });
+        })
+        .catch(error => console.error('Error fetching users:', error));
+}
+
 
     function deleteRecipe(id) {
         if (confirm('Are you sure you want to delete this recipe?')) {
