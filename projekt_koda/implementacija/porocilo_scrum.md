@@ -10,13 +10,13 @@ Nalogo smo razdelili na manjše specifične in merljive naloge ter vsaki dodelil
 
 | Naloga                                                                 | Časovna ocena (Story Points) | Status |
 | ---------------------------------------------------------------------- | ---------------------------- |--------|
-| Analiza in načrtovanje funkcionalnosti (izdelava modela za seznam)     | 3                            | Doing  |
-| Implementacija modela za seznam nakupov                                | 5                            | Doing   |
-| API za generiranje seznama na podlagi receptov in števila oseb         | 8                            | Doing   |
-| Integracija z obstoječim sistemom za upravljanje receptov              | 5                            | ToDo   |
-| UI za prikaz personaliziranega seznama nakupov                         | 5                            | ToDo   |
-| Testiranje generiranja seznama nakupov                                 | 3                            | ToDo   |
-| Dokumentacija funkcionalnosti in procesov                             | 2                            | ToDo   |
+| Analiza in načrtovanje funkcionalnosti (izdelava modela za seznam)     | 3                            | Done   |
+| Implementacija modela za seznam nakupov                                | 5                            | Done  |
+| API za generiranje seznama na podlagi receptov in števila oseb         | 8                            | Done  |
+| Integracija z obstoječim sistemom za upravljanje receptov              | 5                            | Done   |
+| UI za prikaz personaliziranega seznama nakupov                         | 5                            | Done   |
+| Testiranje generiranja seznama nakupov                                 | 3                            | Doing   |
+| Dokumentacija funkcionalnosti in procesov                             | 2                            | Doing   |
 
 ---
 
