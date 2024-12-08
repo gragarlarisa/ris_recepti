@@ -8,15 +8,15 @@
 ## Razdelitev zgodbe na naloge
 Nalogo smo razdelili na manjše specifične in merljive naloge ter vsaki dodelili oceno časa za izvedbo z metodo Planning Poker.
 
-| Naloga                                                                 | Časovna ocena (Story Points) | Status     |
-| ---------------------------------------------------------------------- | ---------------------------- | ---------- |
-| Analiza in načrtovanje funkcionalnosti (izdelava modela za seznam)     | 3                            | ToDo       |
-| Implementacija modela za seznam nakupov                                | 5                            | ToDo       |
-| API za generiranje seznama na podlagi receptov in števila oseb         | 8                            | ToDo       |
-| Integracija z obstoječim sistemom za upravljanje receptov              | 5                            | ToDo       |
-| UI za prikaz personaliziranega seznama nakupov                         | 5                            | ToDo       |
-| Testiranje generiranja seznama nakupov                                 | 3                            | ToDo       |
-| Dokumentacija funkcionalnosti in procesov                             | 2                            | ToDo       |
+| Naloga                                                                 | Časovna ocena (Story Points) | Status |
+| ---------------------------------------------------------------------- | ---------------------------- |--------|
+| Analiza in načrtovanje funkcionalnosti (izdelava modela za seznam)     | 3                            | Doing  |
+| Implementacija modela za seznam nakupov                                | 5                            | Doing   |
+| API za generiranje seznama na podlagi receptov in števila oseb         | 8                            | Doing   |
+| Integracija z obstoječim sistemom za upravljanje receptov              | 5                            | ToDo   |
+| UI za prikaz personaliziranega seznama nakupov                         | 5                            | ToDo   |
+| Testiranje generiranja seznama nakupov                                 | 3                            | ToDo   |
+| Dokumentacija funkcionalnosti in procesov                             | 2                            | ToDo   |
 
 ---
 
@@ -48,7 +48,6 @@ Nalogo smo razdelili na manjše specifične in merljive naloge ter vsaki dodelil
     - **Doing:** Naloge, ki so trenutno v delu.
     - **Done:** Zaključene naloge.
 
-- Trenutno stanje vseh nalog je **v fazi načrtovanja**. Vse naloge so v stolpcu **ToDo**.
 
 ---
 

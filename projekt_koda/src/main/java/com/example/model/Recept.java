@@ -1,38 +1,55 @@
 package com.example.model;
 
-import com.example.model.*;
 import jakarta.persistence.*;
-
 import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "Recept")
 public class Recept {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_Recept")
     private Integer idRecept;
 
+    @Column(name = "Naziv", nullable = false, length = 255)
     private String naziv;
+
+    @Column(name = "Opis", nullable = false, columnDefinition = "TEXT")
     private String opis;
+
+    @Column(name = "Slika", nullable = false, columnDefinition = "TEXT")
     private String slika;
+
+    @Column(name = "Priprava_Minute", nullable = false)
     private Integer pripravaMinute;
+
+    @Column(name = "Stevilo_Oseb", nullable = false)
     private Integer steviloOseb;
+
+    @Column(name = "Tezavnost", nullable = false)
     private Integer tezavnost;
+
+    @Column(name = "Javen", nullable = false)
     private Boolean javen;
+
+    @Column(name = "Datum_Objave")
     private Date datumObjave;
+
+    @Column(name = "Datum_Zadnje_Spremembe")
     private Date datumZadnjeSpremembe;
 
     @ManyToOne
-    @JoinColumn(name = "TK_Vpisan_Uporabnik", referencedColumnName = "ID_Vpisan_Uporabnik")
+    @JoinColumn(name = "TK_Vpisan_Uporabnik", referencedColumnName = "ID_Vpisan_Uporabnik", nullable = true)
     private VpisanUporabnik uporabnik;
 
     @ManyToOne
-    @JoinColumn(name = "TK_Regionalna_Kuhinja", referencedColumnName = "ID_Regionalna_Kuhinja")
+    @JoinColumn(name = "TK_Regionalna_Kuhinja", referencedColumnName = "ID_Regionalna_Kuhinja", nullable = true)
     private RegionalnaKuhinja regionalnaKuhinja;
 
     @ManyToOne
-    @JoinColumn(name = "TK_Obrok", referencedColumnName = "ID_Obrok")
+    @JoinColumn(name = "TK_Obrok", referencedColumnName = "ID_Obrok", nullable = false)
     private Obrok obrok;
 
     @OneToMany(mappedBy = "recept", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -41,11 +58,28 @@ public class Recept {
     @OneToMany(mappedBy = "recept", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<KategorijaSkupno> prehranskeOmejitve;
 
+    @OneToMany(mappedBy = "recept", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReceptSestavine> sestavine;
+
+    // Constructors
+    public Recept() {}
+
+    public Recept(String naziv, String opis, String slika, Integer pripravaMinute, Integer steviloOseb, Integer tezavnost, Boolean javen, Date datumObjave, Date datumZadnjeSpremembe) {
+        this.naziv = naziv;
+        this.opis = opis;
+        this.slika = slika;
+        this.pripravaMinute = pripravaMinute;
+        this.steviloOseb = steviloOseb;
+        this.tezavnost = tezavnost;
+        this.javen = javen;
+        this.datumObjave = datumObjave;
+        this.datumZadnjeSpremembe = datumZadnjeSpremembe;
+    }
+
+    // Getters and Setters
     public Integer getIdRecept() {
         return idRecept;
     }
-
-
 
     public void setIdRecept(Integer idRecept) {
         this.idRecept = idRecept;
@@ -147,9 +181,6 @@ public class Recept {
         this.obrok = obrok;
     }
 
-
-
-    // Getter and Setter
     public List<KorakPostopka> getKoraki() {
         return koraki;
     }
@@ -158,10 +189,13 @@ public class Recept {
         this.koraki = koraki;
     }
 
+    public List<KategorijaSkupno> getPrehranskeOmejitve() {
+        return prehranskeOmejitve;
+    }
 
-
-    @OneToMany(mappedBy = "recept", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ReceptSestavine> sestavine;
+    public void setPrehranskeOmejitve(List<KategorijaSkupno> prehranskeOmejitve) {
+        this.prehranskeOmejitve = prehranskeOmejitve;
+    }
 
     public List<ReceptSestavine> getSestavine() {
         return sestavine;
@@ -169,14 +203,5 @@ public class Recept {
 
     public void setSestavine(List<ReceptSestavine> sestavine) {
         this.sestavine = sestavine;
-    }
-
-
-    public List<KategorijaSkupno> getPrehranskeOmejitve() {
-        return prehranskeOmejitve;
-    }
-
-    public void setPrehranskeOmejitve(List<KategorijaSkupno> prehranskeOmejitve) {
-        this.prehranskeOmejitve = prehranskeOmejitve;
     }
 }

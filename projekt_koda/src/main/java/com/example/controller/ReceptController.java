@@ -2,7 +2,10 @@ package com.example.controller;
 
 import com.example.model.Recept;
 import com.example.model.KorakPostopka;
+import com.example.model.Sestavine;
+import com.example.repository.ReceptRepository;
 import com.example.service.ReceptService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,7 +43,7 @@ public class ReceptController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> getReceptDetails(@PathVariable Long id) {
+    public ResponseEntity<Map<String, Object>> getReceptDetails(@PathVariable Integer id) {
         return receptService.findById(id)
                 .map(recept -> {
                     Map<String, Object> receptDetails = new HashMap<>();
@@ -84,8 +87,37 @@ public class ReceptController {
 
     // API to delete a recipe
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteRecept(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteRecept(@PathVariable Integer id) {
         receptService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-}
+
+    @PostMapping("/seznam-nakupov")
+    public ResponseEntity<Map<String, Object>> generateShoppingList(@RequestBody Map<String, Object> requestBody) {
+        @SuppressWarnings("unchecked")
+        List<Integer> receptIds = (List<Integer>) requestBody.get("receptIds");
+        Integer steviloOseb = (Integer) requestBody.get("steviloOseb");
+
+        // Validacija vhodnih podatkov
+        if (receptIds == null || steviloOseb == null || steviloOseb <= 0) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Neveljavni podatki v zahtevi"));
+        }
+
+        // Klic metode iz servisa
+        List<Map<String, Object>> seznamNakupov = receptService.generateShoppingList(receptIds, steviloOseb);
+
+        // Oblikovanje odgovora
+        return ResponseEntity.ok(Map.of("seznamNakupov", seznamNakupov));
+    }
+            @Autowired
+        private ReceptRepository receptRepository;
+
+        @GetMapping("/seznam")
+        public List<Recept> vrniSeznam() {
+            // Vrnite vse recepte iz baze
+            return receptRepository.findAll();
+        }
+    }
+
+
+

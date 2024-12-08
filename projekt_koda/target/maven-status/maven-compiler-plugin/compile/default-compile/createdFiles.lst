@@ -8,9 +8,11 @@ com\example\controller\KomentarjiController.class
 com\example\model\VpisanUporabnik.class
 com\example\repository\PrehranskeOmejitveRepository.class
 com\example\service\ReceptService.class
+com\example\model\VpisanUporabnikDTO.class
 com\example\controller\ReceptController.class
 com\example\repository\KomentarjiRepository.class
 com\example\service\KomentarjiService.class
+com\example\controller\AdminController.class
 com\example\service\VpisanUporabnikService.class
 com\example\service\ReceptSestavineService.class
 com\example\repository\SestavineRepository.class

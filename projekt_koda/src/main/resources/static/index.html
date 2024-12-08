@@ -180,6 +180,14 @@
 <div class="container mt-4">
     <h1 class="text-center mb-4">Recepti</h1>
 
+
+    <button><a href="generate-shopping-list.html">GENERIRAJ SEZNAM</a></button>
+
+    <h3>Seznam nakupov</h3>
+    <ul id="shopping-list" class="list-group"></ul>
+
+
+
     <div class="filter-section">
         <label for="obrokFilter">Obrok:</label>
         <select id="obrokFilter" class="form-control d-inline-block w-auto">
@@ -306,6 +314,63 @@
                 receptiContainer.innerHTML = '<p class="text-center text-danger">Napaka pri nalaganju receptov. Poskusite znova pozneje.</p>';
             });
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Obdelava obrazca za generiranje nakupovalnega seznama
+        document
+            .getElementById("shopping-list-form")
+            .addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                // Preberi vrednosti iz obrazca
+                const receptIds = document
+                    .getElementById("selected-recept-ids")
+                    .value.split(",")
+                    .map((id) => parseInt(id.trim(), 10))
+                    .filter((id) => !isNaN(id));
+                const steviloOseb = parseInt(
+                    document.getElementById("shopping-servings").value,
+                    10
+                );
+
+                // Preveri veljavnost vhodnih podatkov
+                if (receptIds.length === 0 || isNaN(steviloOseb) || steviloOseb <= 0) {
+                    alert("Vnesite veljavne podatke za generiranje seznama.");
+                    return;
+                }
+
+                // Pošlji zahtevo na backend za generiranje seznama nakupov
+                fetch("http://localhost:8081/recepti/seznam-nakupov", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ receptIds, steviloOseb }),
+                })
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error("Napaka pri generiranju nakupovalnega seznama.");
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        // Prikaz nakupovalnega seznama
+                        const shoppingList = document.getElementById("shopping-list");
+                        shoppingList.innerHTML = ""; // Počisti obstoječi seznam
+
+                        data.seznamNakupov.forEach((item) => {
+                            const listItem = document.createElement("li");
+                            listItem.className = "list-group-item";
+                            listItem.textContent = `${item.kolicina.toFixed(2)} ${item.imeSestavine}`;
+                            shoppingList.appendChild(listItem);
+                        });
+                    })
+                    .catch((error) => {
+                        console.error("Napaka:", error);
+                        alert("Napaka pri generiranju nakupovalnega seznama.");
+                    });
+            });
+    });
 
 
 

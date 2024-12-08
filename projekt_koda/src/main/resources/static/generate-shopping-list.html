@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generiranje nakupovalnega seznama</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(to bottom, #f9f9f9, #ffffff);
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            color: #ff6f61;
+            font-weight: bold;
+        }
+
+        #shopping-list-container {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+
+        ul#shopping-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul#shopping-list li {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fefefe;
+            border-left: 5px solid #007bff;
+            border-radius: 4px;
+        }
+
+        ul#shopping-list li span {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        button {
+            margin-top: 10px;
+        }
+
+        .empty-list {
+            text-align: center;
+            color: #999;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Generiranje nakupovalnega seznama</h1>
+
+    <div id="recipe-list-container">
+        <h3>Izberite recepte:</h3>
+        <div id="recipe-list" class="d-flex flex-wrap"></div>
+    </div>
+
+    <div class="form-group mt-4">
+        <label for="num-people">Število oseb:</label>
+        <input type="number" id="num-people" class="form-control w-auto d-inline-block" min="1" placeholder="Vnesite število oseb">
+    </div>
+
+    <button id="generate-list" class="btn btn-primary btn-block">Generiraj nakupovalni seznam</button>
+
+    <div id="shopping-list-container" class="mt-4">
+        <h3>Nakupovalni seznam:</h3>
+        <ul id="shopping-list"></ul>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const recipeListContainer = document.getElementById("recipe-list");
+        const shoppingListContainer = document.getElementById("shopping-list-container");
+        const shoppingList = document.getElementById("shopping-list");
+        const generateListButton = document.getElementById("generate-list");
+        const numPeopleInput = document.getElementById("num-people");
+
+        const apiBase = "http://localhost:8081"; // Prilagodite URL, če je potrebno
+
+        // Pridobi recepte z backenda
+        fetch(`${apiBase}/recepti`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length === 0) {
+                    recipeListContainer.innerHTML = "<p class='text-danger'>Ni razpoložljivih receptov.</p>";
+                } else {
+                    renderRecipes(data);
+                }
+            })
+            .catch(error => {
+                console.error("Napaka pri nalaganju receptov:", error);
+                recipeListContainer.innerHTML = "<p class='text-danger'>Napaka pri nalaganju receptov.</p>";
+            });
+
+        function renderRecipes(recipes) {
+            recipes.forEach(recipe => {
+                const card = document.createElement("div");
+                card.className = "card m-2 p-2";
+                card.style.width = "18rem";
+
+                card.innerHTML = `
+                    <div class="card-body">
+                        <h5 class="card-title">${recipe.naziv}</h5>
+                        <p class="card-text">Čas priprave: ${recipe.pripravaMinute} minut</p>
+                        <button class="btn btn-outline-primary select-recipe" data-id="${recipe.idRecept}">Izberi</button>
+                    </div>
+                `;
+                recipeListContainer.appendChild(card);
+            });
+
+            // Dodajanje dogodkov na gumbe
+            document.querySelectorAll(".select-recipe").forEach(button => {
+                button.addEventListener("click", function () {
+                    this.classList.toggle("btn-primary");
+                    this.classList.toggle("btn-outline-primary");
+                    this.textContent = this.classList.contains("btn-primary") ? "Izbran" : "Izberi";
+                });
+            });
+        }
+
+        // Generiranje nakupovalnega seznama
+        generateListButton.addEventListener("click", function () {
+            const selectedRecipes = Array.from(document.querySelectorAll(".select-recipe.btn-primary"))
+                .map(button => parseInt(button.getAttribute("data-id"), 10));
+            const numPeople = parseInt(numPeopleInput.value, 10);
+
+            if (selectedRecipes.length === 0) {
+                alert("Izberite vsaj en recept.");
+                return;
+            }
+
+            if (isNaN(numPeople) || numPeople <= 0) {
+                alert("Vnesite veljavno število oseb.");
+                return;
+            }
+
+            fetch(`${apiBase}/recepti/seznam-nakupov`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ receptIds: selectedRecipes, steviloOseb: numPeople })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    renderShoppingList(data.seznamNakupov || []);
+                })
+                .catch(error => {
+                    console.error("Napaka pri generiranju nakupovalnega seznama:", error);
+                    shoppingListContainer.innerHTML = "<p class='text-danger'>Napaka pri generiranju nakupovalnega seznama.</p>";
+                });
+        });
+
+        function renderShoppingList(items) {
+            shoppingList.innerHTML = "";
+            if (items.length === 0) {
+                shoppingList.innerHTML = "<li class='empty-list'>Seznam je prazen.</li>";
+                return;
+            }
+
+            items.forEach(item => {
+                const listItem = document.createElement("li");
+                listItem.innerHTML = `<span>${item.imeSestavine}:</span> ${item.kolicina}`;
+                shoppingList.appendChild(listItem);
+            });
+        }
+    });
+</script>
+</body>
+</html>
