@@ -1,4 +1,4 @@
-/*
+
 package com.example.service;
 
 import com.example.model.Recept;
@@ -60,10 +60,10 @@ class ReceptServiceTest {
         // Simulacija prazne baze
         when(receptRepository.findAll()).thenReturn(Collections.emptyList());
 
-        // Klic metode
+        // poklicem metodo
         List<Recept> result = receptService.findAll();
 
-        // Preverjanje rezultatov
+        // preverim rezultate
         assertNotNull(result);
         assertTrue(result.isEmpty());
         verify(receptRepository, times(1)).findAll();
@@ -72,34 +72,33 @@ class ReceptServiceTest {
     @Test
     @DisplayName("Pozitivni scenarij: Prikaz podrobnosti recepta")
     void testFindReceptById_Positive() {
-        // Priprava podatkov
+        // pripravimo podatke
         Recept recept = new Recept();
         recept.setIdRecept(1);
         recept.setNaziv("Recept 1");
 
-        when(receptRepository.findById(1L)).thenReturn(Optional.of(recept));
+        when(receptRepository.findById(1)).thenReturn(Optional.of(recept));
 
         // Klic metode
-        Optional<Recept> result = receptService.findById(1L);
+        Optional<Recept> result = receptService.findById(1);
 
-        // Preverjanje rezultatov
+        //  rezultati
         assertTrue(result.isPresent());
         assertEquals("Recept 1", result.get().getNaziv());
-        verify(receptRepository, times(1)).findById(1L);
+        verify(receptRepository, times(1)).findById(1);
     }
 
     @Test
     @DisplayName("Negativni scenarij: Recept ni najden")
     void testFindReceptById_Negative() {
         // Simulacija manjkajočega recepta
-        when(receptRepository.findById(1L)).thenReturn(Optional.empty());
+        when(receptRepository.findById(1)).thenReturn(Optional.empty());
 
-        // Klic metode
-        Optional<Recept> result = receptService.findById(1L);
+        //  metodo klicem
+        Optional<Recept> result = receptService.findById(1);
 
-        // Preverjanje rezultatov
+        // rezultati
         assertFalse(result.isPresent());
-        verify(receptRepository, times(1)).findById(1L);
+        verify(receptRepository, times(1)).findById(1);
     }
 }
-*/

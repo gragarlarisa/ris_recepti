@@ -30,28 +30,16 @@
 ---
 
 ### Testi za funkcionalnost:
-1. **Test: ` `**
+Povzetek testov:
+* Pozitivni test (prikaz podrobnosti uporabnika):
 
-    - **Opis:** 
-    - **Pomembnost:** 
+Preverja, ali metoda findById v VpisanUporabnikService pravilno vrne uporabnika, če je ta najden v repozitoriju. Test je uspel, ker je bila vrnjena pravilna uporabnikova elektronska pošta.
 
-2. **Test: ` `**
 
-    - **Opis:** 
-    - **Pomembnost:** 
+* Negativni test (uporabnik ni najden):
 
-### Testi za funkcionalnost:
-1. **Test: ` `**
+Preverja, ali metoda findById v VpisanUporabnikService vrne prazen rezultat (Optional.empty()), če uporabnik ni najden v repozitoriju. Test je uspel, ker je metoda pravilno vrnila prazen rezultat.
 
-    - **Opis:**
-    - **Pomembnost:**
-
-2. **Test: ` `**
-
-    - **Opis:**
-    - **Pomembnost:**
-    - 
-* Anotacije:
 ---
 
 ### Testi za funkcionalnost:
@@ -81,20 +69,16 @@
 
 ## Imena članov skupine in odgovornosti
 
-| Član skupine | Odgovoren za teste            |
-|--------------|-------------------------------|
-| Maida Ćivić  | `testFindAllRecepti_Positive` |
-| Maida Ćivić  | `testFindAllRecepti_Negative` |
-| Maida Ćivić  | `testFindReceptById_Positive` |
-| Maida Ćivić  | `testFindReceptById_Negative` |
-|              | ` `                           |
-|              | ` `                           |
-|              | ` `                           |
-|              | ` `                           |
-|              | ` `                           |
-|              | ` `                           |
-|              | ` `                           |
-|              | ` `                           |
+| Član skupine  | Odgovoren za teste              |
+|---------------|---------------------------------|
+| Maida Ćivić   | `testFindAllRecepti_Positive`   |
+| Maida Ćivić   | `testFindAllRecepti_Negative`   |
+| Maida Ćivić   | `testFindReceptById_Positive`   |
+| Maida Ćivić   | `testFindReceptById_Negative`   |
+| Jurij Dumić   | `testUporabnikNajden_Positive`  |
+| Jurij Dumić   | `testUporabnikNajden_Negative ` |
+| Larisa Gragar | `testCreateRecept_Positive`     |
+| Larisa Gragar | `testCreateRecept_Negative`     |
 
 ---
 

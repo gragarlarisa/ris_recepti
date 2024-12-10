@@ -15,8 +15,8 @@ Nalogo smo razdelili na manjše specifične in merljive naloge ter vsaki dodelil
 | API za generiranje seznama na podlagi receptov in števila oseb         | 8                            | Done  |
 | Integracija z obstoječim sistemom za upravljanje receptov              | 5                            | Done   |
 | UI za prikaz personaliziranega seznama nakupov                         | 5                            | Done   |
-| Testiranje generiranja seznama nakupov                                 | 3                            | Doing   |
-| Dokumentacija funkcionalnosti in procesov                             | 2                            | Doing   |
+| Testiranje generiranja seznama nakupov                                 | 3                            | Done   |
+| Dokumentacija funkcionalnosti in procesov                             | 2                            | Done   |
 
 ---
 
@@ -53,3 +53,14 @@ Nalogo smo razdelili na manjše specifične in merljive naloge ter vsaki dodelil
 
 ## Sklep
 Trenutno smo v fazi načrtovanja in razdelitve nalog. Naloge so jasno definirane in razporejene med člane ekipe. Implementacija bo sledila Scrum metodologiji, kjer bomo redno spremljali napredek na GitHub tabli in posodabljali stanje nalog.
+
+Sklep o stanju in poteku
+Implementacija personaliziranih seznamov nakupov je uspešno zaključena. Vse naloge so bile izvedene po načrtu in označene kot zaključene.
+
+Ključni dosežki:
+Naloge smo razdelili, ocenili in sledili njihovemu napredku prek projektne table na GitHubu.
+Model in API za sezname nakupov sta bila integrirana z obstoječim sistemom za upravljanje receptov.
+Razvit je bil preprost in pregleden uporabniški vmesnik za prikaz seznamov nakupov.
+Testiranje je potrdilo pravilno delovanje sistema, vključno z obravnavo napak.
+Dokumentacija za funkcionalnost in procese je pripravljena.
+Projekt je zaključen skladno z načrtom in izpolnjuje zahteve uporabniške zgodbe.
