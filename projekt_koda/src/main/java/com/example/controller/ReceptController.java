@@ -1,4 +1,5 @@
 package com.example.controller;
+
 import com.example.model.Recept;
 import com.example.model.KorakPostopka;
 import com.example.model.Sestavine;
@@ -108,15 +109,12 @@ public class ReceptController {
         // Oblikovanje odgovora
         return ResponseEntity.ok(Map.of("seznamNakupov", seznamNakupov));
     }
-            @Autowired
-        private ReceptRepository receptRepository;
+    @Autowired
+    private ReceptRepository receptRepository;
 
-        @GetMapping("/seznam")
-        public List<Recept> vrniSeznam() {
-            // Vrnite vse recepte iz baze
-            return receptRepository.findAll();
-        }
+    @GetMapping("/seznam")
+    public List<Recept> vrniSeznam() {
+        // Vrnite vse recepte iz baze
+        return receptRepository.findAll();
     }
-
-
-
+}

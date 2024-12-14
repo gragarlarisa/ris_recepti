@@ -50,4 +50,9 @@ public class VpisanUporabnikService {
                         && user.getAdministrator()) // Checks if the user is an administrator
                 .findFirst();
     }
+
+    // Dodana metoda za pronalaženje korisnika po emailu
+    public Optional<VpisanUporabnik> findByUsername(String email) {
+        return vpisanUporabnikRepository.findByElektronskiNaslov(email);
+    }
 }

@@ -182,7 +182,6 @@
 </head>
 <body>
 
-
 <div class="container mt-4">
 
     <h1 id="naziv" class="text-center mb-4"></h1>
@@ -201,26 +200,35 @@
 
     <h2>Koraki</h2>
     <ol id="koraki-list"></ol>
+
+    <!-- Gumbi za povratak na popis recepata in za pregled historije -->
+    <a href="index.html" class="btn btn-secondary back-button">Nazaj na recepti</a>
+    <a href="history.html" class="btn btn-info history-button">Poglej Historijo</a>
 </div>
 
-
 <script>
-
     document.addEventListener("DOMContentLoaded", function () {
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get("id");
-        const url = `http://localhost:8081/recepti/${id}`;
+
+        if (!id) {
+            document.body.innerHTML = `<p style="text-align:center;color:red;">Neveljaven ID recepta.</p>`;
+            return;
+        }
+
+        // API URL za dohvaćanje podataka recepta
+        const apiUrl = `http://localhost:8081/recepti/${id}`;
         let originalIngredients = [];
         let initialServings = null;
 
-        fetch(url)
-            .then((response) => {
+        fetch(apiUrl)
+            .then(response => {
                 if (!response.ok) {
                     throw new Error("Napaka pri nalaganju recepta.");
                 }
                 return response.json();
             })
-            .then((data) => {
+            .then(data => {
                 console.log("Prejeti podatki:", data);
 
                 // Extract the initial servings and ingredients
@@ -235,8 +243,16 @@
 
                 updateIngredients(initialServings);
                 updateSteps(data.koraki); // Call to update the steps
+
+                // Dodaj recept v historijo
+                addToHistory({
+                    idRecept: data.idRecept,
+                    naziv: data.naziv,
+                    slika: data.slika,
+                    viewedAt: new Date().toISOString()
+                });
             })
-            .catch((error) => {
+            .catch(error => {
                 console.error("Napaka:", error);
                 document.body.innerHTML =
                     "<p class='text-danger'>Napaka pri nalaganju recepta.</p>";
@@ -261,7 +277,7 @@
                 const adjustedQuantity =
                     ingredient.quantity !== null
                         ? (ingredient.quantity / initialServings * newServings).toFixed(2)
-                        : null;
+                        : "";
 
                 // Create a new list item for the ingredient
                 const listItem = document.createElement("li");
@@ -297,10 +313,34 @@
                 name: parts[3] || "",
             };
         }
+
+        // Funkcija za dodajanje recepta v Local Storage
+        function addToHistory(recept) {
+            // Dohvati trenutno historijo iz Local Storage
+            let history = JSON.parse(localStorage.getItem('receptHistory')) || [];
+
+            // Preveri, ali je recept že v historiji
+            const existingIndex = history.findIndex(item => item.idRecept === recept.idRecept);
+
+            if (existingIndex !== -1) {
+                // Odstrani obstoječi vnos
+                history.splice(existingIndex, 1);
+            }
+
+            // Dodaj recept na začetek liste
+            history.unshift(recept);
+
+            // Omeji historijo na zadnjih 10 receptov
+            if (history.length > 10) {
+                history.pop();
+            }
+
+            // Shrani ažurirano historijo nazaj v Local Storage
+            localStorage.setItem('receptHistory', JSON.stringify(history));
+        }
     });
-
-
-
 </script>
+</div>
+
 </body>
 </html>

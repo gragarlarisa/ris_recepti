@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        /* Global Styles */
+
         body {
             font-family: 'Roboto', Arial, sans-serif;
             background: linear-gradient(to bottom, #ffefd5, #ffffff);
@@ -16,7 +16,6 @@
             padding: 0;
         }
 
-        /* Container Styling */
         .container {
             max-width: 850px;
             margin: 40px auto;
@@ -49,7 +48,6 @@
             margin-top: 40px;
         }
 
-        /* Text */
         p {
             font-size: 18px;
             line-height: 1.6;
@@ -57,10 +55,9 @@
             color: #555;
         }
 
-        /* Recipe Image */
         img {
             display: block;
-            width: 60%; /* Reduced width for better responsiveness */
+            width: 60%;
             height: auto;
             margin: 20px auto;
             border-radius: 16px;
@@ -75,7 +72,6 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
 
-        /* Lists */
         ul#sestavine-list, ol#koraki-list {
             padding: 0;
             margin: 20px 0;
@@ -97,7 +93,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
 
-        /* Servings and Button */
+
         .mb-3 {
             display: flex;
             justify-content: space-between;
@@ -138,14 +134,13 @@
             background: #e94e3e;
         }
 
-        /* Error Message */
+
         .text-danger {
             color: #ff0000;
             font-weight: bold;
             text-align: center;
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             h1 {
                 font-size: 28px;
@@ -182,7 +177,6 @@
 </head>
 <body>
 
-
 <div class="container mt-4">
 
     <h1 id="naziv" class="text-center mb-4"></h1>
@@ -201,33 +195,38 @@
 
     <h2>Koraki</h2>
     <ol id="koraki-list"></ol>
+
+    <a href="index.html" class="btn btn-secondary back-button">Nazaj na recepti</a>
+    <a href="history.html" class="btn btn-info history-button">Poglej zgodovino receptov</a>
 </div>
 
-
 <script>
-
     document.addEventListener("DOMContentLoaded", function () {
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get("id");
-        const url = `http://localhost:8081/recepti/${id}`;
+
+        if (!id) {
+            document.body.innerHTML = `<p style="text-align:center;color:red;">Neveljaven ID recepta.</p>`;
+            return;
+        }
+
+        const apiUrl = `http://localhost:8081/recepti/${id}`;
         let originalIngredients = [];
         let initialServings = null;
 
-        fetch(url)
-            .then((response) => {
+        fetch(apiUrl)
+            .then(response => {
                 if (!response.ok) {
                     throw new Error("Napaka pri nalaganju recepta.");
                 }
                 return response.json();
             })
-            .then((data) => {
+            .then(data => {
                 console.log("Prejeti podatki:", data);
 
-                // Extract the initial servings and ingredients
                 initialServings = data.steviloOseb || 1;
                 originalIngredients = data.sestavine.map(parseIngredient);
 
-                // Populate the page with the recipe data
                 document.getElementById("naziv").textContent = data.naziv;
                 document.getElementById("slika").src = data.slika;
                 document.getElementById("opis").textContent = data.opis;
@@ -235,14 +234,20 @@
 
                 updateIngredients(initialServings);
                 updateSteps(data.koraki); // Call to update the steps
+
+                addToHistory({
+                    idRecept: data.idRecept,
+                    naziv: data.naziv,
+                    slika: data.slika,
+                    viewedAt: new Date().toISOString()
+                });
             })
-            .catch((error) => {
+            .catch(error => {
                 console.error("Napaka:", error);
                 document.body.innerHTML =
                     "<p class='text-danger'>Napaka pri nalaganju recepta.</p>";
             });
 
-        // Add event listener for the recalculate button
         document.getElementById("calculate-button").addEventListener("click", function () {
             const newServings = parseInt(document.getElementById("servings").value, 10);
             if (isNaN(newServings) || newServings <= 0) {
@@ -257,13 +262,11 @@
             ingredientsList.innerHTML = "";
 
             originalIngredients.forEach((ingredient) => {
-                // Recalculate the quantity
                 const adjustedQuantity =
                     ingredient.quantity !== null
                         ? (ingredient.quantity / initialServings * newServings).toFixed(2)
-                        : null;
+                        : "";
 
-                // Create a new list item for the ingredient
                 const listItem = document.createElement("li");
                 listItem.textContent = `${adjustedQuantity || ""} ${ingredient.unit || ""} ${ingredient.name}`;
                 ingredientsList.appendChild(listItem);
@@ -282,7 +285,6 @@
         }
 
         function parseIngredient(ingredient) {
-            // Use regex to parse the ingredient string into components
             const regex = /^([\d.,]+)?\s*([\wčšž]*)\s*(.+)$/i;
             const parts = ingredient.match(regex);
 
@@ -297,10 +299,27 @@
                 name: parts[3] || "",
             };
         }
+
+        function addToHistory(recept) {
+            let history = JSON.parse(localStorage.getItem('receptHistory')) || [];
+
+            const existingIndex = history.findIndex(item => item.idRecept === recept.idRecept);
+
+            if (existingIndex !== -1) {
+                history.splice(existingIndex, 1);
+            }
+
+            history.unshift(recept);
+
+            if (history.length > 10) {
+                history.pop();
+            }
+
+            localStorage.setItem('receptHistory', JSON.stringify(history));
+        }
     });
-
-
-
 </script>
+</div>
+
 </body>
 </html>

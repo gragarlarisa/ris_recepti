@@ -105,11 +105,4 @@ public class VpisanUporabnik {
         this.recepti = recepti;
     }
 
-    public List<Komentarji> getKomentarji() {
-        return komentarji;
-    }
-
-    public void setKomentarji(List<Komentarji> komentarji) {
-        this.komentarji = komentarji;
-    }
 }

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zgodovina ogledov</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(to bottom, #fdfcfb, #e2d1c3);
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            margin: 20px auto;
+            max-width: 1200px;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ff7043;
+            text-align: center;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .recept-history-entry {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            background-color: #f9f9f9;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .recept-history-entry:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .recept-history-entry img {
+            width: 150px;
+            height: auto;
+            border-radius: 12px;
+            margin-right: 20px;
+            border: 2px solid #ff7043;
+            object-fit: cover;
+        }
+
+        .recept-info {
+            flex: 1;
+        }
+
+        .recept-info h3 {
+            margin: 0 0 10px 0;
+            color: #ff7043;
+        }
+
+        .recept-info p {
+            margin: 0 0 10px 0;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .recept-info a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .recept-info a:hover {
+            text-decoration: underline;
+        }
+
+        .back-button, .clear-button {
+            background: #ff7043;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .back-button:hover, .clear-button:hover {
+            background-color: #e65c36;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-button:active, .clear-button:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .clear-button {
+            background-color: #dc3545;
+        }
+
+        .clear-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Zgodovina ogledov</h1>
+    <div id="historyList">
+        <!-- Dinamično vstavljena vsebina -->
+    </div>
+    <button class="back-button" onclick="window.history.back()">Nazaj</button>
+    <button class="clear-button mt-3" onclick="clearHistory()">Izbriši zgodovino</button>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const historyList = document.getElementById("historyList");
+
+        const history = JSON.parse(localStorage.getItem('receptHistory')) || [];
+
+        if (history.length === 0) {
+            historyList.innerHTML = '<p class="text-center">Nimate pregledanih recepata.</p>';
+            return;
+        }
+
+        history.forEach(recept => {
+            const receptDiv = document.createElement("div");
+            receptDiv.classList.add("recept-history-entry");
+
+            const img = document.createElement("img");
+            img.src = recept.slika || "https://via.placeholder.com/150"; // Placeholder slika, če recept nima slike
+            img.alt = recept.naziv;
+
+            const infoDiv = document.createElement("div");
+            infoDiv.classList.add("recept-info");
+
+            const naziv = document.createElement("h3");
+            naziv.textContent = recept.naziv;
+
+            const viewedAt = document.createElement("p");
+            const date = new Date(recept.viewedAt);
+            if (isNaN(date)) {
+                viewedAt.textContent = `Ogledano: Nepoznan datum`;
+            } else {
+                viewedAt.textContent = `Ogledano: ${date.toLocaleString()}`;
+            }
+
+            const link = document.createElement("a");
+            link.href = `podrobnostiRecepta.html?id=${recept.idRecept}`;
+            link.textContent = 'Poglej Recept';
+
+            // Dodaj elemente v infoDiv
+            infoDiv.appendChild(naziv);
+            infoDiv.appendChild(viewedAt);
+            infoDiv.appendChild(link);
+
+            receptDiv.appendChild(img);
+            receptDiv.appendChild(infoDiv);
+
+            historyList.appendChild(receptDiv);
+        });
+    });
+
+    function clearHistory() {
+        if (confirm("Ste prepričani, da želite izbrisati zgodovino receptov?")) {
+            localStorage.removeItem('receptHistory');
+            const historyList = document.getElementById("historyList");
+            historyList.innerHTML = '<p class="text-center">Zgodovina je prazna.</p>';
+        }
+    }
+</script>
+</body>
+</html>

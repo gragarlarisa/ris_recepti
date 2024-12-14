@@ -27,7 +27,7 @@ class ReceptServiceTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this); // Inicializacija Mockito objektov
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test

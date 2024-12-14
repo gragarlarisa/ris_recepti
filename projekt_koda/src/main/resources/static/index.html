@@ -11,102 +11,121 @@
         /* Global styles */
         body {
             font-family: 'Roboto', Arial, sans-serif;
-            background: linear-gradient(to bottom, #ffecd2, #fcb69f);
+            background: linear-gradient(to bottom, #fdfcfb, #e2d1c3);
             margin: 0;
             padding: 0;
             color: #333;
+            line-height: 1.6;
         }
 
         .container {
             margin: 20px auto;
             max-width: 1200px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: bold;
-            color: #ff6f61;
+            color: #ff7043;
             text-align: center;
+            margin-bottom: 40px;
             text-transform: uppercase;
-            margin-bottom: 30px;
-            border-bottom: 3px solid #ff6f61;
-            display: inline-block;
-            padding-bottom: 10px;
+            letter-spacing: 2px;
         }
 
         h5 {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             font-weight: bold;
-            color: #333;
+            color: #555;
         }
 
         .card {
             border: none;
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background-color: #fff;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
         }
 
         .card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
         }
 
         .card img {
-            border-bottom: 3px solid #ff6f61;
-            height: 300px;
+            border-bottom: 4px solid #ff7043;
+            height: 250px;
             object-fit: cover;
             width: 100%;
         }
 
         .card-body {
-            padding: 20px;
+            padding: 25px;
             text-align: center;
         }
 
         .card-title {
-            font-size: 1.5rem;
-            color: #ff6f61;
-            margin-bottom: 10px;
+            font-size: 1.75rem;
+            color: #ff7043;
+            margin-bottom: 15px;
         }
 
         .card-text {
             font-size: 1rem;
             color: #666;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .btn-primary {
-            background-color: #ff6f61;
+            background-color: #ff7043;
             border: none;
             border-radius: 50px;
-            padding: 10px 20px;
-            font-size: 1rem;
+            padding: 15px 30px;
+            font-size: 1.1rem;
             font-weight: bold;
             text-transform: uppercase;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            color: #fff;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .btn-primary:hover {
-            background-color: #e65950;
+            background-color: #e65c36;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-primary:active {
             transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        button {
+            margin: 10px auto;
+            display: block;
+            text-align: center;
+        }
+
+        button a {
+            text-decoration: none;
+            color: white;
         }
 
         .filter-section {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            gap: 20px;
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .filter-section label {
@@ -118,18 +137,18 @@
 
         .filter-section select {
             font-size: 1rem;
-            padding: 5px 10px;
+            padding: 10px 15px;
             border-radius: 5px;
             border: 1px solid #ddd;
             transition: border-color 0.3s ease;
         }
 
         .filter-section select:focus {
-            border-color: #ff6f61;
+            border-color: #ff7043;
             outline: none;
         }
 
-        .message-container, .dodaj_recept {
+        .message-container {
             font-size: 1.2rem;
             color: #e74c3c;
             font-weight: bold;
@@ -138,16 +157,43 @@
             background-color: #ffe6e6;
             border: 2px solid #e74c3c;
             border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .dodaj_recept {
+            font-size: 1.3rem;
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+            padding: 15px 30px;
+            background-color: #ff7043;
+            border-radius: 50px;
+            display: inline-block;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .dodaj_recept:hover {
+            background-color: #e65c36;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .dodaj_recept:active {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         /* Responsive design */
         @media (max-width: 768px) {
             .container {
-                padding: 15px;
+                padding: 20px;
             }
 
             h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
             .card img {
@@ -155,22 +201,51 @@
             }
 
             .card-title {
-                font-size: 1.25rem;
+                font-size: 1.5rem;
             }
 
             .card-text {
-                font-size: 0.9rem;
+                font-size: 0.95rem;
             }
 
             .filter-section {
                 flex-direction: column;
-                gap: 10px;
+                gap: 15px;
             }
 
             .btn-primary {
-                font-size: 0.9rem;
-                padding: 8px 15px;
+                font-size: 1rem;
+                padding: 12px 25px;
             }
+
+            .dodaj_recept {
+                font-size: 1.1rem;
+                padding: 12px 25px;
+            }
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .action-buttons a, .action-buttons button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .action-buttons a:hover, .action-buttons button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            margin:auto;
         }
 
 
@@ -180,13 +255,20 @@
 <div class="container mt-4">
     <h1 class="text-center mb-4">Recepti</h1>
 
-
-    <button><a href="generate-shopping-list.html">GENERIRAJ SEZNAM</a></button>
+    <div class="action-buttons text-center mb-4">
+        <a href="generate-shopping-list.html" class="btn btn-primary btn-lg mx-2">
+            <i class="bi bi-list-check"></i> Generiraj seznam
+        </a>
+        <a href="dodaj_recept.html" class="btn btn-success btn-lg mx-2">
+            <i class="bi bi-plus-circle"></i> Dodaj recept
+        </a>
+        <button class="btn btn-info btn-lg mx-2 history-button" onclick="window.location.href='history.html'">
+            <i class="bi bi-clock-history"></i> Zgodovina ogledov
+        </button>
+    </div>
 
     <h3>Seznam nakupov</h3>
     <ul id="shopping-list" class="list-group"></ul>
-
-
 
     <div class="filter-section">
         <label for="obrokFilter">Obrok:</label>
@@ -220,10 +302,9 @@
     </div>
 
     <div id="message-container" class="message-container">Ni receptov za prikaz.</div>
-    <a href="dodaj_recept.html" class="btn dodaj_recept">Dodaj recept</a>
-
     <div id="recepti-container" class="row"></div>
 </div>
+
 
 <script>
 
