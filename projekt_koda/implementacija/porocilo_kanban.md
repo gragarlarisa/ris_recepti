@@ -24,6 +24,7 @@ Kot ekipa razvijamo aplikacijo za upravljanje receptov, ki uporabnikom omogoča:
 - **Maida Ćivić** – Product Owner, odgovoren za komunikacijo s strankami in posodabljanje zahtev.
 
 ## Kanban tabla
+
 Kanban tabla je prikazana na našem git-u.
 
 ### Upravljanje nalog
@@ -31,24 +32,23 @@ Kanban tabla je prikazana na našem git-u.
 - **Razdelitelili smo funkcionalnosti na manjše naloge:**
 
 - **Definiranje prioritet:**
-    - Uporabili smo oznake za prioritete:
-        - **Visoka**
-        - **Srednja**
-        - **Nizka**
-
+  - Uporabili smo oznake za prioritete:
+    - **Visoka**
+    - **Srednja**
+    - **Nizka**
 
 ### Sledenje napredku
 
 - **Beleženje napredka na Kanban tabli:**
-    - Sproti premikamo naloge med stolpci **To Do**, **In Progress** in **Done**.
-    - Upoštevamo načela Kanbana za učinkovito upravljanje nalog.
+  - Sproti premikamo naloge med stolpci **To Do**, **In Progress** in **Done**.
+  - Upoštevamo načela Kanbana za učinkovito upravljanje nalog.
 
 ### Komunikacija in prilagajanje
 
 - **Sodelovanje s asistenti:**
-    - Product Owner je bil odgovoren za komunikacijo z asistenti preko  **e-maila**.
-    - Asistenta sta nas tekom tedna kontaktirala za pregled stanja in morebitne popravke.
-    - Prilagodili smo razvoj na podlagi povratnih informacij in sprememb zahtev.
+  - Product Owner je bil odgovoren za komunikacijo z asistenti preko **e-maila**.
+  - Asistenta sta nas tekom tedna kontaktirala za pregled stanja in morebitne popravke.
+  - Prilagodili smo razvoj na podlagi povratnih informacij in sprememb zahtev.
 
 ## Funkcionalnosti
 
@@ -67,13 +67,20 @@ Kanban tabla je prikazana na našem git-u.
 
 ### 2. Vpogled v pogostost uporabe določenih sestavin
 
-**Razvijalec**:
+**Razvijalec**: Jurij Dumić
 
-**Opis**: 
+**Opis**: Implementirali smo funkcionalnost vpogleda v pogostost uporabe sestavin, ki omogoča uporabnikom, da si ogledajo seznam sestavin, ki so bile uporabljene v receptih, ki jih je uporabnik že pregledal. Funkcionalnost samodejno zbira in prikaže sestavine, vključno z njihovimi količinami in enotami (npr. gram, kos, žlica), ter število pojavitev posamezne sestavine v zgodovini receptov.
+
+Ključne značilnosti:
+
+Seznam sestavin – Prikazuje vse sestavine, ki so bile uporabljene v pregledanih receptih, skupaj z njihovimi količinami in enotami.
+Količine in enote – Sešteje in prikaže skupno količino vsake sestavine v ustrezni enoti (npr. 500g piščančjega fileja, 3 žlice olja).
+Pogostost uporabe sestavin – Prikazuje, koliko receptov vsebuje določeno sestavino.
+Dinamično posodabljanje – Ko uporabnik ogleda nov recept, se pogostost in količine sestavin samodejno posodobijo.
+Vizualno prijazen dizajn – Seznam sestavin je predstavljen v pregledni tabeli, ki vključuje količino, ime sestavine in njeno pogostost.
 
 ### 3. Predlaganje receptov glede na pogostost sestavin preteklih receptov
 
-**Razvijalec**: 
+**Razvijalec**:
 
-**Opis**: 
-
+**Opis**:
