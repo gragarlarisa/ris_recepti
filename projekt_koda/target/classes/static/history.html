@@ -24,6 +24,20 @@
             background-color: #ffffff;
             border-radius: 15px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            display: flex;
+        }
+
+        .left-section {
+            flex: 2;
+            margin-right: 20px;
+        }
+
+        .right-section {
+            flex: 1;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
@@ -121,33 +135,87 @@
         .clear-button:hover {
             background-color: #c82333;
         }
+
+        .ingredient-list {
+            margin-top: 20px;
+        }
+
+        .ingredient-list table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .ingredient-list th, .ingredient-list td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        .ingredient-list th {
+            background-color: #f4f4f4;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .ingredient-list td {
+            background-color: #fafafa;
+        }
+
+        .ingredient-list tr:hover {
+            background-color: #f0f0f0;
+        }
+
+        .ingredient-list td:first-child {
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>Zgodovina ogledov</h1>
-    <div id="historyList">
-        <!-- Dinamično vstavljena vsebina -->
+    <div class="left-section">
+        <h1>Zgodovina ogledov</h1>
+        <div id="historyList">
+            <!-- Dinamično vstavljena vsebina -->
+        </div>
+        <button class="back-button" onclick="window.history.back()">Nazaj</button>
+        <button class="clear-button mt-3" onclick="clearHistory()">Izbriši zgodovino</button>
     </div>
-    <button class="back-button" onclick="window.history.back()">Nazaj</button>
-    <button class="clear-button mt-3" onclick="clearHistory()">Izbriši zgodovino</button>
+    <div class="right-section">
+        <h2>Pogostost sestavin</h2>
+        <div class="ingredient-list">
+            <table id="ingredient-table">
+                <thead>
+                    <tr>
+                        <th>Količina</th>
+                        <th>Sestavina</th>
+                        <th>Pogostost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dinamično generirani podatki -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const historyList = document.getElementById("historyList");
+        const ingredientTableBody = document.querySelector("#ingredient-table tbody");
 
         const history = JSON.parse(localStorage.getItem('receptHistory')) || [];
 
         if (history.length === 0) {
-            historyList.innerHTML = '<p class="text-center">Nimate pregledanih recepata.</p>';
+            historyList.innerHTML = '<p class="text-center">Nimate pregledanih receptek.</p>';
             return;
         }
 
-        history.forEach(recept => {
-            const receptDiv = document.createElement("div");
-            receptDiv.classList.add("recept-history-entry");
+        // Združi sestavine iz vseh receptov v zgodovini
+        const ingredientCounts = {};
 
+        history.forEach(recept => {
             const img = document.createElement("img");
             img.src = recept.slika || "https://via.placeholder.com/150"; // Placeholder slika, če recept nima slike
             img.alt = recept.naziv;
@@ -160,11 +228,7 @@
 
             const viewedAt = document.createElement("p");
             const date = new Date(recept.viewedAt);
-            if (isNaN(date)) {
-                viewedAt.textContent = `Ogledano: Nepoznan datum`;
-            } else {
-                viewedAt.textContent = `Ogledano: ${date.toLocaleString()}`;
-            }
+            viewedAt.textContent = `Ogledano: ${date.toLocaleString()}`;
 
             const link = document.createElement("a");
             link.href = `podrobnostiRecepta.html?id=${recept.idRecept}`;
@@ -175,11 +239,52 @@
             infoDiv.appendChild(viewedAt);
             infoDiv.appendChild(link);
 
+            const receptDiv = document.createElement("div");
+            receptDiv.classList.add("recept-history-entry");
             receptDiv.appendChild(img);
             receptDiv.appendChild(infoDiv);
-
             historyList.appendChild(receptDiv);
+
+            // Preberi sestavine recepta
+            fetch(`http://localhost:8081/recepti/${recept.idRecept}`)
+                .then(response => {
+                    if (!response.ok) throw new Error("Napaka pri pridobivanju recepta.");
+                    return response.json();
+                })
+                .then(receptData => {
+                    receptData.sestavine.forEach(sestavina => {
+                        const match = sestavina.match(/(\d+)\s*(\w+)?\s*(.*)/);
+                        if (match) {
+                            const quantity = parseInt(match[1], 10);
+                            const unit = match[2] || "kos"; // Default unit is "kos" (piece) if none provided
+                            const ingredient = match[3].toLowerCase().trim();
+
+                            // If ingredient is already in the object, add the quantity
+                            if (!ingredientCounts[ingredient]) {
+                                ingredientCounts[ingredient] = { quantity: 0, count: 0, unit: unit };
+                            }
+
+                            ingredientCounts[ingredient].quantity += quantity;
+                            ingredientCounts[ingredient].count++;
+                        }
+                    });
+
+                    // Posodobi seznam sestavin
+                    renderIngredientTable();
+                })
+                .catch(error => console.error("Napaka:", error));
         });
+
+        function renderIngredientTable() {
+            ingredientTableBody.innerHTML = Object.entries(ingredientCounts)
+                .map(([name, { quantity, count, unit }]) => `
+                    <tr>
+                        <td>${quantity} ${unit}</td>
+                        <td>${name}</td>
+                        <td>${count}</td>
+                    </tr>
+                `).join("");
+        }
     });
 
     function clearHistory() {

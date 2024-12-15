@@ -1,4 +1,3 @@
-/*
 
 package com.example.service;
 
@@ -202,5 +201,3 @@ class VpisanUporabnikServiceTest {
         verify(vpisanUporabnikRepository, times(1)).findAll();
     }
 }
-
-*/

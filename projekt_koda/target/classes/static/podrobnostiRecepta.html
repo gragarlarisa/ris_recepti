@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        /* Global Styles */
+
         body {
             font-family: 'Roboto', Arial, sans-serif;
             background: linear-gradient(to bottom, #ffefd5, #ffffff);
@@ -16,7 +16,6 @@
             padding: 0;
         }
 
-        /* Container Styling */
         .container {
             max-width: 850px;
             margin: 40px auto;
@@ -49,7 +48,6 @@
             margin-top: 40px;
         }
 
-        /* Text */
         p {
             font-size: 18px;
             line-height: 1.6;
@@ -57,10 +55,9 @@
             color: #555;
         }
 
-        /* Recipe Image */
         img {
             display: block;
-            width: 60%; /* Reduced width for better responsiveness */
+            width: 60%;
             height: auto;
             margin: 20px auto;
             border-radius: 16px;
@@ -75,7 +72,6 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
 
-        /* Lists */
         ul#sestavine-list, ol#koraki-list {
             padding: 0;
             margin: 20px 0;
@@ -97,7 +93,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
 
-        /* Servings and Button */
+
         .mb-3 {
             display: flex;
             justify-content: space-between;
@@ -138,14 +134,13 @@
             background: #e94e3e;
         }
 
-        /* Error Message */
+
         .text-danger {
             color: #ff0000;
             font-weight: bold;
             text-align: center;
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             h1 {
                 font-size: 28px;
@@ -201,9 +196,8 @@
     <h2>Koraki</h2>
     <ol id="koraki-list"></ol>
 
-    <!-- Gumbi za povratak na popis recepata in za pregled historije -->
     <a href="index.html" class="btn btn-secondary back-button">Nazaj na recepti</a>
-    <a href="history.html" class="btn btn-info history-button">Poglej Historijo</a>
+    <a href="history.html" class="btn btn-info history-button">Poglej zgodovino receptov</a>
 </div>
 
 <script>
@@ -216,7 +210,6 @@
             return;
         }
 
-        // API URL za dohvaćanje podataka recepta
         const apiUrl = `http://localhost:8081/recepti/${id}`;
         let originalIngredients = [];
         let initialServings = null;
@@ -231,11 +224,9 @@
             .then(data => {
                 console.log("Prejeti podatki:", data);
 
-                // Extract the initial servings and ingredients
                 initialServings = data.steviloOseb || 1;
                 originalIngredients = data.sestavine.map(parseIngredient);
 
-                // Populate the page with the recipe data
                 document.getElementById("naziv").textContent = data.naziv;
                 document.getElementById("slika").src = data.slika;
                 document.getElementById("opis").textContent = data.opis;
@@ -244,7 +235,6 @@
                 updateIngredients(initialServings);
                 updateSteps(data.koraki); // Call to update the steps
 
-                // Dodaj recept v historijo
                 addToHistory({
                     idRecept: data.idRecept,
                     naziv: data.naziv,
@@ -258,7 +248,6 @@
                     "<p class='text-danger'>Napaka pri nalaganju recepta.</p>";
             });
 
-        // Add event listener for the recalculate button
         document.getElementById("calculate-button").addEventListener("click", function () {
             const newServings = parseInt(document.getElementById("servings").value, 10);
             if (isNaN(newServings) || newServings <= 0) {
@@ -273,13 +262,11 @@
             ingredientsList.innerHTML = "";
 
             originalIngredients.forEach((ingredient) => {
-                // Recalculate the quantity
                 const adjustedQuantity =
                     ingredient.quantity !== null
                         ? (ingredient.quantity / initialServings * newServings).toFixed(2)
                         : "";
 
-                // Create a new list item for the ingredient
                 const listItem = document.createElement("li");
                 listItem.textContent = `${adjustedQuantity || ""} ${ingredient.unit || ""} ${ingredient.name}`;
                 ingredientsList.appendChild(listItem);
@@ -298,7 +285,6 @@
         }
 
         function parseIngredient(ingredient) {
-            // Use regex to parse the ingredient string into components
             const regex = /^([\d.,]+)?\s*([\wčšž]*)\s*(.+)$/i;
             const parts = ingredient.match(regex);
 
@@ -314,28 +300,21 @@
             };
         }
 
-        // Funkcija za dodajanje recepta v Local Storage
         function addToHistory(recept) {
-            // Dohvati trenutno historijo iz Local Storage
             let history = JSON.parse(localStorage.getItem('receptHistory')) || [];
 
-            // Preveri, ali je recept že v historiji
             const existingIndex = history.findIndex(item => item.idRecept === recept.idRecept);
 
             if (existingIndex !== -1) {
-                // Odstrani obstoječi vnos
                 history.splice(existingIndex, 1);
             }
 
-            // Dodaj recept na začetek liste
             history.unshift(recept);
 
-            // Omeji historijo na zadnjih 10 receptov
             if (history.length > 10) {
                 history.pop();
             }
 
-            // Shrani ažurirano historijo nazaj v Local Storage
             localStorage.setItem('receptHistory', JSON.stringify(history));
         }
     });
