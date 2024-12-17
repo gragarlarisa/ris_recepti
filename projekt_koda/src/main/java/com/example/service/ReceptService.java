@@ -3,7 +3,11 @@ package com.example.service;
 
 import com.example.model.Recept;
 import com.example.model.ReceptSestavine;
+import com.example.model.Sestavine;
+import com.example.model.KorakPostopka;
 import com.example.repository.ReceptRepository;
+import com.example.repository.SestavineRepository;
+import com.example.repository.KorakPostopkaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +16,33 @@ import java.util.stream.Collectors;
 
 @Service
 public class ReceptService {
-    private final ReceptRepository receptRepository;
 
-    public ReceptService(ReceptRepository receptRepository) {
+    private final ReceptRepository receptRepository;
+    private final SestavineRepository sestavineRepository;
+    private final KorakPostopkaRepository korakPostopkaRepository;
+
+    @Autowired
+    public ReceptService(ReceptRepository receptRepository, 
+                         SestavineRepository sestavineRepository, 
+                         KorakPostopkaRepository korakPostopkaRepository) {
         this.receptRepository = receptRepository;
+        this.sestavineRepository = sestavineRepository;
+        this.korakPostopkaRepository = korakPostopkaRepository;
+    }
+
+    // Shranjevanje recepta
+    public Recept save(Recept recept) {
+        return receptRepository.save(recept);
+    }
+
+    // Shranjevanje sestavine
+    public Sestavine saveSestavina(Sestavine sestavina) {
+        return sestavineRepository.save(sestavina);
+    }
+
+    // Shranjevanje koraka postopka
+    public KorakPostopka saveKorak(KorakPostopka korak) {
+        return korakPostopkaRepository.save(korak);
     }
 
     public List<Recept> findAll() {
@@ -26,16 +53,9 @@ public class ReceptService {
         return receptRepository.findById(id);
     }
 
-    public Recept save(Recept recept) {
-        return receptRepository.save(recept);
-    }
-
     public void deleteById(Integer id) {
         receptRepository.deleteById(id);
     }
-
-
-
     public List<Map<String, Object>> generateShoppingList(List<Integer> receptIds, int steviloOseb) {
         List<Recept> recepti = receptRepository.findAllById(receptIds);
 

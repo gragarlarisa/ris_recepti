@@ -7,10 +7,9 @@ import java.util.List;
 @Entity
 public class RegionalnaKuhinja {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_Regionalna_Kuhinja") // Popravite ime stolpca
+    @Column(name = "ID_Regionalna_Kuhinja")
     private Long id;
 
     private String naziv;
@@ -19,7 +18,16 @@ public class RegionalnaKuhinja {
     @JsonIgnore
     private List<Recept> recepti;
 
-    // Getterji in setterji
+    // Privzeti konstruktor
+    public RegionalnaKuhinja() {
+    }
+
+    // Konstruktor, ki sprejme String (če potrebujete)
+    public RegionalnaKuhinja(String naziv) {
+        this.naziv = naziv;
+    }
+
+    // Getterji in Setterji
     public Long getId() {
         return id;
     }

@@ -4,72 +4,124 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dodaj Recept</title>
-    <link rel="stylesheet" href="../../../../frontend/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
+        /* Global styles */
         body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-}
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(to bottom, #ffecd2, #fcb69f);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
 
-.container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+        .container {
+            margin: 30px auto;
+            max-width: 800px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
 
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
-}
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ff6f61;
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #ff6f61;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
 
-form label {
-    display: block;
-    margin-top: 10px;
-}
+        form label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+            color: #555;
+        }
 
-form input, form textarea, form button {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
+        form input, form textarea, form button, form select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
 
-form button {
-    background-color: #28a745;
-    color: white;
+        form input:focus, form select:focus, form textarea:focus {
+            border-color: #ff6f61;
+            outline: none;
+        }
+
+        form button {
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        form button:hover {
+            background-color: #e65950;
+            transform: translateY(-2px);
+        }
+
+        #addSestavina, #addKorak {
+    background-color: #ff6f61;
     border: none;
-    margin-top: 20px;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-form button:hover {
-    background-color: #218838;
+#addSestavina:hover, #addKorak:hover {
+    background-color: #e65950;
+    transform: translateY(-2px);
 }
 
-#addSestavina {
-    margin: 10px 0;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
+        .sestavina, .korak {
+            margin-bottom: 10px;
+            display: flex;
+            gap: 10px;
+        }
 
-#addSestavina:hover {
-    background-color: #0056b3;
-}
+        .sestavina input, .korak input {
+            flex: 1;
+        }
 
+        .message-container {
+            font-size: 1.2rem;
+            color: #e74c3c;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+            background-color: #ffe6e6;
+            border: 2px solid #e74c3c;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Dodaj Recept</h1>
         <form id="receptForm">
+            <!-- Form contents as before -->
             <label for="naziv">Naziv:</label>
             <input type="text" id="naziv" name="naziv" required>
 
@@ -77,7 +129,7 @@ form button:hover {
             <textarea id="opis" name="opis" required></textarea>
 
             <label for="slika">Slika (URL):</label>
-            <input type="url" id="slika" name="slika" required>
+            <input type="text" id="slika" name="slika" required>
 
             <label for="pripravaMinute">Čas Priprave (minute):</label>
             <input type="number" id="pripravaMinute" name="pripravaMinute" required>
@@ -91,6 +143,26 @@ form button:hover {
             <label for="javen">Javen:</label>
             <input type="checkbox" id="javen" name="javen">
 
+            <label for="obrok">Obrok:</label>
+            <select id="obrok" name="obrok">
+                <option value="">Ni določeno</option>
+                <option value="1">Zajtrk</option>
+                <option value="2">Kosilo</option>
+                <option value="3">Večerja</option>
+                <option value="4">Sladica</option>
+                <option value="5">Prigrizek</option>
+            </select>
+
+            <label for="regionalnaKuhinja">Regionalna Kuhinja:</label>
+            <select id="regionalnaKuhinja" name="regionalnaKuhinja">
+                <option value="">Ni določeno</option>
+                <option value="1">Mediteranska</option>
+                <option value="2">Mehiška</option>
+                <option value="3">Kitajska</option>
+                <option value="4">Japonska</option>
+                <option value="5">Indijska</option>
+            </select>
+
             <h3>Sestavine</h3>
             <div id="sestavine">
                 <div class="sestavina">
@@ -101,78 +173,143 @@ form button:hover {
             </div>
             <button type="button" id="addSestavina">Dodaj Sestavino</button>
 
+            <h3>Postopek</h3>
+            <div id="postopek">
+                <div class="korak">
+                    <input type="text" name="postopek[]" placeholder="Postopek recepta" required>
+                </div>
+            </div>
+            <button type="button" id="addKorak">Dodaj korak postopka</button>
+
             <button type="submit">Shrani Recept</button>
         </form>
     </div>
-
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("receptForm");
+document.getElementById("receptForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const sestavine = [];
+    const postopek = [];
+
+    // Zberemo sestavine
+    const nazivSestavine = formData.getAll("nazivSestavine[]");
+    const kolicinaSestavine = formData.getAll("kolicinaSestavine[]");
+    const enotaSestavine = formData.getAll("enotaSestavine[]");
+
+    console.log("Sestavine:", nazivSestavine, kolicinaSestavine, enotaSestavine); // Dodano logiranje sestavin
+
+    for (let i = 0; i < nazivSestavine.length; i++) {
+        // Dodaj posamezne sestavine v tabelo sestavine
+        sestavine.push({
+            naziv: nazivSestavine[i],
+            kolicina: parseFloat(kolicinaSestavine[i]) || null, // Pretvorba v število
+            enota: enotaSestavine[i] || null,
+        });
+    }
+
+    // Zberemo korake postopka
+    formData.getAll("postopek[]").forEach((step, index) => {
+        // Dodaj posamezen korak v tabelo korakPostopka
+        if (step.trim() !== "") {
+            postopek.push({ stKoraka: index + 1, postopek: step.trim() });
+        }
+    });
+
+    console.log("Koraki postopka:", postopek); // Dodano logiranje korakov postopka
+
+    // Preverimo, če imamo uporabniški ID v sessionStorage
+    let uporabnikId = sessionStorage.getItem("userId");
+
+    // Če uporabnik ni prijavljen, nastavimo statičnega uporabnika z ID-jem 1
+    if (!uporabnikId) {
+        uporabnikId = "1"; // Statistični uporabnik z ID-jem 1
+        console.log("Uporabnik ni prijavljen. Nastavljen statičen uporabnik ID:", uporabnikId);
+    }
+
+    // Preverimo, ali so sestavine pravilno izpolnjene
+    if (sestavine.length === 0) {
+        alert("Nekatere sestavine manjkajo!");
+        return;
+    }
+
+    // Preverimo, ali so vse sestavine pravilno izpolnjene
+    if (sestavine.some(sestavina => !sestavina.naziv || !sestavina.kolicina)) {
+        alert("Vse sestavine morajo imeti naziv in količino!");
+        return;
+    }
+
+    // Preverimo, ali so osnovni podatki pravilno izpolnjeni
+    if (!formData.get("naziv") || !formData.get("opis") || !formData.get("pripravaMinute")) {
+        alert("Nekatere osnovne vrednosti manjkajo!");
+        return;
+    }
+
+    // Oblikujemo glavni objekt recepta
+    const recept = {
+        naziv: formData.get("naziv"),
+        opis: formData.get("opis"),
+        slika: formData.get("slika"),
+        pripravaMinute: parseInt(formData.get("pripravaMinute")),
+        steviloOseb: parseInt(formData.get("steviloOseb")),
+        tezavnost: parseInt(formData.get("tezavnost")),
+        javen: formData.get("javen") === "on",
+        sestavine: sestavine,
+        koraki: postopek,
+        uporabnikId: uporabnikId, // Uporabi dynamic uporabniški ID
+        obrok: formData.get("obrok") || null, // Določimo privzeto vrednost za obrok, če ni izbrano
+        regionalnaKuhinja: formData.get("regionalnaKuhinja") || null, // Določimo privzeto vrednost za regionalno kuhinjo, če ni izbrano
+    };
+
+    console.log("Recept objekt:", recept);
+
+    try {
+        const response = await fetch("/recepti", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(recept),
+        });
+
+        if (response.ok) {
+            alert("Recept uspešno dodan!");
+            e.target.reset();
+        } else {
+            const errorData = await response.json();
+            console.error("Napaka strežnika:", errorData);
+            alert("Napaka pri shranjevanju recepta: " + (errorData.message || "Neznana napaka"));
+        }
+    } catch (error) {
+        console.error("Napaka:", error);
+        alert("Prišlo je do napake pri dodajanju recepta.");
+    }
+});
+
+// Dodajanje sestavin
+document.getElementById("addSestavina").addEventListener("click", () => {
     const sestavineDiv = document.getElementById("sestavine");
-    const addSestavinaBtn = document.getElementById("addSestavina");
-
-    // Dodaj novo polje za sestavino
-    addSestavinaBtn.addEventListener("click", () => {
-        const novaSestavina = document.createElement("div");
-        novaSestavina.classList.add("sestavina");
-
-        novaSestavina.innerHTML = `
+    sestavineDiv.insertAdjacentHTML(
+        "beforeend",
+        `<div class="sestavina">
             <input type="text" name="nazivSestavine[]" placeholder="Naziv Sestavine" required>
             <input type="number" name="kolicinaSestavine[]" placeholder="Količina">
             <input type="text" name="enotaSestavine[]" placeholder="Enota">
-        `;
-        sestavineDiv.appendChild(novaSestavina);
-    });
+         </div>`
+    );
+    console.log("Sestavina dodana"); // Logiranje ob dodajanju sestavine
+});
 
-    // Pošlji podatke na backend
-    form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        // Priprava podatkov
-        const formData = new FormData(form);
-        const sestavine = [];
-        const stevilkaSestavin = formData.getAll("nazivSestavine[]").length;
-
-        for (let i = 0; i < stevilkaSestavin; i++) {
-            sestavine.push({
-                naziv: formData.getAll("nazivSestavine[]")[i],
-                kolicina: formData.getAll("kolicinaSestavine[]")[i],
-                enota: formData.getAll("enotaSestavine[]")[i],
-            });
-        }
-
-        const recept = {
-            naziv: formData.get("naziv"),
-            opis: formData.get("opis"),
-            slika: formData.get("slika"),
-            pripravaMinute: parseInt(formData.get("pripravaMinute")),
-            steviloOseb: parseInt(formData.get("steviloOseb")),
-            tezavnost: parseInt(formData.get("tezavnost")),
-            javen: formData.get("javen") === "on",
-            sestavine: sestavine,
-        };
-
-        // Pošlji na backend
-        try {
-            const response = await fetch("http://localhost:8080/api/recepti/dodaj", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(recept),
-            });
-
-            if (response.ok) {
-                alert("Recept uspešno dodan!");
-                form.reset();
-            } else {
-                alert("Napaka pri dodajanju recepta.");
-            }
-        } catch (error) {
-            console.error(error);
-            alert("Prišlo je do napake.");
-        }
-    });
+// Dodajanje korakov postopka
+document.getElementById("addKorak").addEventListener("click", () => {
+    const postopekDiv = document.getElementById("postopek");
+    postopekDiv.insertAdjacentHTML(
+        "beforeend",
+        `<div class="korak">
+            <input type="text" name="postopek[]" placeholder="Postopek recepta" required>
+         </div>`
+    );
+    console.log("Korak dodan"); // Logiranje ob dodajanju koraka
 });
 
     </script>

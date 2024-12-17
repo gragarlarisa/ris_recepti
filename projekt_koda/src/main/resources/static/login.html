@@ -101,47 +101,53 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>Login to Your Account</h1>
-    <form id="loginForm">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+    <div class="container">
+        <h1>Login to Your Account</h1>
+        <form id="loginForm">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
 
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
 
-        <button type="submit">Login</button>
-    </form>
-    <div id="errorMessage" class="error"></div>
-    <div class="footer">
-        <p>Don't have an account? <a href="#">Sign up</a></p>
+            <button type="submit">Login</button>
+        </form>
+        <div id="errorMessage" class="error"></div>
+        <div class="footer">
+            <p>Don't have an account? <a href="#">Sign up</a></p>
+        </div>
     </div>
-</div>
 
-<script>
-    document.getElementById('loginForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
 
-        try {
-            const response = await fetch('/uporabniki/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password }),
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                window.location.href = data.redirect;
-            } else {
-                document.getElementById('errorMessage').innerText = 'Invalid email or password';
-            }
-        } catch (error) {
-            document.getElementById('errorMessage').innerText = 'Something went wrong. Please try again.';
-        }
+            try {
+    const response = await fetch('/uporabniki/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
     });
-</script>
+
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data); // Preveri vrnjen `id` in `redirect`
+        sessionStorage.setItem('userId', data.id); // Shrani `id` kot int
+        window.location.href = data.redirect;
+    } else {
+        const errorData = await response.json();
+        console.error(errorData.error); // Prikaži napako iz backenda
+        document.getElementById('errorMessage').innerText = errorData.error;
+    }
+} catch (error) {
+    console.error("Napaka pri klicu strežnika:", error);
+    document.getElementById('errorMessage').innerText = 'Napaka pri povezavi. Poskusite znova.';
+}
+
+        });
+    </script>
 </body>
 </html>

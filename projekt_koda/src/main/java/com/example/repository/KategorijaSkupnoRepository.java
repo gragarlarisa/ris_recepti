@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface KategorijaSkupnoRepository extends JpaRepository<KategorijaSkupno, Long> {
+public interface KategorijaSkupnoRepository extends JpaRepository<KategorijaSkupno, Integer> {
 }

@@ -13,6 +13,15 @@ public class Obrok {
     @Column(name = "Naziv")
     private String naziv;
 
+    // Privzeti konstruktor
+    public Obrok() {
+    }
+
+    // Konstruktor, ki sprejme naziv
+    public Obrok(String naziv) {
+        this.naziv = naziv;
+    }
+
     // Getterji in Setterji
     public Long getId() {
         return id;

@@ -53,13 +53,14 @@ public class Recept {
     private Obrok obrok;
 
     @OneToMany(mappedBy = "recept", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<KorakPostopka> koraki;
+    private List<KorakPostopka> koraki;    
 
     @OneToMany(mappedBy = "recept", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<KategorijaSkupno> prehranskeOmejitve;
 
     @OneToMany(mappedBy = "recept", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReceptSestavine> sestavine;
+    
 
     // Constructors
     public Recept() {}
