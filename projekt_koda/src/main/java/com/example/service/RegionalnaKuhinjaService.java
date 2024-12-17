@@ -20,7 +20,7 @@ public class RegionalnaKuhinjaService {
         return regionalnaKuhinjaRepository.findAll();
     }
 
-    public Optional<RegionalnaKuhinja> findById(Long id) {
+    public Optional<RegionalnaKuhinja> findById(Integer id) {
         return regionalnaKuhinjaRepository.findById(id);
     }
 
@@ -28,7 +28,7 @@ public class RegionalnaKuhinjaService {
         return regionalnaKuhinjaRepository.save(regionalnaKuhinja);
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(Integer id) {
         regionalnaKuhinjaRepository.deleteById(id);
     }
 }
