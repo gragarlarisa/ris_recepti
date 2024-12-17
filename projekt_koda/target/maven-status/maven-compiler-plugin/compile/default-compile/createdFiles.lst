@@ -16,6 +16,7 @@ com\example\controller\AdminController.class
 com\example\service\VpisanUporabnikService.class
 com\example\service\ReceptSestavineService.class
 com\example\repository\SestavineRepository.class
+com\example\repository\KorakPostopkaRepository.class
 com\example\JavaApplication.class
 com\example\repository\VpisanUporabnikRepository.class
 com\example\model\Obrok.class

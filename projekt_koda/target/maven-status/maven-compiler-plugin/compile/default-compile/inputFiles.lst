@@ -1,33 +1,34 @@
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\config\WebConfig.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\controller\AdminController.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\controller\KomentarjiController.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\controller\ReceptController.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\controller\SestavineController.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\controller\VpisanUporabnikController.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\JavaApplication.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\model\KategorijaSkupno.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\model\Komentarji.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\model\KorakPostopka.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\model\Obrok.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\model\PrehranskeOmejitve.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\model\Recept.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\model\ReceptSestavine.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\model\RegionalnaKuhinja.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\model\Sestavine.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\model\VpisanUporabnik.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\model\VpisanUporabnikDTO.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\repository\KategorijaSkupnoRepository.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\repository\KomentarjiRepository.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\repository\ObrokRepository.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\repository\PrehranskeOmejitveRepository.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\repository\ReceptRepository.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\repository\ReceptSestavineRepository.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\repository\RegionalnaKuhinjaRepository.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\repository\SestavineRepository.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\repository\VpisanUporabnikRepository.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\service\KomentarjiService.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\service\ReceptService.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\service\ReceptSestavineService.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\service\RegionalnaKuhinjaService.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\service\SestavineService.java
-C:\Users\jurij\OneDrive - Univerza v Mariboru\2letnik\ris_projekt\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\service\VpisanUporabnikService.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\config\WebConfig.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\controller\AdminController.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\controller\KomentarjiController.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\controller\ReceptController.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\controller\SestavineController.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\controller\VpisanUporabnikController.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\JavaApplication.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\model\KategorijaSkupno.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\model\Komentarji.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\model\KorakPostopka.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\model\Obrok.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\model\PrehranskeOmejitve.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\model\Recept.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\model\ReceptSestavine.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\model\RegionalnaKuhinja.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\model\Sestavine.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\model\VpisanUporabnik.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\model\VpisanUporabnikDTO.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\repository\KategorijaSkupnoRepository.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\repository\KomentarjiRepository.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\repository\KorakPostopkaRepository.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\repository\ObrokRepository.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\repository\PrehranskeOmejitveRepository.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\repository\ReceptRepository.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\repository\ReceptSestavineRepository.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\repository\RegionalnaKuhinjaRepository.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\repository\SestavineRepository.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\repository\VpisanUporabnikRepository.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\service\KomentarjiService.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\service\ReceptService.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\service\ReceptSestavineService.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\service\RegionalnaKuhinjaService.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\service\SestavineService.java
+C:\Users\graga\Documents\zMesalcemDoUspeha\projekt_koda\src\main\java\com\example\service\VpisanUporabnikService.java

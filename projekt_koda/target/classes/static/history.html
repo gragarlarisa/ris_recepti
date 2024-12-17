@@ -172,94 +172,100 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="left-section">
-        <h1>Zgodovina ogledov</h1>
-        <div id="historyList">
-            <!-- Dinamično vstavljena vsebina -->
+    <div class="container">
+        <div class="left-section">
+            <h1>Zgodovina ogledov</h1>
+            <div id="historyList">
+                <!-- Dinamično vstavljena vsebina -->
+            </div>
+            <button class="back-button" onclick="window.history.back()">Nazaj</button>
+            <button class="clear-button mt-3" onclick="clearHistory()">Izbriši zgodovino</button>
         </div>
-        <button class="back-button" onclick="window.history.back()">Nazaj</button>
-        <button class="clear-button mt-3" onclick="clearHistory()">Izbriši zgodovino</button>
-    </div>
-    <div class="right-section">
-        <h2>Pogostost sestavin</h2>
-        <div class="ingredient-list">
-            <table id="ingredient-table">
-                <thead>
-                    <tr>
-                        <th>Količina</th>
-                        <th>Sestavina</th>
-                        <th>Pogostost</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Dinamično generirani podatki -->
-                </tbody>
-            </table>
+
+        <div class="right-section">
+            <h2>Pogostost sestavin</h2>
+            <div class="ingredient-list">
+                <table id="ingredient-table">
+                    <thead>
+                        <tr>
+                            <th>Količina</th>
+                            <th>Sestavina</th>
+                            <th>Pogostost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dinamično generirani podatki -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const historyList = document.getElementById("historyList");
-        const ingredientTableBody = document.querySelector("#ingredient-table tbody");
+    <!-- Priporočeni recepti premaknjeni ven iz div-a -->
+    <div class="recommended-recipes-container">
+        <h2>Priporočeni recepti</h2>
+        <div id="recommendedRecipes">
+            <!-- Dinamično vstavljena priporočena recepta -->
+        </div>
+    </div>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const historyList = document.getElementById("historyList");
+    const ingredientTableBody = document.querySelector("#ingredient-table tbody");
+    const recommendedRecipesDiv = document.getElementById("recommendedRecipes");
+    const clearHistoryBtn = document.querySelector(".clear-button");
 
-        const history = JSON.parse(localStorage.getItem('receptHistory')) || [];
+    const history = JSON.parse(localStorage.getItem('receptHistory')) || [];
 
-        if (history.length === 0) {
-            historyList.innerHTML = '<p class="text-center">Nimate pregledanih receptek.</p>';
-            return;
-        }
+    if (history.length === 0) {
+        historyList.innerHTML = '<p class="text-center">Nimate pregledanih receptov.</p>';
+        return;
+    }
 
-        // Združi sestavine iz vseh receptov v zgodovini
-        const ingredientCounts = {};
+    const ingredientCounts = {};
+    const allIngredients = []; // Nov array za vse sestavine
 
-        history.forEach(recept => {
-            const img = document.createElement("img");
-            img.src = recept.slika || "https://via.placeholder.com/150"; // Placeholder slika, če recept nima slike
-            img.alt = recept.naziv;
+    history.forEach(recept => {
+        const img = document.createElement("img");
+        img.src = recept.slika || "https://via.placeholder.com/150";
+        img.alt = recept.naziv;
 
-            const infoDiv = document.createElement("div");
-            infoDiv.classList.add("recept-info");
+        const infoDiv = document.createElement("div");
+        infoDiv.classList.add("recept-info");
 
-            const naziv = document.createElement("h3");
-            naziv.textContent = recept.naziv;
+        const naziv = document.createElement("h3");
+        naziv.textContent = recept.naziv;
 
-            const viewedAt = document.createElement("p");
-            const date = new Date(recept.viewedAt);
-            viewedAt.textContent = `Ogledano: ${date.toLocaleString()}`;
+        const viewedAt = document.createElement("p");
+        const date = new Date(recept.viewedAt);
+        viewedAt.textContent = `Ogledano: ${date.toLocaleString()}`;
 
-            const link = document.createElement("a");
-            link.href = `podrobnostiRecepta.html?id=${recept.idRecept}`;
-            link.textContent = 'Poglej Recept';
+        const link = document.createElement("a");
+        link.href = `podrobnostiRecepta.html?id=${recept.idRecept}`;
+        link.textContent = 'Poglej Recept';
 
-            // Dodaj elemente v infoDiv
-            infoDiv.appendChild(naziv);
-            infoDiv.appendChild(viewedAt);
-            infoDiv.appendChild(link);
+        infoDiv.appendChild(naziv);
+        infoDiv.appendChild(viewedAt);
+        infoDiv.appendChild(link);
 
-            const receptDiv = document.createElement("div");
-            receptDiv.classList.add("recept-history-entry");
-            receptDiv.appendChild(img);
-            receptDiv.appendChild(infoDiv);
-            historyList.appendChild(receptDiv);
+        const receptDiv = document.createElement("div");
+        receptDiv.classList.add("recept-history-entry");
+        receptDiv.appendChild(img);
+        receptDiv.appendChild(infoDiv);
+        historyList.appendChild(receptDiv);
 
-            // Preberi sestavine recepta
-            fetch(`http://localhost:8081/recepti/${recept.idRecept}`)
-                .then(response => {
-                    if (!response.ok) throw new Error("Napaka pri pridobivanju recepta.");
-                    return response.json();
-                })
-                .then(receptData => {
-                    receptData.sestavine.forEach(sestavina => {
-                        const match = sestavina.match(/(\d+)\s*(\w+)?\s*(.*)/);
-                        if (match) {
-                            const quantity = parseInt(match[1], 10);
-                            const unit = match[2] || "kos"; // Default unit is "kos" (piece) if none provided
-                            const ingredient = match[3].toLowerCase().trim();
+        fetch(`http://localhost:8081/recepti/${recept.idRecept}`)
+            .then(response => response.json())
+            .then(receptData => {
+                receptData.sestavine.forEach(sestavina => {
+                    const match = sestavina.match(/(\d+)\s*(\w+)?\s*(.*)/);
+                    if (match) {
+                        const quantity = parseInt(match[1], 10);
+                        const unit = match[2] || "kos";
+                        const ingredient = match[3].toLowerCase().trim();
 
-                            // If ingredient is already in the object, add the quantity
+                        if (ingredient && ingredient !== "") {
+                            allIngredients.push(ingredient); // Dodamo sestavino v array
                             if (!ingredientCounts[ingredient]) {
                                 ingredientCounts[ingredient] = { quantity: 0, count: 0, unit: unit };
                             }
@@ -267,33 +273,128 @@
                             ingredientCounts[ingredient].quantity += quantity;
                             ingredientCounts[ingredient].count++;
                         }
-                    });
+                    }
+                });
 
-                    // Posodobi seznam sestavin
-                    renderIngredientTable();
-                })
-                .catch(error => console.error("Napaka:", error));
-        });
+                renderIngredientTable();
+                fetchRecommendedRecipes();
 
-        function renderIngredientTable() {
-            ingredientTableBody.innerHTML = Object.entries(ingredientCounts)
-                .map(([name, { quantity, count, unit }]) => `
+                // Pridobimo sestavine s pogostostjo po obdelavi recepta
+                const ingredientArray = getIngredientArrayWithFrequency();
+                console.log("Končni array sestavin:", ingredientArray);
+            })
+            .catch(error => console.error("Napaka pri pridobivanju sestavin:", error));
+    });
+
+    function renderIngredientTable() {
+        const sortedIngredients = Object.entries(ingredientCounts)
+            .sort((a, b) => b[1].count - a[1].count);
+
+        ingredientTableBody.innerHTML = sortedIngredients
+            .map(([name, { quantity, count, unit }]) => {
+                return `
                     <tr>
                         <td>${quantity} ${unit}</td>
                         <td>${name}</td>
                         <td>${count}</td>
                     </tr>
-                `).join("");
+                `;
+            })
+            .join("");
+    }
+
+    function fetchRecommendedRecipes() {
+    // Pridobimo filtriran array sestavin z najvišjo frekvenco
+    const filteredIngredients = getIngredientArrayWithFrequency();
+
+    if (filteredIngredients.length === 0) {
+        console.log("Ni sestavin za pošiljanje.");
+        return;
+    }
+
+    // Pripravimo podatke za pošiljanje na backend
+    const ingredientNames = filteredIngredients.map(ingredient => ingredient.name);
+
+    // Pošljemo podatke na backend
+    const params = new URLSearchParams();
+    params.append("ogledaneSestavine", JSON.stringify(ingredientNames));
+
+    fetch(`http://localhost:8081/recepti/priporoceni?${params.toString()}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Napaka pri pošiljanju sestavin.');
         }
+        return response.json();
+    })
+    .then(recommendedRecipes => {
+        if (recommendedRecipes.length === 0) {
+            recommendedRecipesDiv.innerHTML = '<p class="text-center">Ni priporočil za prikaz.</p>';
+            return;
+        }
+
+        // Prikaz priporočil
+        recommendedRecipesDiv.innerHTML = recommendedRecipes.map(recept => `
+            <div class="recept-history-entry">
+                <img src="${recept.slika}" alt="${recept.naziv}">
+                <div class="recept-info">
+                    <h3>${recept.naziv}</h3>
+                    <a href="podrobnostiRecepta.html?id=${recept.idRecept}">Poglej Recept</a>
+                </div>
+            </div>
+        `).join("");
+    })
+    .catch(error => {
+        console.error("Napaka pri pridobivanju priporočil:", error);
+        recommendedRecipesDiv.innerHTML = `<p class="text-center">Prišlo je do napake pri pridobivanju priporočil.</p>`;
+    });
+}
+
+
+    function getMostFrequentIngredients(ingredients) {
+        const frequencyMap = {};
+
+        ingredients.forEach(ingredient => {
+            frequencyMap[ingredient] = (frequencyMap[ingredient] || 0) + 1;
+        });
+
+        const maxFrequency = Math.max(...Object.values(frequencyMap));
+
+        return Object.keys(frequencyMap).filter(ingredient => frequencyMap[ingredient] === maxFrequency);
+    }
+
+    // Nova funkcija za pridobivanje arraya sestavin s pogostostjo
+    function getIngredientArrayWithFrequency() {
+    const ingredientArray = Object.entries(ingredientCounts).map(([name, data]) => {
+        return {
+            name: name,
+            quantity: data.quantity,
+            unit: data.unit,
+            frequency: data.count // Pogostost sestavine
+        };
     });
 
-    function clearHistory() {
-        if (confirm("Ste prepričani, da želite izbrisati zgodovino receptov?")) {
-            localStorage.removeItem('receptHistory');
-            const historyList = document.getElementById("historyList");
-            historyList.innerHTML = '<p class="text-center">Zgodovina je prazna.</p>';
-        }
-    }
-</script>
+    // Najvišja pogostost med vsemi sestavinami
+    const maxFrequency = Math.max(...ingredientArray.map(ingredient => ingredient.frequency));
+
+    // Filtriramo, da ostanejo le sestavine z najvišjo pogostostjo
+    const filteredIngredients = ingredientArray.filter(ingredient => ingredient.frequency === maxFrequency);
+
+    console.log("Filtriran array sestavin z najvišjo pogostostjo:", filteredIngredients);
+    return filteredIngredients;
+}
+
+    clearHistoryBtn.addEventListener("click", function() {
+        console.log("Izbris zgodovine je sprožen");
+        localStorage.removeItem('receptHistory');
+        historyList.innerHTML = '<p class="text-center">Zgodovina je bila izbrisana.</p>';
+    });
+});
+
+    </script>
 </body>
 </html>

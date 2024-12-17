@@ -81,6 +81,15 @@ Vizualno prijazen dizajn – Seznam sestavin je predstavljen v pregledni tabeli,
 
 ### 3. Predlaganje receptov glede na pogostost sestavin preteklih receptov
 
-**Razvijalec**:
+**Razvijalec**: Larisa Gragar
 
-**Opis**:
+**Opis**: Implementirali smo funkcionalnost predlaganja receptov na podlagi zgodovine ogledanih receptov. Sistem analizira sestavine iz že pregledanih receptov, izračuna njihovo pogostost in pošlje najpogostejše sestavine na backend, ki vrne priporočene recepte.
+
+Ključne značilnosti:
+
+Zbiranje sestavin – Iz zgodovine ogledanih receptov se pridobijo vse sestavine.
+Izračun pogostosti – Sestavine se združijo, pri čemer se izračuna njihova pogostost pojavljanja v receptih.
+Filtriranje – Izberejo se sestavine z najvišjo pogostostjo.
+Pošiljanje podatkov – Najpogostejše sestavine se pošljejo na backend za pridobitev priporočil.
+Prikaz priporočil – Backend vrne seznam receptov, ki najbolj ustrezajo izbranim sestavinam, in jih prikaže uporabniku v preglednem formatu.
+Namen: Personalizirano predlaganje receptov glede na pretekle interese uporabnika.
