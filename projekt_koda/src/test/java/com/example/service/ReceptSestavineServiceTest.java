@@ -1,7 +1,8 @@
 package com.example.service;
+import com.example.model.Recept;
 import com.example.model.ReceptSestavine;
+import com.example.model.Sestavine;
 import com.example.repository.ReceptSestavineRepository;
-import com.example.service.ReceptSestavineService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -15,7 +16,6 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ReceptSestavineServiceTest {
-
     @Mock
     private ReceptSestavineRepository receptSestavineRepository;
 
@@ -23,13 +23,29 @@ class ReceptSestavineServiceTest {
     private ReceptSestavineService receptSestavineService;
 
     private ReceptSestavine receptSestavine;
+    private Recept recept;
+    private Sestavine sestavine;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this); // Inicializacija Mockito
+
+        // Inicializacija povezane entitete
+        recept = new Recept();
+        recept.setIdRecept(1);
+        // nastaviti ostale lastnosti recepta po potrebi
+
+        sestavine = new Sestavine();
+        sestavine.setId(1L);
+        sestavine.setNaziv("Jabolko");
+        sestavine.setKolicina(2); // Nastavite po potrebi
+        sestavine.setEnota("kg"); // Nastavite po potrebi
+
+        // Inicializacija objekta ReceptSestavine
         receptSestavine = new ReceptSestavine();
-        receptSestavine.setId(1);
-        receptSestavine.setNaziv("Jabolko");
+        receptSestavine.setId(1L);
+        receptSestavine.setRecept(recept);
+        receptSestavine.setSestavine(sestavine);
     }
 
     @Test

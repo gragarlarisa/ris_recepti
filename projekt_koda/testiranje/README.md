@@ -43,15 +43,25 @@ Preverja, ali metoda findById v VpisanUporabnikService vrne prazen rezultat (Opt
 ---
 
 ### Testi za funkcionalnost:
-1. **Test: ` `**
+1. Test: testSaveReceptSestavine_Positive
 
-    - **Opis:**
-    - **Pomembnost:**
+Opis: Test preverja, ali metoda save() pravilno shrani objekt ReceptSestavine v repozitorij, ko so podani veljavni podatki.
+Pomembnost: Zagotavlja, da se novi zapisi pravilno shranjujejo v bazo podatkov in da aplikacija deluje brez težav pri vstavljanju podatkov.
 
-2. **Test: ` `**
+2. Test: testSaveReceptSestavine_Negative
 
-    - **Opis:**
-    - **Pomembnost:**
+Opis: Test preverja, kako metoda save() obravnava situacijo, ko je podan neveljaven objekt ReceptSestavine (npr. manjkajoči obvezni podatki).
+Pomembnost: Preveri, ali aplikacija pravilno zazna napake pri vnosu podatkov in prepreči shranjevanje neveljavnih zapisov.
+
+3. Test: testDeleteReceptSestavineById_Positive
+
+Opis: Test preverja, ali metoda deleteById() uspešno izbriše zapis ReceptSestavine iz repozitorija za veljaven ID.
+Pomembnost: Zagotavlja, da aplikacija omogoča brisanje obstoječih zapisov brez napak.
+
+4. Test: testDeleteReceptSestavineById_Negative
+
+Opis: Test preverja, kako metoda deleteById() obravnava situacijo, ko je podan neveljaven ali neobstoječ ID.
+Pomembnost: Preveri odpornost aplikacije proti napakam pri brisanju in zagotavlja, da se sistem ustrezno odzove na nepravilne zahteve.
 
 ### Testi za funkcionalnost:
 1. **Test: ` `**
@@ -77,8 +87,10 @@ Preverja, ali metoda findById v VpisanUporabnikService vrne prazen rezultat (Opt
 | Maida Ćivić   | `testFindReceptById_Negative`   |
 | Jurij Dumić   | `testUporabnikNajden_Positive`  |
 | Jurij Dumić   | `testUporabnikNajden_Negative ` |
-| Larisa Gragar | `testCreateRecept_Positive`     |
-| Larisa Gragar | `testCreateRecept_Negative`     |
+| Larisa Gragar | `testSaveReceptSestavine_Positive`|
+| Larisa Gragar | `testSaveReceptSestavine_Negative`|
+| Larisa Gragar | `testDeleteReceptSestavineById_Positive`|
+| Larisa Gragar | `testDeleteReceptSestavineById_Negative`|
 
 ---
 
@@ -104,22 +116,23 @@ Preverja, ali metoda findById v VpisanUporabnikService vrne prazen rezultat (Opt
 
 ## Analiza uspešnosti testov člana Larisa Gragar
 
-1. **Uspešnost testov:**
+**Uspešnost testov:**
 
-    - Vsi testi so bili uspešno opravljeni brez napak.
-    - Testi so pokrili tako pozitivne kot negativne scenarije, kar zagotavlja celovito preverjanje delovanja aplikacije.
+Vsi testi so bili uspešno opravljeni brez napak.
+Testi so pokrili tako pozitivne kot negativne scenarije, kar zagotavlja celovito preverjanje delovanja metod save(), findById() in deleteById().
+Metode so bile preverjene za pravilno delovanje ob veljavnih vhodih in obvladovanje napak ob neveljavnih podatkih.
 
-2. **Odpravljene napake:**
+**Odpravljene napake:**
 
-    -
-    -  
+Med razvojem testov je bila odkrita težava pri metodi save(), kjer je bilo mogoče shraniti objekt z nepopolnimi podatki (npr. manjkajoča polja v ReceptSestavine).
+Težava je bila odpravljena z dodano validacijo podatkov pred shranjevanjem in ustrezno obravnavo napak.
+Pri metodi findById() je bila dodana obravnava praznih rezultatov, da se ob neveljavnem ID-ju vrne ustrezen odgovor ali izjema.
 
-3. **Sklep:**
+**Sklep:**
 
-    -
-    -
-
-
+Testiranje je pokazalo, da metode v razredu ReceptSestavineService ustrezno delujejo v vseh predvidenih scenarijih.
+Implementacija je robustna in zanesljiva, saj uspešno obravnava tako pravilne kot nepravilne zahteve.
+Z izvedenimi popravki aplikacija ustreza vsem funkcionalnim zahtevam.
 ---
 
 
