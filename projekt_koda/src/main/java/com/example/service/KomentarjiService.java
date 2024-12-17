@@ -20,7 +20,7 @@ public class KomentarjiService {
         return komentarjiRepository.findAll();
     }
 
-    public Optional<Komentarji> findById(Long id) {
+    public Optional<Komentarji> findById(Integer id) {
         return komentarjiRepository.findById(id);
     }
 
@@ -28,7 +28,7 @@ public class KomentarjiService {
         return komentarjiRepository.save(komentar);
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(Integer  id) {
         komentarjiRepository.deleteById(id);
     }
 }

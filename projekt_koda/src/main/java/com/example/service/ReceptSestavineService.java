@@ -20,7 +20,7 @@ public class ReceptSestavineService {
         return receptSestavineRepository.findAll();
     }
 
-    public Optional<ReceptSestavine> findById(Long id) {
+    public Optional<ReceptSestavine> findById(Integer id) {
         return receptSestavineRepository.findById(id);
     }
 
@@ -28,7 +28,7 @@ public class ReceptSestavineService {
         return receptSestavineRepository.save(receptSestavine);
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(Integer id) {
         receptSestavineRepository.deleteById(id);
     }
 }
