@@ -4,7 +4,6 @@ com\example\model\ReceptSestavine.class
 com\example\repository\ReceptRepository.class
 com\example\repository\ObrokRepository.class
 com\example\model\Sestavine.class
-com\example\controller\KomentarjiController.class
 com\example\model\VpisanUporabnik.class
 com\example\repository\PrehranskeOmejitveRepository.class
 com\example\service\ReceptService.class

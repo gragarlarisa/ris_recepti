@@ -63,6 +63,11 @@ Pomembnost: Zagotavlja, da aplikacija omogoča brisanje obstoječih zapisov brez
 Opis: Test preverja, kako metoda deleteById() obravnava situacijo, ko je podan neveljaven ali neobstoječ ID.
 Pomembnost: Preveri odpornost aplikacije proti napakam pri brisanju in zagotavlja, da se sistem ustrezno odzove na nepravilne zahteve.
 
+**Anotacije**: 
+@Test: Označuje metodo kot testni primer.
+@DisplayName: Doda prijazen opis testa za boljše razumevanje izpisov pri testiranju.
+@BeforeEach: Inicializira testne podatke ali odvisnosti pred vsakim testom.
+
 ### Testi za funkcionalnost:
 1. **Test: ` `**
 

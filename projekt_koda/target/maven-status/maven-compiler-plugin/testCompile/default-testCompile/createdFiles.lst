@@ -1,2 +1,3 @@
-com\example\service\GeneriranjeSeznamovTest.class
+com\example\service\ReceptSestavineServiceTest.class
 com\example\service\ReceptServiceTest.class
+com\example\service\VpisanUporabnikServiceTest.class

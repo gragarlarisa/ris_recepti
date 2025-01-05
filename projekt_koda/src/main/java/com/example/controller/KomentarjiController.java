@@ -1,4 +1,4 @@
-package com.example.controller;
+/*package com.example.controller;
 
 import com.example.model.Komentarji;
 import com.example.service.KomentarjiService;
@@ -39,4 +39,4 @@ public class KomentarjiController {
         komentarjiService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-}
+}*/
