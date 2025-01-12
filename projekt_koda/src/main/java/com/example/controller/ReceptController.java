@@ -51,10 +51,12 @@ public class ReceptController {
             map.put("tezavnost", recept.getTezavnost());
             map.put("obrok", recept.getObrok() != null ? Map.of("naziv", recept.getObrok().getNaziv()) : null);
             map.put("slika", recept.getSlika());
+            map.put("priljubljeni", false); // Privzeto polje za priljubljenost
             return map;
         }).collect(Collectors.toList());
         return ResponseEntity.ok(simplifiedRecepti);
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> getReceptDetails(@PathVariable Integer id) {
@@ -254,4 +256,25 @@ private boolean containsAnyIngredient(Recept recept, List<String> ingredients) {
 
         return ResponseEntity.ok(Collections.singletonMap("shoppingList", shoppingList));
     }
+
+    @PostMapping("/favorites")
+    public ResponseEntity<List<Map<String, Object>>> getFavoriteRecipes(@RequestBody List<Integer> favoriteIds) {
+        List<Recept> favoriteRecepti = receptService.findAll().stream()
+                .filter(recept -> favoriteIds.contains(recept.getIdRecept()))
+                .collect(Collectors.toList());
+
+        List<Map<String, Object>> simplifiedRecepti = favoriteRecepti.stream().map(recept -> {
+            Map<String, Object> map = new HashMap<>();
+            map.put("idRecept", recept.getIdRecept());
+            map.put("naziv", recept.getNaziv());
+            map.put("pripravaMinute", recept.getPripravaMinute());
+            map.put("steviloOseb", recept.getSteviloOseb());
+            map.put("tezavnost", recept.getTezavnost());
+            map.put("slika", recept.getSlika());
+            return map;
+        }).collect(Collectors.toList());
+
+        return ResponseEntity.ok(simplifiedRecepti);
+    }
+
 }

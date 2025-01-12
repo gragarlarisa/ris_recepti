@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recepti</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
 
@@ -26,6 +28,17 @@
             border-radius: 15px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
+
+        .toggle-favorite i {
+            font-size: 1.5rem;
+            color: #ff7043;
+            transition: color 0.3s ease;
+        }
+
+        .toggle-favorite i:hover {
+            color: #e65c36;
+        }
+
 
         h1 {
             font-size: 3rem;
@@ -81,6 +94,18 @@
             margin-bottom: 15px;
         }
 
+        .btn-back {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1050;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+
         .btn-primary {
             background-color: #ff7043;
             border: none;
@@ -96,20 +121,25 @@
 
         .btn-primary:hover {
             background-color: #e65c36;
-            transform: translateY(-4px);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
         }
 
-        .btn-primary:active {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
+
+
 
         button {
             margin: 10px auto;
             display: block;
             text-align: center;
         }
+
+        #toast-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+        }
+
 
         button a {
             text-decoration: none;
@@ -224,29 +254,60 @@
             }
         }
 
-        .action-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .action-buttons a, .action-buttons button {
-            padding: 15px 30px;
-            font-size: 1.2rem;
+        .action-buttons .custom-btn {
+            background-color: #007bff;
+            color: #fff;
+            font-size: 1.1rem;
             font-weight: bold;
-            text-transform: uppercase;
+            border: none;
             border-radius: 50px;
-            text-decoration: none;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 12px 25px;
+            text-transform: uppercase;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .action-buttons a:hover, .action-buttons button:hover {
-            transform: translateY(-3px);
+        .action-buttons .custom-btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-4px);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-            margin:auto;
         }
+
+        .action-buttons .custom-btn:active {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .action-buttons .custom-btn-primary {
+            background-color: #ff7043;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 25px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-buttons .custom-btn-primary:hover {
+            background-color: #e65c36;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .action-buttons .custom-btn-primary:active {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
 
 
     </style>
@@ -256,16 +317,19 @@
     <h1 class="text-center mb-4">Recepti</h1>
 
     <div class="action-buttons text-center mb-4">
-        <a href="generate-shopping-list.html" class="btn btn-primary btn-lg mx-2">
+        <a href="generate-shopping-list.html" class="btn btn-info btn-lg mx-2 ">
             <i class="bi bi-list-check"></i> Generiraj seznam
         </a>
-        <a href="dodaj_recept.html" class="btn btn-success btn-lg mx-2">
+        <a href="dodaj_recept.html" class="btn btn-info btn-lg mx-2 ">
             <i class="bi bi-plus-circle"></i> Dodaj recept
         </a>
         <button class="btn btn-info btn-lg mx-2 history-button" onclick="window.location.href='history.html'">
             <i class="bi bi-clock-history"></i> Zgodovina ogledov
         </button>
+        <button id="show-favorites" class="btn btn-primary mt-3">Prikaži priljubljene</button>
     </div>
+
+    <div id="favorites-container" class="mt-4"></div>
 
     <h3>Seznam nakupov</h3>
     <ul id="shopping-list" class="list-group"></ul>
@@ -306,7 +370,37 @@
 </div>
 
 
+<!-- Toast za obvestila -->
+<div aria-live="polite" aria-atomic="true" style="position: fixed; top: 20px; right: 20px; z-index: 1050;">
+    <div id="toast-notification" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+        <div class="toast-header">
+            <strong class="me-auto">Obvestilo</strong>
+            <button type="button" class="btn-close" data-dismiss="toast" aria-label="Zapri"></button>
+        </div>
+        <div class="toast-body"></div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Potrditev</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Zapri"></button>
+            </div>
+            <div class="modal-body">
+                Ali želite odstraniti recept iz priljubljenih?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Prekliči</button>
+                <button type="button" id="confirmRemove" class="btn btn-danger">Odstrani</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
+
 
     document.addEventListener("DOMContentLoaded", function () {
         fetchRecipes();
@@ -314,10 +408,14 @@
         const obrokFilter = document.getElementById("obrokFilter");
         const tezavnostFilter = document.getElementById("tezavnostFilter");
         const casPripraveFilter = document.getElementById("casPripraveFilter");
+        const showFavoritesBtn = document.getElementById("show-favorites");
 
         obrokFilter.addEventListener("change", fetchRecipes);
         tezavnostFilter.addEventListener("change", fetchRecipes);
         casPripraveFilter.addEventListener("change", fetchRecipes);
+
+        // Prikaz samo priljubljenih receptov
+        showFavoritesBtn.addEventListener("click", showFavorites);
     });
 
     function fetchRecipes() {
@@ -341,17 +439,15 @@
 
                 let filteredData = data;
 
-                // Filter by Obrok
+                // Apply filters
                 if (obrokFilter) {
                     filteredData = filteredData.filter(recept => recept.obrok && recept.obrok.naziv === obrokFilter);
                 }
 
-                // Filter by Težavnost
                 if (tezavnostFilter) {
                     filteredData = filteredData.filter(recept => recept.tezavnost == tezavnostFilter);
                 }
 
-                // Filter by Čas priprave
                 if (casPripraveFilter) {
                     if (casPripraveFilter === "15") {
                         filteredData = filteredData.filter(recept => recept.pripravaMinute <= 15);
@@ -370,31 +466,138 @@
                 }
 
                 messageContainer.style.display = 'none';
-                filteredData.forEach(recept => {
-                    const cardContainer = document.createElement('div');
-                    cardContainer.classList.add('col-md-4', 'mb-4');
-
-                    cardContainer.innerHTML = `
-                    <div class="card h-100">
-                        <img src="${recept.slika}" class="card-img-top" alt="${recept.naziv}">
-                        <div class="card-body">
-                            <h5 class="card-title">${recept.naziv}</h5>
-                            <p class="card-text"><strong>Čas priprave:</strong> ${recept.pripravaMinute} minut</p>
-                            <p class="card-text"><strong>Število oseb:</strong> ${recept.steviloOseb}</p>
-                            <p class="card-text"><strong>Težavnost:</strong> ${recept.tezavnost}</p>
-                            <p class="card-text"><strong>Obrok:</strong> ${recept.obrok ? recept.obrok.naziv : "Ni navedeno"}</p>
-<a href="podrobnostiRecepta.html?id=${recept.idRecept}" class="btn btn-primary mt-3">Podrobnosti</a>
-                        </div>
-                    </div>`;
-                    receptiContainer.appendChild(cardContainer);
-                });
+                displayRecipes(filteredData);
             })
             .catch(error => {
                 console.error('Error fetching recipes:', error);
-                const receptiContainer = document.getElementById('recepti-container');
-                receptiContainer.innerHTML = '<p class="text-center text-danger">Napaka pri nalaganju receptov. Poskusite znova pozneje.</p>';
+                document.getElementById('recepti-container').innerHTML = '<p class="text-center text-danger">Napaka pri nalaganju receptov. Poskusite znova pozneje.</p>';
             });
     }
+
+    function displayRecipes(recipes) {
+        const favorites = JSON.parse(sessionStorage.getItem("favorites")) || [];
+        const container = document.getElementById("recepti-container");
+        container.innerHTML = "";
+
+        recipes.forEach(recipe => {
+            const isFavorite = favorites.some(fav => fav.id === recipe.idRecept);
+
+            const card = document.createElement("div");
+            card.classList.add("col-md-4", "mb-4");
+
+            card.innerHTML = `
+            <div class="card h-100">
+                <img src="${recipe.slika}" class="card-img-top" alt="${recipe.naziv}">
+                <div class="card-body">
+                    <h5 class="card-title">${recipe.naziv}</h5>
+                    <p class="card-text">Čas priprave: ${recipe.pripravaMinute} minut</p>
+                    <button class="btn btn-warning toggle-favorite mt-2" data-id="${recipe.idRecept}" data-name="${recipe.naziv}" data-image="${recipe.slika}">
+                        <i class="bi ${isFavorite ? 'bi-heart-fill' : 'bi-heart'}"></i>
+                    </button>
+                    <a href="podrobnostiRecepta.html?id=${recipe.idRecept}" class="btn btn-primary mt-2">
+                        Podrobnosti
+                    </a>
+                </div>
+            </div>`;
+            container.appendChild(card);
+        });
+
+        // Dodajanje dogodka za srček
+        document.querySelectorAll(".toggle-favorite").forEach(button => {
+            button.addEventListener("click", toggleFavorite);
+        });
+    }
+
+    function toggleFavorite(event) {
+        const button = event.currentTarget;
+        const id = button.getAttribute("data-id");
+        const name = button.getAttribute("data-name");
+        const image = button.getAttribute("data-image");
+
+        let favorites = JSON.parse(sessionStorage.getItem("favorites")) || [];
+
+        if (favorites.some(fav => fav.id === id)) {
+            // Odstrani iz priljubljenih
+            favorites = favorites.filter(fav => fav.id !== id);
+            sessionStorage.setItem("favorites", JSON.stringify(favorites));
+            button.innerHTML = '<i class="bi bi-heart"></i>'; // Prazni srček
+            showToast(`Recept "${name}" je bil odstranjen iz priljubljenih.`);
+        } else {
+            // Dodaj v priljubljene
+            favorites.push({ id, name, image });
+            sessionStorage.setItem("favorites", JSON.stringify(favorites));
+            button.innerHTML = '<i class="bi bi-heart-fill"></i>'; // Polni srček
+            showToast(`Recept "${name}" je bil dodan v priljubljene!`);
+        }
+    }
+
+
+
+
+
+    // Prikaz samo priljubljenih receptov
+    function showFavorites() {
+        const favorites = JSON.parse(sessionStorage.getItem("favorites")) || [];
+        const container = document.getElementById("recepti-container");
+        container.innerHTML = "";
+
+        if (favorites.length === 0) {
+            container.innerHTML = '<p class="alert alert-info">Ni priljubljenih receptov.</p>';
+            return;
+        }
+
+        favorites.forEach(fav => {
+            const card = document.createElement("div");
+            card.classList.add("col-md-4", "mb-4");
+
+            card.innerHTML = `
+        <div class="card h-100">
+            <img src="${fav.image}" class="card-img-top" alt="${fav.name}">
+            <div class="card-body">
+                <h5 class="card-title">${fav.name}</h5>
+                <button class="btn btn-danger remove-from-favorites" data-id="${fav.id}">
+                    Odstrani iz priljubljenih
+                </button>
+            </div>
+        </div>`;
+            container.appendChild(card);
+        });
+
+        // Dodaj dogodke za odstranjevanje iz priljubljenih
+        document.querySelectorAll(".remove-from-favorites").forEach(button => {
+            button.addEventListener("click", removeFromFavorites);
+        });
+    }
+
+
+
+    let recipeToRemove = null; // Začasno shrani ID recepta za odstranitev
+
+    function removeFromFavorites(event) {
+        const id = event.target.getAttribute("data-id");
+        recipeToRemove = id; // Shrani ID recepta za odstranitev
+
+        // Prikaži modal za potrditev
+        const confirmModal = new bootstrap.Modal(document.getElementById("confirmModal"));
+        confirmModal.show();
+    }
+
+    // Dodaj dogodek za potrditev odstranitve
+    document.getElementById("confirmRemove").addEventListener("click", function () {
+        if (recipeToRemove) {
+            let favorites = JSON.parse(sessionStorage.getItem("favorites")) || [];
+            favorites = favorites.filter(fav => fav.id !== recipeToRemove);
+            sessionStorage.setItem("favorites", JSON.stringify(favorites));
+            showToast("Recept je bil odstranjen iz priljubljenih.");
+            recipeToRemove = null; // Ponastavi začasni ID
+            showFavorites(); // Osveži seznam
+            const confirmModal = bootstrap.Modal.getInstance(document.getElementById("confirmModal"));
+            confirmModal.hide(); // Skrij modal
+        }
+    });
+
+
+
 
     document.addEventListener("DOMContentLoaded", function () {
         // Obdelava obrazca za generiranje nakupovalnega seznama
@@ -452,6 +655,19 @@
                     });
             });
     });
+
+    function showToast(message) {
+        const toastElement = document.getElementById("toast-notification");
+        const toastBody = toastElement.querySelector(".toast-body");
+
+        // Posodobi sporočilo v toastu
+        toastBody.textContent = message;
+
+        // Inicializiraj toast in ga prikaži
+        const toast = new bootstrap.Toast(toastElement);
+        toast.show();
+    }
+
 
 
 
