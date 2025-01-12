@@ -1,66 +1,70 @@
-# Poročilo o implementaciji - Scrum metodologija
+# **Poročilo o implementaciji - Scrum metodologija**
 
-## Uporabniška zgodba
-**Kot uporabnik želim ustvariti personalizirane sezname nakupov, ki se samodejno generirajo na podlagi izbranih receptov in števila oseb.**
-
----
-
-## Razdelitev zgodbe na naloge
-Nalogo smo razdelili na manjše specifične in merljive naloge ter vsaki dodelili oceno časa za izvedbo z metodo Planning Poker.
-
-| Naloga                                                                 | Časovna ocena (Story Points) | Status |
-| ---------------------------------------------------------------------- | ---------------------------- |--------|
-| Analiza in načrtovanje funkcionalnosti (izdelava modela za seznam)     | 3                            | Done   |
-| Implementacija modela za seznam nakupov                                | 5                            | Done  |
-| API za generiranje seznama na podlagi receptov in števila oseb         | 8                            | Done  |
-| Integracija z obstoječim sistemom za upravljanje receptov              | 5                            | Done   |
-| UI za prikaz personaliziranega seznama nakupov                         | 5                            | Done   |
-| Testiranje generiranja seznama nakupov                                 | 3                            | Done   |
-| Dokumentacija funkcionalnosti in procesov                             | 2                            | Done   |
+## **Uporabniška zgodba**
+**Kot uporabnik želim upravljati recepte, jih označevati kot priljubljene in imeti vizualno privlačen vmesnik za interakcijo.**
 
 ---
 
-## Načrt dela
+## **Razdelitev zgodbe na naloge**
+Nalogo smo razdelili na manjše specifične naloge in vsaki določili oceno časa za izvedbo z metodo Planning Poker.
+
+- tabela je tudi na git-u (ISSUES)
+
+
+| Naloga                                                             | Časovna ocena (Story Points)    | Status      | Odgovorna oseba      |
+|--------------------------------------------------------------------|---------------------------------|-------------|----------------------|
+| Analiza in načrtovanje funkcionalnosti za upravljanje receptov     | 3                               | ✅ Done      | Maida Ćivić   |
+| Implementacija modela za upravljanje priljubljenih receptov        | 5                               | ✅ Done      | Maida Ćivić   |
+| Dodajanje možnosti za označevanje receptov kot priljubljenih       | 5                               | ✅ Done      | Maida Ćivić   |
+| API za generiranje seznama nakupov na podlagi izbranih receptov    | 8                               | ✅ Done      | Maida Ćivić    |
+| Razvoj vizualno privlačnega uporabniškega vmesnika                 | 8                               | ✅ Done      | Maida Ćivić          |
+| Testiranje označevanja receptov kot priljubljenih                  | 3                               |     |  |
+| Implementacija gumbov za navigacijo in izboljšanje funkcionalnosti | 5                               |     |  |
+| Priprava dokumentacije                                             | 2                               |      |
+
+---
+---
+
+## **Načrt dela**
 1. **Analiza uporabniške zgodbe:**
-    - Določiti, kako bo aplikacija izbrala podatke za generiranje seznama nakupov.
-    - Definirati, kateri podatki so ključni za modeliranje seznama (recept, število oseb, sestavine).
+    - Določitev ključnih funkcionalnosti: upravljanje receptov, priljubljeni recepti.
 
 2. **Razvoj funkcionalnosti:**
-    - Implementirati model za seznam nakupov.
-    - Ustvariti API za generiranje seznama na podlagi uporabniških izbir.
-    - Vključiti seznam v obstoječo strukturo aplikacije.
+    - Dodajanje modela za označevanje receptov kot priljubljenih
+    - Integracija funkcionalnosti z obstoječim sistemom za upravljanje receptov.
+    - Ustvarjanje intuitivnega uporabniškega vmesnika.
 
 3. **Testiranje:**
-    - Preveriti pravilnost generiranega seznama.
-    - Zagotoviti ustrezno obravnavo napak (neveljavni recepti, napačno število oseb itd.).
+    - Preverjanje pravilnosti delovanja označevanja receptov kot priljubljenih.
+    - Testiranje delovanja vseh gumbov in vizualnih elementov.
 
-4. **UI razvoj:**
-    - Razviti intuitiven uporabniški vmesnik za prikaz personaliziranega seznama nakupov.
-
-5. **Dokumentacija:**
-    - Pripraviti poročilo in dokumentacijo o implementirani funkcionalnosti.
+4. **Dokumentacija in zaključek:**
+    - Priprava tehnične in uporabniške dokumentacije.
+    - Preverjanje skladnosti z zahtevami uporabniške zgodbe.
 
 ---
 
-## Priprave na implementacijo
-- Na GitHubu smo ustvarili **projektno tablo** z naslednjimi stolpci:
-    - **ToDo:** Naloge, ki jih je potrebno še začeti.
-    - **Doing:** Naloge, ki so trenutno v delu.
-    - **Done:** Zaključene naloge.
+## **Implementacija**
+### **Funkcionalnosti:**
+1. **Priljubljeni recepti:**
+    - Dodana funkcionalnost za označevanje receptov kot priljubljenih.
+    - Prikaz vseh priljubljenih receptov z možnostjo odstranitve.
+    - Shramba podatkov o priljubljenih receptih s pomočjo `sessionStorage`.
 
+2. **Vizualne izboljšave:**
+    - Modernizacija uporabniškega vmesnika z gumbi za navigacijo.
+    - Dodane animacije za vizualno povratno informacijo ob označevanju priljubljenih receptov.
+    - Uvedba sistema za prikaz obvestil (toast).
+
+4. **Navigacija:**
+    - Gumbi za preprosto navigacijo med vsemi recepti, priljubljenimi recepti in zgodovino ogledov.
 
 ---
 
-## Sklep
-Trenutno smo v fazi načrtovanja in razdelitve nalog. Naloge so jasno definirane in razporejene med člane ekipe. Implementacija bo sledila Scrum metodologiji, kjer bomo redno spremljali napredek na GitHub tabli in posodabljali stanje nalog.
+## **Testiranje**
 
-Sklep o stanju in poteku
-Implementacija personaliziranih seznamov nakupov je uspešno zaključena. Vse naloge so bile izvedene po načrtu in označene kot zaključene.
+---
 
-Ključni dosežki:
-Naloge smo razdelili, ocenili in sledili njihovemu napredku prek projektne table na GitHubu.
-Model in API za sezname nakupov sta bila integrirana z obstoječim sistemom za upravljanje receptov.
-Razvit je bil preprost in pregleden uporabniški vmesnik za prikaz seznamov nakupov.
-Testiranje je potrdilo pravilno delovanje sistema, vključno z obravnavo napak.
-Dokumentacija za funkcionalnost in procese je pripravljena.
-Projekt je zaključen skladno z načrtom in izpolnjuje zahteve uporabniške zgodbe.
+## **Zaključek**
+
+
