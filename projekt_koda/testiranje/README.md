@@ -45,41 +45,57 @@ Preverja, ali metoda findById v VpisanUporabnikService vrne prazen rezultat (Opt
 ### Testi za funkcionalnost:
 1. Test: testSaveReceptSestavine_Positive
 
-Opis: Test preverja, ali metoda save() pravilno shrani objekt ReceptSestavine v repozitorij, ko so podani veljavni podatki.
+**Opis:**
+Test preverja, ali metoda save() pravilno shrani objekt ReceptSestavine v repozitorij, ko so podani veljavni podatki.
 Pomembnost: Zagotavlja, da se novi zapisi pravilno shranjujejo v bazo podatkov in da aplikacija deluje brez težav pri vstavljanju podatkov.
 
 2. Test: testSaveReceptSestavine_Negative
 
-Opis: Test preverja, kako metoda save() obravnava situacijo, ko je podan neveljaven objekt ReceptSestavine (npr. manjkajoči obvezni podatki).
+**Opis:** 
+Test preverja, kako metoda save() obravnava situacijo, ko je podan neveljaven objekt ReceptSestavine (npr. manjkajoči obvezni podatki).
 Pomembnost: Preveri, ali aplikacija pravilno zazna napake pri vnosu podatkov in prepreči shranjevanje neveljavnih zapisov.
 
 3. Test: testDeleteReceptSestavineById_Positive
 
-Opis: Test preverja, ali metoda deleteById() uspešno izbriše zapis ReceptSestavine iz repozitorija za veljaven ID.
+**Opis:**
+Test preverja, ali metoda deleteById() uspešno izbriše zapis ReceptSestavine iz repozitorija za veljaven ID.
 Pomembnost: Zagotavlja, da aplikacija omogoča brisanje obstoječih zapisov brez napak.
 
 4. Test: testDeleteReceptSestavineById_Negative
 
-Opis: Test preverja, kako metoda deleteById() obravnava situacijo, ko je podan neveljaven ali neobstoječ ID.
+**Opis:**
+Test preverja, kako metoda deleteById() obravnava situacijo, ko je podan neveljaven ali neobstoječ ID.
 Pomembnost: Preveri odpornost aplikacije proti napakam pri brisanju in zagotavlja, da se sistem ustrezno odzove na nepravilne zahteve.
 
-**Anotacije**: 
+**Anotacije:** 
 @Test: Označuje metodo kot testni primer.
 @DisplayName: Doda prijazen opis testa za boljše razumevanje izpisov pri testiranju.
 @BeforeEach: Inicializira testne podatke ali odvisnosti pred vsakim testom.
 
 ### Testi za funkcionalnost:
-1. **Test: ` `**
+**Opis:** 
+Test preverja, kako metoda getFavoriteRecipes() deluje, ko so podani veljavni ID-ji. Ta test preverja, ali metoda uspešno vrne seznam receptov na podlagi posredovanih ID-jev, če so le-ti prisotni v podatkovni bazi.
 
-    - **Opis:**
-    - **Pomembnost:**
+**Pomembnost:** 
+Preveri, da aplikacija pravilno deluje, ko so podani veljavni ID-ji in da se recepti vrnejo v pravilni obliki. Ta test zagotavlja, da funkcionalnost za pridobivanje priljubljenih receptov deluje, kot je pričakovano.
 
-2. **Test: ` `**
+**Anotacije:**
+@Test: Označuje metodo kot testni primer, ki ga bo JUnit izvedel.
+@DisplayName: Doda prijazen opis za ta test, da bo jasno, kaj ta test počne.
+@BeforeEach: Inicializira potrebne podatke pred vsakim testom, da se zagotovi pravilno izvajanje testov.
 
-    - **Opis:**
-    - **Pomembnost:**
+2. Test: testGetFavoriteRecipes_Negative
 
-* Anotacije:
+**Opis:** 
+Test preverja, kako metoda getFavoriteRecipes() deluje, ko so podani neveljavni ID-ji. Ta test preverja, ali metoda ustrezno obravnava situacijo, ko so posredovani ID-ji, ki niso prisotni v podatkovni bazi.
+
+**Pomembnost:** 
+Preveri odpornost aplikacije na napake, kot so neveljavni ID-ji, in zagotavlja, da sistem ustrezno vrne prazni seznam brez napak ali napovedi, ko ni zadetkov. Pomembno je, da se uporabnikom prikaže pravilno obnašanje aplikacije v primeru napak.
+
+**Anotacije:**
+@Test: Označuje metodo kot testni primer, ki ga bo JUnit izvedel.
+@DisplayName: Doda prijazen opis za ta test, da bo jasno, kaj ta test počne.
+@BeforeEach: Inicializira potrebne podatke pred vsakim testom, da se zagotovi pravilno izvajanje testov.
 ---
 
 ## Imena članov skupine in odgovornosti
@@ -96,6 +112,8 @@ Pomembnost: Preveri odpornost aplikacije proti napakam pri brisanju in zagotavlj
 | Larisa Gragar | `testSaveReceptSestavine_Negative`|
 | Larisa Gragar | `testDeleteReceptSestavineById_Positive`|
 | Larisa Gragar | `testDeleteReceptSestavineById_Negative`|
+| Larisa Gragar | `testGetFavoriteRecipes_Positive`|
+| Larisa Gragar | `testGetFavoriteRecipes_Negative`|
 
 ---
 
