@@ -9,8 +9,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-
-        /* Global styles */
         body {
             font-family: 'Roboto', Arial, sans-serif;
             background: linear-gradient(to bottom, #fdfcfb, #e2d1c3);
@@ -254,9 +252,10 @@
             }
         }
 
+        /* Base styles for all buttons */
         .action-buttons .custom-btn {
-            background-color: #007bff;
-            color: #fff;
+            background-color: #ff7043; /* Original background color */
+            color: #fff; /* Original text color */
             font-size: 1.1rem;
             font-weight: bold;
             border: none;
@@ -270,20 +269,24 @@
             gap: 8px;
         }
 
+        /* Hover effect: swap background and text colors */
         .action-buttons .custom-btn:hover {
-            background-color: #0056b3;
+            background-color: #fff; /* New background color */
+            color: #ff7043; /* New text color */
             transform: translateY(-4px);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
         }
 
+        /* Active state: reset hover effects */
         .action-buttons .custom-btn:active {
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
+        /* Specific styles for the primary button */
         .action-buttons .custom-btn-primary {
-            background-color: #ff7043;
-            color: #fff;
+            background-color: #ff7043; /* Original background color */
+            color: #fff; /* Original text color */
             font-size: 1.1rem;
             font-weight: bold;
             border: none;
@@ -297,16 +300,41 @@
             gap: 8px;
         }
 
+        /* Hover effect for the primary button: swap background and text colors */
         .action-buttons .custom-btn-primary:hover {
-            background-color: #e65c36;
+            background-color: #fff; /* New background color */
+            color: #ff7043; /* New text color */
             transform: translateY(-4px);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
         }
 
+        /* Active state for the primary button: reset hover effects */
         .action-buttons .custom-btn-primary:active {
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+        .pill-heading {
+            background-color: #fff; /* White background */
+            color: #ff7043; /* Orange text color */
+            font-size: 2rem; /* Increased font size */
+            font-weight: bold;
+            border: 2px solid #ff7043; /* Thin orange border */
+            border-radius: 50px; /* Creates the pill shape */
+            padding: 12px 25px;
+            text-transform: uppercase;
+            display: inline-block;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+
+
+
 
 
 
@@ -314,25 +342,30 @@
 </head>
 <body>
 <div class="container mt-4">
-    <h1 class="text-center mb-4">Recepti</h1>
+    <div class="center-container">
+        <h1 class="pill-heading">Recepti</h1>
+    </div>
+
 
     <div class="action-buttons text-center mb-4">
-        <a href="generate-shopping-list.html" class="btn btn-info btn-lg mx-2 ">
-            <i class="bi bi-list-check"></i> Generiraj seznam
+        <a href="generate-shopping-list.html" class="btn btn-lg mx-2 custom-btn">
+            <i class="bi bi-list-check" style="margin-right: 8px;"></i> Generiraj seznam
         </a>
-        <a href="dodaj_recept.html" class="btn btn-info btn-lg mx-2 ">
-            <i class="bi bi-plus-circle"></i> Dodaj recept
+        <a href="dodaj_recept.html" class="btn btn-lg mx-2 custom-btn">
+            <i class="bi bi-plus-circle" style="margin-right: 8px;"></i> Dodaj recept
         </a>
-        <button class="btn btn-info btn-lg mx-2 history-button" onclick="window.location.href='history.html'">
-            <i class="bi bi-clock-history"></i> Zgodovina ogledov
+        <button class="btn btn-lg mx-2 history-button custom-btn" onclick="window.location.href='history.html'">
+            <i class="bi bi-clock-history" style="margin-right: 8px;"></i> Zgodovina ogledov
         </button>
-        <button id="show-favorites" class="btn btn-primary mt-3">Prikaži priljubljene</button>
+        <button id="show-favorites" class="btn btn-lg mt-3 custom-btn-primary">
+            <i class="bi bi-heart" style="margin-right: 8px;"></i>PrikaÅ¾i priljubljene
+        </button>
     </div>
+
+
 
     <div id="favorites-container" class="mt-4"></div>
 
-    <h3>Seznam nakupov</h3>
-    <ul id="shopping-list" class="list-group"></ul>
 
     <div class="filter-section">
         <label for="obrokFilter">Obrok:</label>
@@ -341,11 +374,11 @@
             <option value="Prigrizek">Prigrizek</option>
             <option value="Zajtrk">Zajtrk</option>
             <option value="Kosilo">Kosilo</option>
-            <option value="Večerja">Večerja</option>
+            <option value="VeÄerja">VeÄerja</option>
             <option value="Sladica">Sladica</option>
         </select>
 
-        <label for="tezavnostFilter" class="ml-3">Težavnost:</label>
+        <label for="tezavnostFilter" class="ml-3">TeÅ¾avnost:</label>
         <select id="tezavnostFilter" class="form-control d-inline-block w-auto">
             <option value="">Vse</option>
             <option value="1">Zelo enostavno</option>
@@ -355,13 +388,13 @@
             <option value="5">Najbolj zahtevno</option>
         </select>
 
-        <label for="casPripraveFilter" class="ml-3">Čas priprave:</label>
+        <label for="casPripraveFilter" class="ml-3">ÄŒas priprave:</label>
         <select id="casPripraveFilter" class="form-control d-inline-block w-auto">
             <option value="">Vse</option>
             <option value="15">Do 15 minut</option>
             <option value="30">Do 30 minut</option>
             <option value="60">Do 60 minut</option>
-            <option value="61">Več kot 60 minut</option>
+            <option value="61">VeÄ kot 60 minut</option>
         </select>
     </div>
 
@@ -389,10 +422,10 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Zapri"></button>
             </div>
             <div class="modal-body">
-                Ali želite odstraniti recept iz priljubljenih?
+                Ali Å¾elite odstraniti recept iz priljubljenih?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Prekliči</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">PrekliÄi</button>
                 <button type="button" id="confirmRemove" class="btn btn-danger">Odstrani</button>
             </div>
         </div>
@@ -490,7 +523,7 @@
                 <img src="${recipe.slika}" class="card-img-top" alt="${recipe.naziv}">
                 <div class="card-body">
                     <h5 class="card-title">${recipe.naziv}</h5>
-                    <p class="card-text">Čas priprave: ${recipe.pripravaMinute} minut</p>
+                    <p class="card-text">ÄŒas priprave: ${recipe.pripravaMinute} minut</p>
                     <button class="btn btn-warning toggle-favorite mt-2" data-id="${recipe.idRecept}" data-name="${recipe.naziv}" data-image="${recipe.slika}">
                         <i class="bi ${isFavorite ? 'bi-heart-fill' : 'bi-heart'}"></i>
                     </button>
@@ -502,7 +535,7 @@
             container.appendChild(card);
         });
 
-        // Dodajanje dogodka za srček
+        // Dodajanje dogodka za srÄek
         document.querySelectorAll(".toggle-favorite").forEach(button => {
             button.addEventListener("click", toggleFavorite);
         });
@@ -520,13 +553,13 @@
             // Odstrani iz priljubljenih
             favorites = favorites.filter(fav => fav.id !== id);
             sessionStorage.setItem("favorites", JSON.stringify(favorites));
-            button.innerHTML = '<i class="bi bi-heart"></i>'; // Prazni srček
+            button.innerHTML = '<i class="bi bi-heart"></i>'; // Prazni srÄek
             showToast(`Recept "${name}" je bil odstranjen iz priljubljenih.`);
         } else {
             // Dodaj v priljubljene
             favorites.push({ id, name, image });
             sessionStorage.setItem("favorites", JSON.stringify(favorites));
-            button.innerHTML = '<i class="bi bi-heart-fill"></i>'; // Polni srček
+            button.innerHTML = '<i class="bi bi-heart-fill"></i>'; // Polni srÄek
             showToast(`Recept "${name}" je bil dodan v priljubljene!`);
         }
     }
@@ -571,13 +604,13 @@
 
 
 
-    let recipeToRemove = null; // Začasno shrani ID recepta za odstranitev
+    let recipeToRemove = null; // ZaÄasno shrani ID recepta za odstranitev
 
     function removeFromFavorites(event) {
         const id = event.target.getAttribute("data-id");
         recipeToRemove = id; // Shrani ID recepta za odstranitev
 
-        // Prikaži modal za potrditev
+        // PrikaÅ¾i modal za potrditev
         const confirmModal = new bootstrap.Modal(document.getElementById("confirmModal"));
         confirmModal.show();
     }
@@ -589,8 +622,8 @@
             favorites = favorites.filter(fav => fav.id !== recipeToRemove);
             sessionStorage.setItem("favorites", JSON.stringify(favorites));
             showToast("Recept je bil odstranjen iz priljubljenih.");
-            recipeToRemove = null; // Ponastavi začasni ID
-            showFavorites(); // Osveži seznam
+            recipeToRemove = null; // Ponastavi zaÄasni ID
+            showFavorites(); // OsveÅ¾i seznam
             const confirmModal = bootstrap.Modal.getInstance(document.getElementById("confirmModal"));
             confirmModal.hide(); // Skrij modal
         }
@@ -623,7 +656,7 @@
                     return;
                 }
 
-                // Pošlji zahtevo na backend za generiranje seznama nakupov
+                // PoÅ¡lji zahtevo na backend za generiranje seznama nakupov
                 fetch("http://localhost:8081/recepti/seznam-nakupov", {
                     method: "POST",
                     headers: {
@@ -640,7 +673,7 @@
                     .then((data) => {
                         // Prikaz nakupovalnega seznama
                         const shoppingList = document.getElementById("shopping-list");
-                        shoppingList.innerHTML = ""; // Počisti obstoječi seznam
+                        shoppingList.innerHTML = ""; // PoÄisti obstojeÄi seznam
 
                         data.seznamNakupov.forEach((item) => {
                             const listItem = document.createElement("li");
@@ -660,10 +693,8 @@
         const toastElement = document.getElementById("toast-notification");
         const toastBody = toastElement.querySelector(".toast-body");
 
-        // Posodobi sporočilo v toastu
         toastBody.textContent = message;
 
-        // Inicializiraj toast in ga prikaži
         const toast = new bootstrap.Toast(toastElement);
         toast.show();
     }
