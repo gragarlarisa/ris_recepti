@@ -15,7 +15,7 @@
         }
         .register-container {
             max-width: 400px;
-            height:500px;
+            height: 500px;
             margin: 50px auto;
             padding: 20px;
             background-color: #fff;
@@ -41,12 +41,24 @@
             font-size: 0.9em;
             color: #888;
         }
+        .error-message {
+            color: #ff6f61;
+            font-size: 0.9em;
+        }
     </style>
 </head>
 <body>
 <div class="register-container">
     <h2>Registracija</h2>
     <form id="register-form">
+        <div class="form-group">
+            <label for="ime">Ime</label>
+            <input type="text" id="ime" class="form-control" placeholder="Vnesite svoje ime" required>
+        </div>
+        <div class="form-group">
+            <label for="priimek">Priimek</label>
+            <input type="text" id="priimek" class="form-control" placeholder="Vnesite svoj priimek" required>
+        </div>
         <div class="form-group">
             <label for="email">E-naslov</label>
             <input type="email" id="email" class="form-control" placeholder="Vnesite svoj e-naslov" required>
@@ -60,31 +72,52 @@
         <button type="submit" class="btn btn-primary btn-block">Registriraj se</button>
     </form>
     <div id="success-message" class="text-success text-center mt-3" style="display: none;">Uspešno registrirani! Preusmeritev na prijavo...</div>
+    <div id="error-message" class="error-message text-center mt-3" style="display: none;"></div>
 </div>
 
 <script>
     document.getElementById('register-form').addEventListener('submit', function(event) {
         event.preventDefault();
 
+        const ime = document.getElementById('ime').value;
+        const priimek = document.getElementById('priimek').value;
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
+
+        const userData = {
+            ime: ime,
+            priimek: priimek,
+            elektronskiNaslov: email,
+            geslo: password,
+            administrator: false
+        };
 
         fetch('http://localhost:8081/uporabniki/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ elektronskiNaslov: email, geslo: password, administrator: false }),
+            body: JSON.stringify(userData),
         })
-            .finally(() => {
-                // Always display success message
-                document.getElementById('success-message').style.display = 'block';
-                document.getElementById('register-form').reset();
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Registracija uspešna') {
+                    // Display success message and redirect
+                    document.getElementById('success-message').style.display = 'block';
+                    document.getElementById('register-form').reset();
 
-                // Redirect after 2 seconds
-                setTimeout(() => {
-                    window.location.href = "login.html";
-                }, 2000);
+                    setTimeout(() => {
+                        window.location.href = "login.html";
+                    }, 2000);
+                } else {
+                    // Handle error response
+                    document.getElementById('error-message').textContent = data.error || 'Prišlo je do napake';
+                    document.getElementById('error-message').style.display = 'block';
+                }
+            })
+            .catch(error => {
+                document.getElementById('error-message').textContent = 'Napaka pri povezovanju z strežnikom.';
+                document.getElementById('error-message').style.display = 'block';
             });
     });
 </script>

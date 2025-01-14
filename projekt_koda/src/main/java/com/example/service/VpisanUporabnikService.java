@@ -31,7 +31,18 @@ public class VpisanUporabnikService {
     public void deleteById(Long id) {
         vpisanUporabnikRepository.deleteById(id);
     }
-
+    public String registrirajUporabnika(VpisanUporabnik uporabnik) {
+        // Preveri, če uporabnik z tem e-naslovom že obstaja
+        Optional<VpisanUporabnik> obstoječiUporabnik = vpisanUporabnikRepository.findByElektronskiNaslov(uporabnik.getElektronskiNaslov());
+        if (obstoječiUporabnik.isPresent()) {
+            return "E-naslov že obstaja";
+        }
+    
+        // Shrani novega uporabnika v bazo
+        vpisanUporabnikRepository.save(uporabnik);
+        return "Uspešna registracija";
+    }
+    
     // Validate user by email and password
     public Optional<VpisanUporabnik> validateUser(String email, String password) {
         return vpisanUporabnikRepository.findAll()

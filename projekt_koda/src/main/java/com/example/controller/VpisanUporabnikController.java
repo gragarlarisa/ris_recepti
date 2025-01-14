@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/uporabniki")
@@ -62,6 +62,21 @@ public class VpisanUporabnikController {
             return ResponseEntity.ok(response);
         } else {
             return ResponseEntity.status(401).body(Map.of("error", "Invalid email or password"));
+        }
+    }
+
+    // New endpoint for user registration
+    @PostMapping("/register")
+    public ResponseEntity<Map<String, String>> register(@RequestBody VpisanUporabnik uporabnik) {
+        String rezultat = vpisanUporabnikService.registrirajUporabnika(uporabnik);
+
+        Map<String, String> response = new HashMap<>();
+        if (rezultat.equals("Uspešna registracija")) {
+            response.put("message", "Registracija uspešna");
+            return ResponseEntity.status(201).body(response);
+        } else {
+            response.put("error", rezultat);
+            return ResponseEntity.status(400).body(response);
         }
     }
 }
