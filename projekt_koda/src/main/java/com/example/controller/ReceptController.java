@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -160,7 +161,7 @@ private boolean containsAnyIngredient(Recept recept, List<String> ingredients) {
     @PostMapping("/dodaj")
     public ResponseEntity<Recept> addRecept(@RequestBody Map<String, Object> receptRequest) {
         try {
-            // Create basic recipe data
+            // Ustvari osnovne podatke za recept
             Recept recept = new Recept();
             recept.setNaziv((String) receptRequest.get("naziv"));
             recept.setOpis((String) receptRequest.get("opis"));
@@ -168,63 +169,44 @@ private boolean containsAnyIngredient(Recept recept, List<String> ingredients) {
             recept.setPripravaMinute((Integer) receptRequest.get("pripravaMinute"));
             recept.setSteviloOseb((Integer) receptRequest.get("steviloOseb"));
             recept.setTezavnost((Integer) receptRequest.get("tezavnost"));
-
-            // Check and set meal and regional cuisine
+            recept.setJaven((Boolean) receptRequest.getOrDefault("javen", false));
+        
+            // Nastavite obvezna polja
             Integer obrokId = (Integer) receptRequest.get("obrok");
-            Integer regionalnaKuhinjaId = (Integer) receptRequest.get("regionalnaKuhinja");
-
-            Obrok obrok = obrokRepository.findById(obrokId).orElseThrow(() -> new RuntimeException("Obrok not found"));
-            RegionalnaKuhinja regionalnaKuhinja = regionalnaKuhinjaRepository.findById(regionalnaKuhinjaId).orElseThrow(() -> new RuntimeException("Regionalna Kuhinja not found"));
-
+            if (obrokId == null) {
+                throw new IllegalArgumentException("Manjkajoča vrednost za polje obrok!");
+            }
+        
+            // Poiščite entiteto Obrok v bazi podatkov
+            Obrok obrok = obrokRepository.findById(obrokId)
+                    .orElseThrow(() -> new IllegalArgumentException("Obrok z ID-jem " + obrokId + " ne obstaja!"));
+    
+            // Nastavite obrok v recept
             recept.setObrok(obrok);
-            recept.setRegionalnaKuhinja(regionalnaKuhinja);
-
+    
+            // Poiščite entiteto RegionalnaKuhinja v bazi podatkov (če obstaja)
+            Integer regionalnaKuhinjaId = (Integer) receptRequest.get("regionalnaKuhinja");
+            if (regionalnaKuhinjaId != null) {
+                RegionalnaKuhinja regionalnaKuhinja = regionalnaKuhinjaRepository.findById(regionalnaKuhinjaId)
+                        .orElseThrow(() -> new IllegalArgumentException("Regionalna kuhinja z ID-jem " + regionalnaKuhinjaId + " ne obstaja!"));
+                recept.setRegionalnaKuhinja(regionalnaKuhinja);
+            }
+    
+            // Nastavite ostale privzete vrednosti
+            recept.setDatumObjave(new Date());
+            recept.setDatumZadnjeSpremembe(new Date());
+        
+            // Shranimo recept
             Recept savedRecept = receptService.save(recept);
-
-            // Add ingredients
-            List<Map<String, Object>> sestavineList = (List<Map<String, Object>>) receptRequest.get("sestavine");
-            if (sestavineList != null) {
-                for (Map<String, Object> sestavinaData : sestavineList) {
-                    String naziv = (String) sestavinaData.get("naziv");
-                    String enota = (String) sestavinaData.get("enota");
-                    Double kolicina = ((Number) sestavinaData.get("kolicina")).doubleValue();
-
-                    // Save ingredient in the Sestavine table
-                    Sestavine sestavina = sestavineRepository.findByNaziv(naziv)
-                            .orElseGet(() -> {
-                                Sestavine novaSestavina = new Sestavine();
-                                novaSestavina.setNaziv(naziv);
-                                novaSestavina.setEnota(enota);
-                                return sestavineRepository.save(novaSestavina);
-                            });
-
-                    // Save the connection in the intermediate table ReceptSestavine
-                    ReceptSestavine receptSestavine = new ReceptSestavine();
-                    receptSestavine.setRecept(savedRecept);
-                    receptSestavine.setSestavine(sestavina);
-                    receptSestavineRepository.save(receptSestavine);
-                }
-            }
-
-            // Add steps
-            List<Map<String, Object>> korakiList = (List<Map<String, Object>>) receptRequest.get("koraki");
-            if (korakiList != null) {
-                for (Map<String, Object> korakData : korakiList) {
-                    KorakPostopka korak = new KorakPostopka();
-                    korak.setStKoraka((Integer) korakData.get("stKoraka"));
-                    korak.setPostopek((String) korakData.get("postopek"));
-                    korak.setRecept(savedRecept);
-                    receptService.saveKorak(korak);
-                }
-            }
-
+        
             return ResponseEntity.ok(savedRecept);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
     }
-
+    
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRecept(@PathVariable Integer id) {
         receptService.deleteById(id);

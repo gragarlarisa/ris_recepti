@@ -43,14 +43,15 @@ public class Recept {
     @ManyToOne
     @JoinColumn(name = "TK_Vpisan_Uporabnik", referencedColumnName = "ID_Vpisan_Uporabnik", nullable = true)
     private VpisanUporabnik uporabnik;
-
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "TK_Regionalna_Kuhinja", referencedColumnName = "ID_Regionalna_Kuhinja", nullable = true)
     private RegionalnaKuhinja regionalnaKuhinja;
+    
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "TK_Obrok", referencedColumnName = "ID_Obrok", nullable = false)
     private Obrok obrok;
+    
 
     @OneToMany(mappedBy = "recept", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<KorakPostopka> koraki;    

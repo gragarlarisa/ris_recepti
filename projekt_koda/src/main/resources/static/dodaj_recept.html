@@ -246,20 +246,46 @@ document.getElementById("receptForm").addEventListener("submit", async (e) => {
     }
 
     // Oblikujemo glavni objekt recepta
-    const recept = {
-        naziv: formData.get("naziv"),
-        opis: formData.get("opis"),
-        slika: formData.get("slika"),
-        pripravaMinute: parseInt(formData.get("pripravaMinute")),
-        steviloOseb: parseInt(formData.get("steviloOseb")),
-        tezavnost: parseInt(formData.get("tezavnost")),
-        javen: formData.get("javen") === "on",
-        sestavine: sestavine,
-        koraki: postopek,
-        uporabnikId: uporabnikId, // Uporabi dynamic uporabniški ID
-        obrok: formData.get("obrok") || null, // Določimo privzeto vrednost za obrok, če ni izbrano
-        regionalnaKuhinja: formData.get("regionalnaKuhinja") || null, // Določimo privzeto vrednost za regionalno kuhinjo, če ni izbrano
-    };
+    const obrokMap = {
+    1: "Zajtrk",
+    2: "Kosilo",
+    3: "Večerja",
+    4: "Sladica",
+    5: "Prigrizek",
+    // Dodajte več možnosti, če so na voljo
+};
+const regionalnaMap = {
+    1: "Mediteranska",
+    2: "Mehiška",
+    3: "Kitajska",
+    4: "Japonska",
+    5: "Indijska",
+    // Dodajte več možnosti, če so na voljo
+};
+// Pridobite vrednost iz obrazca
+let obrokValue = parseInt(formData.get("obrok")) || null;
+
+// Pretvorite vrednost s preslikavo
+let obrok = obrokValue ? obrokMap[obrokValue] : null;
+
+let kuhnaValue = parseInt(formData.get("regionalnaKuhinja")) || null;
+
+// Pretvorite vrednost s preslikavo
+let kuhna = kuhnaValue ? regionalnaMap[kuhnaValue] : null;
+
+// Oblikujemo glavni objekt recepta
+const recept = {
+    naziv: formData.get("naziv"),
+    opis: formData.get("opis"),
+    slika: formData.get("slika"),
+    pripravaMinute: parseInt(formData.get("pripravaMinute")),
+    steviloOseb: parseInt(formData.get("steviloOseb")),
+    tezavnost: parseInt(formData.get("tezavnost")),
+    javen: formData.get("javen") === "on",
+    obrok: obrok, // Tukaj dodamo pretvorjeno vrednost
+    regionalnaKuhinja: kuhna,
+};
+
 
     console.log("Recept objekt:", recept);
 
